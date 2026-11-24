@@ -1,0 +1,1082 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>24hrsforextrader.com</title>
+
+<style>
+:root {
+  --bg:#121212;
+  --surface:#161616;
+  --text:#fff;
+  --muted:#a3a3a3;
+  --orange:#f59e0b;
+  --border:#333;
+  --green:#25D366;
+}
+
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body {
+  font-family:system-ui,-apple-system,'Segoe UI',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.5;
+  min-height:100vh;
+}
+
+.container {
+  width:100%;
+  max-width:600px;
+  margin:auto;
+  padding:0 20px;
+}
+
+.page { display:none; }
+.page.active { display:block; }
+
+/* TICKER */
+.ticker {
+  background:#1a1813;
+  color:var(--orange);
+  text-align:center;
+  padding:12px;
+  border-bottom:1px solid #332713;
+}
+
+/* HEADER */
+header {
+  border-bottom:1px solid var(--border);
+  padding:12px 0;
+}
+
+.nav {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.brand-area {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:0;
+}
+
+.logo {
+  width:38px;
+  height:38px;
+  background:var(--orange);
+  color:#000;
+  border-radius:8px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-weight:bold;
+  flex-shrink:0;
+}
+
+.brand {
+  font-weight:700;
+  font-size:1rem;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.nav-actions {
+  display:flex;
+  gap:8px;
+}
+
+.nav-actions button {
+  padding:8px 12px;
+  border-radius:8px;
+  font-weight:600;
+  border:1px solid var(--border);
+  background:transparent;
+  color:white;
+  cursor:pointer;
+}
+
+.nav-actions .logout {
+  background:#eee;
+  color:#000;
+}
+
+/* HERO */
+.hero {
+  padding:40px 0;
+  text-align:center;
+}
+
+.hero-subtitle {
+  display:inline-block;
+  background:#272118;
+  color:var(--orange);
+  padding:8px 18px;
+  border-radius:30px;
+  font-size:.85rem;
+  margin-bottom:28px;
+}
+
+.hero h1 {
+  font-size:clamp(2.2rem,8vw,3rem);
+  font-weight:800;
+  line-height:1.2;
+  margin-bottom:24px;
+}
+
+.hero h1 span { color:var(--orange); }
+
+.hero-body {
+  color:var(--muted);
+  font-size:1rem;
+  margin-bottom:30px;
+}
+
+.highlight {
+  color:var(--orange);
+  font-size:1.6rem;
+  font-weight:800;
+  margin-bottom:28px;
+}
+
+.button-group {
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+.btn {
+  display:block;
+  width:100%;
+  padding:17px;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:700;
+  font-size:1.05rem;
+  cursor:pointer;
+  border:none;
+}
+
+.btn-primary {
+  background:var(--orange);
+  color:#000;
+}
+
+.btn-secondary {
+  background:#1a1a1a;
+  color:white;
+  border:1px solid var(--border);
+}
+
+/* CHART */
+.verification {
+  text-align:center;
+  padding:12px;
+  color:var(--muted);
+}
+
+.chart {
+  width:100%;
+  height:220px;
+  border:1px solid var(--border);
+  border-radius:16px;
+  margin-bottom:25px;
+  padding:10px;
+  background:linear-gradient(180deg,#131b2c,#121212);
+}
+
+.chart svg {
+  width:100%;
+  height:100%;
+}
+
+/* SIGNALS */
+.signals {
+  background:linear-gradient(180deg,#131b2c,#121212);
+  border:1px solid #292929;
+  border-radius:16px;
+  padding:24px;
+  margin-bottom:35px;
+}
+
+.signal-top {
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:18px;
+}
+
+.signal-icon {
+  color:var(--orange);
+  font-size:25px;
+}
+
+.badge {
+  background:#1a2c22;
+  color:#4ade80;
+  padding:5px 12px;
+  border-radius:20px;
+  font-size:.75rem;
+}
+
+.signals p {
+  color:var(--muted);
+  margin-top:8px;
+}
+
+/* STATISTICS */
+.stats {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-bottom:55px;
+}
+
+.stat {
+  border:1px solid rgba(245,158,11,.2);
+  border-radius:15px;
+  padding:24px 10px;
+  text-align:center;
+}
+
+.stat-icon {
+  font-size:24px;
+  margin-bottom:10px;
+}
+
+.stat-value {
+  font-size:1.05rem;
+  font-weight:700;
+  overflow-wrap:anywhere;
+}
+
+.stat-label {
+  color:var(--orange);
+  font-size:.8rem;
+  margin-top:5px;
+}
+
+/* PLANS */
+.plans {
+  text-align:center;
+  margin-bottom:55px;
+}
+
+.plans h2 {
+  font-size:2rem;
+  line-height:1.2;
+  margin-bottom:12px;
+}
+
+.plans > p {
+  color:var(--muted);
+  margin-bottom:35px;
+}
+
+.plan {
+  background:linear-gradient(180deg,#131b2c,#121212);
+  border:1px solid #292929;
+  border-radius:16px;
+  padding:30px 22px;
+  margin-bottom:24px;
+  position:relative;
+}
+
+.plan-title {
+  font-size:1.25rem;
+  font-weight:700;
+  margin-bottom:15px;
+}
+
+.rate {
+  font-size:3.5rem;
+  font-weight:800;
+  color:var(--orange);
+  line-height:1.2;
+}
+
+.duration {
+  color:var(--muted);
+  margin:5px 0;
+}
+
+.total {
+  color:var(--orange);
+  margin-bottom:28px;
+}
+
+.details {
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  margin-bottom:10px;
+  font-size:.9rem;
+  color:var(--muted);
+}
+
+.details span:last-child {
+  color:white;
+  font-weight:600;
+}
+
+.plan-btn {
+  display:block;
+  margin-top:24px;
+  padding:15px;
+  border-radius:8px;
+  text-decoration:none;
+  color:white;
+  font-weight:700;
+}
+
+.blue { background:#2563eb; }
+.purple { background:#9333ea; }
+.orange { background:#ea580c; }
+.vip { background:var(--orange); color:#000; }
+
+.popular {
+  background:var(--orange);
+  color:#000;
+  display:inline-block;
+  padding:7px 18px;
+  border-radius:20px;
+  font-weight:700;
+  margin-bottom:15px;
+}
+
+/* WELCOME */
+.welcome {
+  background:#000;
+  padding:55px 20px;
+  border-top:1px solid #222;
+}
+
+.welcome h2 {
+  font-size:2rem;
+  margin-bottom:22px;
+}
+
+.welcome p {
+  color:#d1d5db;
+  line-height:1.7;
+}
+
+/* FOOTER */
+footer {
+  text-align:center;
+  padding:25px 15px 40px;
+  color:var(--muted);
+  border-top:1px solid var(--border);
+}
+
+/* LOGIN AND REGISTRATION */
+.auth-wrapper {
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:35px 20px;
+}
+
+.auth-card {
+  width:100%;
+  max-width:450px;
+  background:#121212;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:35px;
+  box-shadow:0 10px 30px rgba(0,0,0,.5);
+}
+
+.auth-header {
+  margin-bottom:32px;
+}
+
+.auth-header h1 {
+  font-size:2rem;
+  margin-bottom:8px;
+}
+
+.auth-header p {
+  color:#9ca3af;
+}
+
+.form-group {
+  margin-bottom:24px;
+}
+
+.form-group label {
+  display:block;
+  font-weight:600;
+  font-size:1rem;
+  margin-bottom:10px;
+}
+
+.form-group label span {
+  color:#ef4444;
+}
+
+.form-group input {
+  width:100%;
+  background:transparent;
+  border:none;
+  border-bottom:1px solid #333;
+  color:white;
+  padding:12px 0;
+  font-size:1rem;
+  outline:none;
+}
+
+.form-group input:focus {
+  border-bottom-color:var(--orange);
+}
+
+.form-group input::placeholder {
+  color:#666;
+}
+
+.signin-btn {
+  width:100%;
+  background:#fcfcfc;
+  color:#000;
+  border:2px solid var(--orange);
+  border-radius:8px;
+  padding:16px;
+  font-size:1.05rem;
+  font-weight:700;
+  cursor:pointer;
+  margin:10px 0 24px;
+}
+
+.create-link {
+  text-align:center;
+  color:var(--muted);
+  margin-bottom:30px;
+  font-size:.95rem;
+}
+
+.create-link a {
+  color:white;
+  font-weight:700;
+  text-decoration:none;
+  cursor:pointer;
+}
+
+.support-box {
+  background:#1e2432;
+  border:1px solid #2c3546;
+  border-radius:12px;
+  padding:22px;
+  text-align:center;
+}
+
+.support-box p {
+  color:var(--muted);
+  margin-bottom:15px;
+}
+
+.support-btn {
+  display:block;
+  width:100%;
+  border:1px solid #39445a;
+  padding:13px;
+  border-radius:8px;
+  color:white;
+  text-decoration:none;
+  font-weight:600;
+  margin-bottom:15px;
+}
+
+.admin-number {
+  color:var(--muted);
+  font-size:.9rem;
+}
+
+/* BACK BUTTON */
+.back-btn {
+  background:transparent;
+  border:1px solid var(--border);
+  color:white;
+  padding:10px 16px;
+  border-radius:8px;
+  cursor:pointer;
+  margin-bottom:25px;
+}
+
+/* FLOATING WHATSAPP */
+.whatsapp-float {
+  position:fixed;
+  bottom:24px;
+  right:24px;
+  width:62px;
+  height:62px;
+  border-radius:50%;
+  background:var(--green);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+  box-shadow:0 4px 12px rgba(0,0,0,.4);
+  text-decoration:none;
+  animation:pulse 1.8s infinite;
+}
+
+.whatsapp-float svg {
+  width:35px;
+  height:35px;
+  fill:white;
+}
+
+.whatsapp-label {
+  position:fixed;
+  bottom:42px;
+  right:98px;
+  background:white;
+  color:#111;
+  padding:8px 13px;
+  border-radius:20px;
+  font-size:13px;
+  font-weight:600;
+  z-index:9998;
+}
+
+@keyframes pulse {
+  0% {
+    transform:scale(1);
+    box-shadow:0 0 0 0 rgba(37,211,102,.7);
+  }
+  50% {
+    transform:scale(1.08);
+    box-shadow:0 0 0 12px rgba(37,211,102,0);
+  }
+  100% {
+    transform:scale(1);
+    box-shadow:0 0 0 0 rgba(37,211,102,0);
+  }
+}
+
+/* MOBILE */
+@media(min-width:768px) {
+  .button-group {
+    flex-direction:row;
+  }
+}
+
+@media(max-width:480px) {
+  .auth-card {
+    padding:24px;
+    background:transparent;
+    border:none;
+    box-shadow:none;
+  }
+
+  .auth-wrapper {
+    padding:20px 16px;
+  }
+
+  .auth-header h1 {
+    font-size:1.75rem;
+  }
+
+  .whatsapp-label {
+    display:none;
+  }
+
+  .brand {
+    font-size:.85rem;
+  }
+
+  .nav-actions button {
+    padding:7px 9px;
+    font-size:.8rem;
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  .whatsapp-float { animation:none; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= HOME PAGE ================= -->
+<section id="homePage" class="page active">
+
+<div class="ticker">
+  1 BTC: $73,283.76
+</div>
+
+<header>
+  <div class="container nav">
+    <div class="brand-area">
+      <div class="logo">↗</div>
+      <span class="brand">24hrsforextrader.com</span>
+    </div>
+
+    <div class="nav-actions">
+      <button onclick="showPage('loginPage')">Dashboard</button>
+      <button class="logout" onclick="showPage('loginPage')">Login</button>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+<section class="hero">
+  <div class="hero-subtitle">Trusted Automated Trading Platform</div>
+
+  <h1>
+    24HRS FOREX<br>
+    <span>online trading<br>platform</span>
+  </h1>
+
+  <p class="hero-body">
+    24hrsforextrader.com is an online trading platform focused on
+    Forex, Bitcoin and cryptocurrency markets. Trading involves
+    risk, and returns are not guaranteed.
+  </p>
+
+  <div class="highlight">Explore Our Investment Plans</div>
+
+  <div class="button-group">
+    <button class="btn btn-primary"
+      onclick="showPage('loginPage')">
+      Member Login
+    </button>
+
+    <button class="btn btn-secondary"
+      onclick="showPage('registerPage')">
+      Registration
+    </button>
+  </div>
+</section>
+
+<section>
+  <div class="verification">
+    Check Company Number: #11122233
+  </div>
+
+  <div class="chart">
+    <svg viewBox="0 0 100 50" preserveAspectRatio="none">
+      <polyline
+        points="0,40 5,35 10,42 15,30 20,38 25,20 30,28 35,15 40,25 45,10 50,18 55,5 60,15 65,2 70,8 75,12 80,5 85,10 90,2 95,5 100,0"
+        fill="none"
+        stroke="#f59e0b"
+        stroke-width="1.2"/>
+    </svg>
+  </div>
+</section>
+
+<section class="signals">
+  <div class="signal-top">
+    <div class="signal-icon">▥</div>
+    <div class="badge">24/7 Analysis</div>
+  </div>
+
+  <h3>Smart Signals</h3>
+  <p>AI-backed trend scanning for market analysis and entry timing.</p>
+</section>
+
+<section class="stats">
+
+  <div class="stat">
+    <div class="stat-icon">💵</div>
+    <div class="stat-value">--</div>
+    <div class="stat-label">Total Deposited</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-icon">👥</div>
+    <div class="stat-value">--</div>
+    <div class="stat-label">VIP Members</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-icon">💳</div>
+    <div class="stat-value">--</div>
+    <div class="stat-label">Total Payments</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-icon">🕒</div>
+    <div class="stat-value">--</div>
+    <div class="stat-label">Days Online</div>
+  </div>
+
+</section>
+
+<section class="plans">
+
+  <h2>Investment Plans</h2>
+  <p>Explore the available investment plan categories.</p>
+
+  <!-- STARTER -->
+  <div class="plan">
+    <div class="plan-title">Starter Plan</div>
+    <div class="rate">6%</div>
+    <div class="duration">Hourly rate shown in the proposed plan</div>
+    <div class="total">Illustrative rate: 144% over 24 hours</div>
+
+    <div class="details">
+      <span>Minimum Deposit:</span>
+      <span>$10</span>
+    </div>
+
+    <div class="details">
+      <span>Maximum Deposit:</span>
+      <span>$500</span>
+    </div>
+
+    <button class="plan-btn blue"
+      onclick="showPage('loginPage')">
+      Deposit
+    </button>
+  </div>
+
+  <!-- PREMIUM -->
+  <div class="plan">
+    <div class="plan-title">Premium Plan</div>
+    <div class="rate">14%</div>
+    <div class="duration">Hourly rate shown in the proposed plan</div>
+    <div class="total">Illustrative rate: 336% over 24 hours</div>
+
+    <div class="details">
+      <span>Minimum Deposit:</span>
+      <span>$501</span>
+    </div>
+
+    <div class="details">
+      <span>Maximum Deposit:</span>
+      <span>$1,000</span>
+    </div>
+
+    <button class="plan-btn purple"
+      onclick="showPage('loginPage')">
+      Deposit
+    </button>
+  </div>
+
+  <!-- ADVANCED -->
+  <div class="plan">
+    <div class="plan-title">Advanced Plan</div>
+    <div class="rate">20%</div>
+    <div class="duration">Hourly rate shown in the proposed plan</div>
+    <div class="total">Illustrative rate: 480% over 24 hours</div>
+
+    <div class="details">
+      <span>Minimum Deposit:</span>
+      <span>$1,001</span>
+    </div>
+
+    <div class="details">
+      <span>Maximum Deposit:</span>
+      <span>$3,000</span>
+    </div>
+
+    <button class="plan-btn orange"
+      onclick="showPage('loginPage')">
+      Deposit
+    </button>
+  </div>
+
+  <!-- VIP -->
+  <div class="plan">
+    <div class="popular">Most Popular</div>
+    <div class="plan-title">VIP Plan</div>
+    <div class="rate">40%</div>
+    <div class="duration">Hourly rate shown in the proposed plan</div>
+    <div class="total">Illustrative rate: 960% over 24 hours</div>
+
+    <div class="details">
+      <span>Minimum Deposit:</span>
+      <span>$3,001</span>
+    </div>
+
+    <div class="details">
+      <span>Maximum Deposit:</span>
+      <span>$100,000</span>
+    </div>
+
+    <button class="plan-btn vip"
+      onclick="showPage('loginPage')">
+      Deposit
+    </button>
+  </div>
+
+  <p style="font-size:.85rem;color:#a3a3a3;">
+    Displayed rates are proposed figures, not verified or guaranteed
+    investment returns. Forex and cryptocurrency trading can result
+    in the loss of invested capital.
+  </p>
+
+</section>
+</main>
+
+<section class="welcome">
+  <div class="container">
+    <h2>Welcome to<br>24hrsforextrader.com LTD</h2>
+
+    <p>
+      24hrsforextrader.com is an online platform focused on
+      Forex, Bitcoin and cryptocurrency market activities.
+      Review all investment terms and risks before making
+      any financial decision.
+    </p>
+  </div>
+</section>
+
+<footer>
+  Check Company Number: #11122233
+</footer>
+
+</section>
+
+
+<!-- ================= LOGIN PAGE ================= -->
+<section id="loginPage" class="page">
+
+<div class="auth-wrapper">
+  <div class="auth-card">
+
+    <button class="back-btn" onclick="showPage('homePage')">
+      ← Back to Home
+    </button>
+
+    <div class="auth-header">
+      <h1>Sign in</h1>
+      <p>Access your trading plans and dashboard.</p>
+    </div>
+
+    <form id="loginForm">
+
+      <div class="form-group">
+        <label for="loginEmail">Email <span>*</span></label>
+        <input
+          type="email"
+          id="loginEmail"
+          placeholder="you@example.com"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="loginPassword">Password <span>*</span></label>
+        <input
+          type="password"
+          id="loginPassword"
+          placeholder="Enter your password"
+          required>
+      </div>
+
+      <button type="submit" class="signin-btn">
+        Sign in
+      </button>
+
+    </form>
+
+    <div class="create-link">
+      New user?
+      <a onclick="showPage('registerPage')">Create account</a>
+    </div>
+
+    <div class="support-box">
+      <p>Need help signing in?</p>
+
+      <a
+        href="https://wa.me/254753556384"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="support-btn">
+        ☎ Support WhatsApp
+      </a>
+
+      <div class="admin-number">
+        Admin: +254753556384
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</section>
+
+
+<!-- ================= REGISTRATION PAGE ================= -->
+<section id="registerPage" class="page">
+
+<div class="auth-wrapper">
+  <div class="auth-card">
+
+    <button class="back-btn" onclick="showPage('homePage')">
+      ← Back to Home
+    </button>
+
+    <div class="auth-header">
+      <h1>Create Account</h1>
+      <p>Register to access the platform.</p>
+    </div>
+
+    <form id="registerForm">
+
+      <div class="form-group">
+        <label for="fullName">Full Name <span>*</span></label>
+        <input
+          type="text"
+          id="fullName"
+          placeholder="Enter your full name"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="registerEmail">Email <span>*</span></label>
+        <input
+          type="email"
+          id="registerEmail"
+          placeholder="you@example.com"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Phone Number <span>*</span></label>
+        <input
+          type="tel"
+          id="phone"
+          placeholder="Enter phone number"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="registerPassword">Password <span>*</span></label>
+        <input
+          type="password"
+          id="registerPassword"
+          placeholder="Create password"
+          minlength="8"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password <span>*</span></label>
+        <input
+          type="password"
+          id="confirmPassword"
+          placeholder="Confirm password"
+          minlength="8"
+          required>
+      </div>
+
+      <button type="submit" class="signin-btn">
+        Create Account
+      </button>
+
+    </form>
+
+    <div class="create-link">
+      Already registered?
+      <a onclick="showPage('loginPage')">Sign in</a>
+    </div>
+
+    <div class="support-box">
+      <p>Need help creating your account?</p>
+
+      <a
+        href="https://wa.me/254753556384"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="support-btn">
+        ☎ Support WhatsApp
+      </a>
+
+      <div class="admin-number">
+        Admin: +254753556384
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</section>
+
+
+<!-- ================= FLOATING WHATSAPP ================= -->
+
+<span class="whatsapp-label">Chat with us</span>
+
+<a
+  href="https://wa.me/254753556384?text=Hello%2C%20I%20need%20assistance."
+  class="whatsapp-float"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Contact WhatsApp support">
+
+  <svg viewBox="0 0 32 32">
+    <path d="M16.004 2.667C8.64 2.667 2.67 8.637 2.67 16c0 2.352.614 4.648 1.78 6.67L2.67 29.333l6.83-1.79A13.27 13.27 0 0016.003 29.33c7.363 0 13.333-5.97 13.333-13.333S23.367 2.667 16.004 2.667zm0 24.195c-2.09 0-4.137-.56-5.92-1.62l-.425-.252-4.4 1.153 1.174-4.29-.278-.444a10.66 10.66 0 01-1.637-5.69c0-5.9 4.802-10.7 10.7-10.7 5.9 0 10.7 4.8 10.7 10.7 0 5.9-4.8 10.7-10.7 10.7z"/>
+  </svg>
+
+</a>
+
+
+<script>
+
+/* PAGE NAVIGATION */
+
+function showPage(pageId) {
+
+  document.querySelectorAll('.page').forEach(function(page) {
+    page.classList.remove('active');
+  });
+
+  document.getElementById(pageId).classList.add('active');
+
+  window.scrollTo({
+    top:0,
+    behavior:'smooth'
+  });
+}
+
+
+/* LOGIN FORM */
+
+document.getElementById('loginForm').addEventListener('submit',function(e) {
+
+  e.preventDefault();
+
+  alert(
+    'Login system is not connected yet. Authentication backend integration is required.'
+  );
+
+});
+
+
+/* REGISTRATION FORM */
+
+document.getElementById('registerForm').addEventListener('submit',function(e) {
+
+  e.preventDefault();
+
+  const password = document.getElementById('registerPassword').value;
+  const confirm = document.getElementById('confirmPassword').value;
+
+  if(password !== confirm) {
+    alert('Passwords do not match.');
+    return;
+  }
+
+  alert(
+    'Registration system is not connected yet. Authentication backend integration is required.'
+  );
+
+});
+
+</script>
+
+</body>
+</html>
