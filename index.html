@@ -135,7 +135,7 @@ footer { text-align:center; padding:25px 15px 40px; color:var(--muted); border-t
 .dash-root .field { margin:14px 0; }
 .dash-root .field label { display:block; color:#cbd5e1; font-size:.88rem; margin-bottom:7px; }
 .dash-root .field input,.dash-root .field select { width:100%; background:#0c1627; border:1px solid var(--d-line); border-radius:9px; padding:12px; color:white; outline:none; }
-.dash-root .steps { display:grid; grid-template-columns:repeat(4,1fr); gap:7px; margin:18px 0; }
+.dash-root .steps { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:7px; margin:18px 0; }
 .dash-root .step { background:#0c1627; border:1px solid var(--d-line); border-radius:9px; padding:10px 5px; text-align:center; color:var(--d-muted); font-size:.75rem; }
 .dash-root .step.active { border-color:var(--d-blue); color:#bfdbfe; background:#142b4e; }
 .dash-root .progress { height:6px; background:#263650; border-radius:9px; overflow:hidden; margin:10px 0 18px; }
@@ -163,6 +163,18 @@ footer { text-align:center; padding:25px 15px 40px; color:var(--muted); border-t
 .dash-root .empty { padding:18px; text-align:center; color:var(--d-muted); border:1px dashed var(--d-line); border-radius:10px; }
 @media(max-width:700px) { .dash-root .grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .dash-root .metric { padding:14px; } .dash-root .metric .value { font-size:1.2rem; } .dash-root .top { padding-top:15px; } .dash-root .top-actions .btn { padding:8px 10px; font-size:.82rem; } }
 @media(max-width:420px) { .dash-root .plan-list { grid-template-columns:1fr; } .dash-root .steps { gap:4px; } .dash-root .step { font-size:.67rem; padding:9px 2px; } }
+
+
+.dash-root.light-theme{--d-bg:#eef2f7;--d-panel:#fff;--d-panel2:#f7f8fa;--d-line:#d6dbe3;--d-text:#172033;--d-muted:#64748b;background:#eef2f7;color:#172033}
+.dash-root.light-theme .top,.dash-root.light-theme main{color:#172033}
+.dash-root.light-theme .brand,.dash-root.light-theme .welcome h1,.dash-root.light-theme .welcome h2,.dash-root.light-theme .card h2{color:#172033}
+.dash-root.light-theme .metric,.dash-root.light-theme .card,.dash-root.light-theme .plan-choice,.dash-root.light-theme .selected-plan-summary{background:#fff;border-color:#d6dbe3;color:#172033}
+.dash-root.light-theme .plan-choice-desc,.dash-root.light-theme .plan-choice-meta,.dash-root.light-theme .metric .label,.dash-root.light-theme .metric .hint{color:#64748b}
+.dash-root.light-theme .field input,.dash-root.light-theme .field select,.dash-root.light-theme .amount-wrap{background:#fff;color:#172033;border-color:#cbd5e1}
+.dash-root.light-theme .bottom{background:#fff;border-color:#d6dbe3}
+.dash-root.light-theme .nav button{color:#64748b}
+.dash-root.light-theme .record-item{background:#fff;border-color:#d6dbe3;color:#172033}
+.dash-root.light-theme .notice{background:#f8fafc;color:#334155;border-color:#cbd5e1}
 
 /* ================= ADMIN AREA (same authenticated site) ================= */
 .admin-root{max-width:1100px;margin:auto;padding:12px 18px 100px;color:#f4f7fb}
@@ -195,6 +207,166 @@ footer { text-align:center; padding:25px 15px 40px; color:var(--muted); border-t
 .auth-message.show { display:block; }
 .auth-message.error { background:#2b1515; border:1px solid #7f1d1d; color:#fca5a5; }
 .auth-message.success { background:#14271a; border:1px solid #14532d; color:#86efac; }
+
+/* ================= VIDEO-MATCHED MEMBER DASHBOARD ================= */
+#dashboardPage.dash-body{background:#050505;color:#f5f5f5;padding-bottom:82px;min-height:100vh}
+.dash-root{--d-bg:#050505;--d-panel:#101010;--d-panel2:#111111;--d-line:#454545;--d-text:#f5f5f5;--d-muted:#a5a5a5;--d-blue:#2563eb;--d-green:#00d879;--d-purple:#a855f7;--d-orange:#f59e0b;background:#050505;min-height:100vh}
+.dash-root .top{max-width:760px;padding:17px 14px 8px;border:0}
+.dash-root .brand{font-size:1.12rem;font-weight:750;color:#f5f5f5}
+.dash-root .brand small{display:none}
+.dash-root .top-actions{gap:7px}
+.dash-root .top-actions .btn{padding:7px 11px;background:#111;border:1px solid #393939;border-radius:7px;color:#fff}
+.dash-root .top-actions .btn:first-child{font-size:0;width:38px;height:34px;position:relative}
+.dash-root .top-actions .btn:first-child:before{content:'☾';font-size:18px}
+.dash-root .top-actions .btn:last-child{background:#f4f4f4;color:#111;border-color:#ddd;font-size:.8rem}
+.dash-root main{max-width:760px;padding:8px 10px 28px}
+.dash-root .welcome{background:transparent;border:0;padding:7px 3px 14px;margin:0 0 8px}
+.dash-root .welcome .eyebrow{display:none}
+.dash-root .welcome h1{font-size:1rem;font-weight:500;color:#d0d0d0;margin:0 0 7px}
+.dash-root .welcome .muted{font-size:.82rem;color:#a2a2a2}
+.dash-root .welcome h2{font-size:1.12rem;margin:15px 0 4px;color:#f5f5f5}
+.dash-root .welcome p{font-size:.82rem;color:#a5a5a5;line-height:1.4}
+.dash-root .welcome-dots{display:flex;gap:6px;justify-content:center;margin:8px 0 13px}
+.dash-root .welcome-dots span{width:5px;height:5px;border-radius:50%;background:#2563eb;opacity:.45}
+.dash-root .welcome-dots span:first-child{opacity:1}
+.dash-root .grid{display:grid;grid-template-columns:1fr;gap:11px}
+.dash-root .metric,.dash-root .card{background:#101010;border:1px solid #454545;border-radius:6px;padding:17px 14px;box-shadow:none}
+.dash-root .metric .label{font-size:.78rem;color:#c2c2c2}
+.dash-root .metric .value{font-size:1.16rem;font-weight:750;margin-top:8px}
+.dash-root .metric .hint{font-size:.68rem;color:#8f8f8f;margin-top:2px}
+.dash-root .blue .value{color:#60a5fa}.dash-root .green .value{color:#00d879}.dash-root .purple .value{color:#b56bff}.dash-root .orange .value{color:#f59e0b}
+.dash-root .section-title{font-size:1rem;margin:19px 0 10px}
+.dash-root .card h2{font-size:1rem;margin-bottom:10px}
+.dash-root .plan-list{grid-template-columns:1fr}
+.dash-root .plan{background:#101010;border:1px solid #3f3f3f;border-radius:7px;padding:14px;margin:0}
+.dash-root .field label{color:#ededed}
+.dash-root .field input,.dash-root .field select{background:#111;border:1px solid #666;border-radius:6px;color:#fff}
+.dash-root .steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin:5px 0 12px}
+.dash-root .step{border:0;background:transparent;padding:0;color:#888;font-size:.62rem;display:flex;flex-direction:column;align-items:center;gap:5px}
+.dash-root .step .step-icon{width:34px;height:34px;border:1px solid #444;border-radius:50%;display:grid;place-items:center;font-size:15px;background:#101010;color:#999}
+.dash-root .step.active{background:transparent;color:#60a5fa}
+.dash-root .step.active .step-icon{border-color:#2563eb;background:#10234a;color:#60a5fa}
+.dash-root .progress{height:5px;background:#282828;margin:8px 0 18px}
+.dash-root .progress span{background:#3b82f6}
+.dash-root .plan-cards{display:grid;grid-template-columns:1fr;gap:10px;margin-top:12px}
+.dash-root .plan-choice{width:100%;text-align:left;color:#f5f5f5;background:#101010;border:1px solid #3d3d3d;border-radius:7px;padding:13px;cursor:pointer}
+.dash-root .plan-choice.selected{border-color:#3b82f6;box-shadow:0 0 0 1px #3b82f6 inset}
+.dash-root .plan-choice-top{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:.84rem;font-weight:700}
+.dash-root .plan-choice-rate{font-size:.65rem;background:#202735;color:#dbeafe;padding:3px 7px;border-radius:5px;white-space:nowrap}
+.dash-root .plan-choice-desc{font-size:.72rem;color:#a4a4a4;margin:8px 0}
+.dash-root .plan-choice-meta{display:flex;justify-content:space-between;gap:8px;font-size:.68rem;color:#bcbcbc}
+.dash-root .selected-plan-summary{background:#101010;border:1px solid #3d3d3d;border-radius:6px;padding:25px 14px;text-align:center;margin:12px 0}
+.dash-root .selected-plan-summary strong{display:block;font-size:1.05rem;margin-bottom:4px}
+.dash-root .selected-plan-summary .muted{font-size:.76rem}
+.dash-root .amount-wrap{display:flex;align-items:center;border:1px solid #3b82f6;border-radius:5px;background:#080808;margin:15px 0}
+.dash-root .amount-wrap span{padding-left:12px;color:#ddd}
+.dash-root .amount-wrap{position:relative;z-index:1;min-width:0;overflow:visible}
+.dash-root .amount-wrap input{display:block;flex:1 1 auto;min-width:0;width:100%;height:48px;padding:10px 12px!important;border:0!important;background:transparent!important;box-shadow:none!important;font-size:1.05rem;text-align:center;color:#fff!important;outline:none!important;pointer-events:auto!important;position:relative;z-index:2;opacity:1;visibility:visible;user-select:text;-webkit-user-select:text;touch-action:manipulation}
+.dash-root .amount-wrap input:focus{outline:none!important;box-shadow:inset 0 0 0 1px #60a5fa!important;border-radius:5px}
+.dash-root .amount-wrap span{position:relative;z-index:3;flex:0 0 auto;pointer-events:none}
+.dash-root .amount-limits{display:flex;justify-content:space-between;color:#888;font-size:.68rem}
+.dash-root .notice{background:#171717;border:1px solid #444;color:#d7d7d7;border-radius:6px}
+.dash-root .info{background:#111827;border-color:#34445e;color:#cbdaf4}
+.dash-root .actions .btn{border-radius:6px;padding:12px;background:#222;border:1px solid #444;color:#fff}
+.dash-root .actions .primary{background:#2563eb;border-color:#2563eb}
+.dash-root .actions .btn:disabled{opacity:.45}
+.dash-root .bottom{background:#050505;border-top:1px solid #303030;padding:5px 5px calc(5px + env(safe-area-inset-bottom))}
+.dash-root .nav{width:min(100%,760px);gap:0}
+.dash-root .nav button{color:#9b9b9b;border-radius:0;font-size:.66rem;padding:4px 1px}
+.dash-root .nav button span{font-size:1.05rem;margin-bottom:1px}
+.dash-root .nav button.active{color:#60a5fa;background:transparent;border-top:2px solid #2563eb}
+.dash-root .support{right:15px;bottom:82px;width:43px;height:43px;background:#20d66b;font-size:1.15rem}
+.dash-root .record-list{display:grid;gap:9px}
+.dash-root .record-item{background:#101010;border:1px solid #343434;border-radius:6px;padding:12px;display:flex;justify-content:space-between;align-items:flex-start;gap:10px;font-size:.78rem}
+.dash-root .record-item small{display:block;color:#999;margin-top:3px}
+.dash-root .record-status{font-size:.65rem;padding:3px 7px;border-radius:10px;background:#183522;color:#69dc8d;white-space:nowrap}
+.dash-root .record-status.pending{background:#352b13;color:#f3c969}
+.dash-root .empty{border:0;border-radius:0;padding:18px 8px;background:transparent;color:#999;font-size:.78rem}
+.dash-root .activity-icon{background:#171717;border:1px solid #303030;border-radius:50%}
+@media(max-width:700px){.dash-root .grid{grid-template-columns:1fr}.dash-root .metric{padding:16px 13px}.dash-root .metric .value{font-size:1.12rem}.dash-root .top{padding-top:14px}.dash-root .plan-list{grid-template-columns:1fr}}
+@media(min-width:760px){.dash-root .grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+
+/* Reliable mobile form controls: every editable member field stays visible and tappable. */
+.dash-root input:not([type="checkbox"]):not([type="radio"]),
+.dash-root textarea,
+.dash-root select {
+  color:#fff !important;
+  -webkit-text-fill-color:#fff !important;
+  caret-color:#60a5fa !important;
+  opacity:1 !important;
+  visibility:visible !important;
+  pointer-events:auto !important;
+  user-select:text !important;
+  -webkit-user-select:text !important;
+  font-size:16px !important;
+}
+.dash-root .field input:not([type="checkbox"]):not([type="radio"]),
+.dash-root .field textarea,
+.dash-root .field select {
+  display:block !important;
+  width:100% !important;
+  min-width:0 !important;
+  min-height:48px !important;
+  padding:12px 14px !important;
+  background:#0c1627 !important;
+  border:1px solid #52627a !important;
+  border-radius:9px !important;
+  position:relative !important;
+  z-index:2 !important;
+  touch-action:manipulation !important;
+}
+.dash-root #amount,
+.dash-root #withdrawAmount {
+  display:block !important;
+  width:100% !important;
+  min-width:0 !important;
+  min-height:48px !important;
+  padding:12px 14px !important;
+  background:#111 !important;
+  color:#fff !important;
+  -webkit-text-fill-color:#fff !important;
+  caret-color:#60a5fa !important;
+  border:1px solid #666 !important;
+  border-radius:7px !important;
+  position:relative !important;
+  z-index:5 !important;
+  text-align:left !important;
+}
+.dash-root #amount:focus,
+.dash-root #withdrawAmount:focus,
+.dash-root .field input:focus,
+.dash-root .field select:focus {
+  outline:2px solid #3b82f6 !important;
+  outline-offset:1px !important;
+}
+.dash-root .amount-wrap { isolation:isolate; }
+.dash-root .amount-wrap #amount {
+  flex:1 1 auto !important;
+  width:100% !important;
+  border:0 !important;
+  background:transparent !important;
+  text-align:center !important;
+  z-index:2 !important;
+}
+.dash-root.light-theme input:not([type="checkbox"]):not([type="radio"]),
+.dash-root.light-theme textarea,
+.dash-root.light-theme select {
+  color:#172033 !important;
+  -webkit-text-fill-color:#172033 !important;
+  caret-color:#2563eb !important;
+}
+.dash-root.light-theme .field input:not([type="checkbox"]):not([type="radio"]),
+.dash-root.light-theme .field textarea,
+.dash-root.light-theme .field select,
+.dash-root.light-theme #withdrawAmount {
+  background:#fff !important;
+  border-color:#cbd5e1 !important;
+}
+.dash-root.light-theme .amount-wrap #amount {
+  background:transparent !important;
+  border:0 !important;
+}
 </style>
 </head>
 <body>
@@ -315,59 +487,64 @@ footer { text-align:center; padding:25px 15px 40px; color:var(--muted); border-t
 
 <section id="dashboardPage" class="page dash-body">
 <div class="dash-root">
-<header class="top"><div class="brand">↗ 24hrsforextrader.com<small>Member area</small></div><div class="top-actions"><button class="btn" onclick="toggleTheme()">◐ Theme</button><button class="btn" id="logoutBtn" onclick="handleLogout()">Logout</button></div></header>
+<header class="top"><div class="brand">Investment</div><div class="top-actions"><button class="btn" aria-label="Toggle theme" onclick="toggleTheme()">Theme</button><button class="btn" id="logoutBtn" onclick="handleLogout()">Logout</button></div></header>
 <main>
 <section id="dash-home" class="page active">
-<div class="welcome"><div class="eyebrow">Member dashboard</div><h1 id="dashboardWelcome">Welcome back</h1><div class="muted">Here is your account overview.</div></div>
+<div class="welcome"><h1 class="member-greeting">Welcome back</h1><div class="welcome-dots"><span></span><span></span><span></span></div></div>
 <div class="grid">
-<div class="metric blue"><div class="label">Current Balance</div><div class="value" id="metricBalance">$0.00</div></div>
-<div class="metric purple"><div class="label">Total Invested</div><div class="value" id="metricInvested">$0.00</div></div>
-<div class="metric green"><div class="label">Recorded Earnings</div><div class="value" id="metricEarnings">$0.00</div></div>
-<div class="metric orange"><div class="label">Approved Investments</div><div class="value" id="metricActiveInvestments">0</div></div>
-<div class="metric"><div class="label">Total Deposited</div><div class="value" id="metricDeposited">$0.00</div></div>
-<div class="metric"><div class="label">Total Withdrawn</div><div class="value" id="metricWithdrawn">$0.00</div></div>
+<div class="metric blue"><div class="label">Current Balance</div><div class="value" id="metricBalance">$0.00</div><div class="hint">Available for investment or withdrawal</div></div>
+<div class="metric purple"><div class="label">Total Invested</div><div class="value" id="metricInvested">$0.00</div><div class="hint">Amount currently invested</div></div>
+<div class="metric green"><div class="label">Total Earnings</div><div class="value" id="metricEarnings">$0.00</div><div class="hint">Profit earned from investments</div></div>
+<div class="metric orange"><div class="label">Active Investments</div><div class="value" id="metricActiveInvestments">0</div><div class="hint">Running investment plans</div></div>
+<div class="metric purple"><div class="label">Total Deposited</div><div class="value" id="metricDeposited">$0.00</div><div class="hint">Lifetime deposits</div></div>
+<div class="metric" style="--unused:0"><div class="label">Total Withdrawn</div><div class="value" id="metricWithdrawn" style="color:#ec4899">$0.00</div><div class="hint">Lifetime withdrawals</div></div>
 </div>
-<h2 class="section-title">Investment plans</h2>
-<div class="plan-list">
-<div class="plan"><strong>Starter Plan</strong><div class="rate">6%</div><div class="muted">Minimum $100 · Maximum $500</div></div>
-<div class="plan"><strong>Premium Plan</strong><div class="rate">14%</div><div class="muted">Minimum $501 · Maximum $1,000</div></div>
-<div class="plan"><strong>Advanced Plan</strong><div class="rate">20%</div><div class="muted">Minimum $1,001 · Maximum $3,000</div></div>
-<div class="plan"><strong>VIP Plan</strong><div class="rate">40%</div><div class="muted">Minimum $3,001 · Maximum $100,000</div></div>
-</div>
-<div class="notice">Balances reflect administrator-approved records only. Pending requests are not included, and earnings are shown only when recorded by the administrator.</div>
+<div class="card" style="margin-top:14px"><h2>Investment History</h2><div id="homeInvestments" class="record-list"><div class="empty">No investments yet. Start with your first investment above!</div></div></div>
+<div class="card" style="margin-top:12px"><h2>Transaction History</h2><div id="homeTransactions" class="record-list"><div class="empty">No transactions yet.</div></div></div>
 </section>
 
 <section id="dash-invest" class="page">
-<div class="welcome"><div class="eyebrow">Investment centre</div><h1>Start an investment</h1><div class="muted">Complete the four steps to submit a request for administrator review.</div></div>
+<div class="welcome"><h1 class="member-greeting">Welcome back</h1><div class="welcome-dots"><span></span><span></span><span></span></div><h2>Investment Wizard</h2><p>Step-by-step guided investment process with risk assessment.</p></div>
 <div class="card">
-<div class="steps"><div class="step active" id="s1">1 · Select Plan</div><div class="step" id="s2">2 · Calculate</div><div class="step" id="s3">3 · Risk Check</div><div class="step" id="s4">4 · Confirm</div></div>
+<div class="steps">
+<div class="step active" id="s1"><span class="step-icon">◉</span><span>Select Plan</span></div>
+<div class="step" id="s2"><span class="step-icon">▤</span><span>Calculate</span></div>
+<div class="step" id="s3"><span class="step-icon">◈</span><span>Risk Check</span></div>
+<div class="step" id="s4"><span class="step-icon">₵</span><span>Payment</span></div>
+<div class="step" id="s5"><span class="step-icon">✓</span><span>Confirm</span></div>
+</div>
 <div class="progress"><span id="progress"></span></div>
-<div id="w1"><h2>Select a plan</h2><div class="field"><label for="plan">Investment plan</label><select id="plan"><option>Starter</option><option>Premium</option><option>Advanced</option><option>VIP</option></select></div><div class="notice info" id="limits">Starter Plan · Minimum $100 · Maximum $500</div></div>
-<div id="w2" hidden><h2>Calculate amount</h2><div class="field"><label for="amount">USDT amount (USD equivalent)</label><input id="amount" type="number" min="100" step="1" placeholder="Enter amount"></div><p class="muted" id="calcText">Enter an amount within the selected plan range.</p></div>
-<div id="w3" hidden><h2>Risk assessment</h2><div class="notice">Forex and cryptocurrency trading are high risk. You may lose some or all of the money you invest. Displayed plan rates are proposed figures, not verified or guaranteed returns.</div><label><input type="checkbox" id="risk"> I understand the risks and have reviewed the terms.</label></div>
-<div id="w4" hidden><h2>Review request</h2><div id="review" class="notice info">Review your selected plan and amount.</div><div class="notice">Your request will be saved as Pending for administrator review. No funds are moved automatically when you submit it.</div><div id="investmentMessage" class="auth-message" role="status" aria-live="polite"></div></div>
+<div id="w1"><h2>Choose Investment Plan</h2><div id="planCards" class="plan-cards"></div><select id="plan" aria-label="Investment plan" hidden><option>Starter</option><option>Premium</option><option>Advanced</option><option>VIP</option></select><div class="notice info" id="limits">Starter Plan · Minimum $100 · Maximum $500</div></div>
+<div id="w2" hidden><div class="selected-plan-summary"><strong id="selectedPlanName">Starter Plan</strong><div class="muted" id="selectedPlanDetails">6% · 1 day</div><label for="amount" style="display:block;margin-top:18px;font-size:.75rem">Investment Amount (USD)</label><div class="amount-wrap"><span>$</span><input id="amount" type="text" inputmode="decimal" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Enter amount" aria-label="Investment amount in USD"></div><div class="amount-limits"><span id="amountMin">Min: $100</span><span id="amountMax">Max: $500</span></div></div><p class="muted" id="calcText">Enter an amount within the selected plan range.</p></div>
+<div id="w3" hidden><h2>Risk Assessment</h2><div class="notice">Forex and cryptocurrency trading involve risk. Review the investment terms carefully before proceeding.</div><label><input type="checkbox" id="risk"> I understand the risks and have reviewed the terms.</label></div>
+<div id="w4" hidden><h2>Choose Payment Method</h2><p class="muted">Select how you will pay for this investment. These are the same payment methods available in the Withdrawal Center.</p>
+<div class="field"><label for="investmentMethod">Payment method</label><select id="investmentMethod"><option value="USDT">USDT</option><option value="MTN Momo">MTN Momo</option><option value="Dahabshiil">Dahabshiil</option><option value="Airtel Money">Airtel Money</option><option value="Mpesa">Mpesa</option></select></div>
+<div class="field"><label for="investmentPaymentReference">Payment transaction ID or sender account/phone</label><input id="investmentPaymentReference" type="text" autocomplete="off" placeholder="Enter transaction ID or sender phone number"></div>
+<div class="notice info">Complete your payment using the selected method, then enter the transaction ID or sender account/phone above. Your investment request will remain pending until an administrator verifies it.</div></div>
+<div id="w5" hidden><h2>Confirmation</h2><div id="review" class="notice info">Review your selected plan, amount and payment method.</div><div class="notice">Confirm only after completing your payment. Your request will be sent for administrator review.</div><div id="investmentMessage" class="auth-message" role="status" aria-live="polite"></div></div>
 <div class="actions"><button class="btn" id="prev" onclick="dashStep(-1)" disabled>Back</button><button class="btn primary" id="next" onclick="dashStep(1)">Continue</button></div>
 </div>
 </section>
 
 <section id="dash-withdraw" class="page">
-<div class="welcome"><div class="eyebrow">Payout centre</div><h1>Request a withdrawal</h1><div class="muted">Withdrawal requests are checked against your approved available balance and require administrator approval.</div></div>
-<div class="card"><h2>Withdrawal details</h2>
-<div class="field"><label for="method">Payment method</label><select id="method" onchange="updateDestination()"><option>USDT</option><option>MTN Momo</option><option>Dahabshiil</option><option>Airtel Money</option><option>Mpesa</option></select></div>
-<div class="field"><label for="withdrawAmount">Amount (USD)</label><input id="withdrawAmount" type="number" min="10" placeholder="Minimum $10"></div>
+<div class="welcome"><h1 class="member-greeting">Welcome back</h1><div class="welcome-dots"><span></span><span></span><span></span></div><h2>Withdrawal Center</h2><p>Request withdrawals from your available balance.</p></div>
+<div class="card"><h2>Request Withdrawal</h2>
+<div class="field"><label for="method">Payment method</label><select id="method" onchange="updateDestination()"><option>USDT</option><option>MTN Momo</option><option>Dahabshiil</option><option>Airtel Money</option><option>M-Pesa</option></select></div>
+<div class="field"><label for="withdrawAmount">Amount (USD)</label><input id="withdrawAmount" type="text" inputmode="decimal" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Minimum $10" aria-label="Withdrawal amount in USD"></div>
 <div class="muted">Available balance: <strong id="withdrawAvailable">$0.00</strong> · Minimum withdrawal: $10</div>
 <div class="field"><label id="destinationLabel" for="destination">USDT wallet address</label><input id="destination" placeholder="Enter USDT wallet address"></div>
 <button class="btn primary" id="withdrawSubmitBtn" style="width:100%" onclick="submitWithdrawalRequest()">Submit withdrawal request</button>
 <div id="withdrawMessage" class="auth-message" role="status" aria-live="polite"></div>
-<div class="notice">Requests are saved as Pending until an administrator approves or rejects them. Submitting a request does not trigger an automatic payout.</div>
+<div class="muted" style="font-size:.72rem;margin-top:12px">Withdrawals are processed within 24–48 hours. You will receive an email confirmation once processed.</div>
 </div>
 </section>
 
 <section id="dash-history" class="page">
-<div class="welcome"><div class="eyebrow">Account records</div><h1>History</h1><div class="muted">Transaction history and account activity.</div></div>
-<div class="card"><h2>Transaction history</h2><div id="historyMessage" class="muted" role="status" aria-live="polite">Loading your records…</div><div class="table-wrap" id="historyTableWrap" hidden><table><thead><tr><th>Date</th><th>Type</th><th>Amount</th><th>Method / Plan</th><th>Status</th></tr></thead><tbody id="historyRows"></tbody></table></div><div id="historyEmpty" class="empty" hidden>No transactions to display.</div></div>
-<h2 class="section-title">Activity log</h2>
-<div class="card"><div class="muted">Your account activity is shown in the transaction records above.</div></div>
+<div class="welcome"><h1 class="member-greeting">Welcome back</h1><div class="welcome-dots"><span></span><span></span><span></span></div><h2>Transaction History</h2><p>Complete history of your investments and transactions.</p></div>
+<div class="card"><h2>Activity Log</h2><div id="historyActivity" class="record-list"><div class="empty">No recent account activity.</div></div></div>
+<div class="card" style="margin-top:12px"><h2>Pending Investments</h2><div id="historyPending" class="record-list"><div class="empty">No pending investments. All investments are active, matured, or canceled.</div></div></div>
+<div class="card" style="margin-top:12px"><h2>Investment History</h2><div id="historyInvestments" class="record-list"><div class="empty">No investments yet. Start with your first investment above!</div></div></div>
+<div class="card" style="margin-top:12px"><h2>Transaction History</h2><div id="historyTransactions" class="record-list"><div class="empty">No transactions yet.</div></div><div id="historyMessage" class="muted" role="status" aria-live="polite"></div><div id="historyTableWrap" hidden><table><tbody id="historyRows"></tbody></table></div><div id="historyEmpty" hidden></div></div>
 </section>
 
 <section id="dash-profile" class="page">
@@ -474,8 +651,7 @@ function fillProfileUI(profile) {
     const el = document.getElementById(id);
     if (el) el.value = value;
   });
-  const welcome = document.getElementById('dashboardWelcome');
-  if (welcome) welcome.textContent = profile?.full_name ? 'Welcome back ' + profile.full_name : 'Welcome back';
+  document.querySelectorAll('.member-greeting').forEach(welcome => { welcome.textContent = profile?.full_name ? 'Welcome back, ' + profile.full_name : 'Welcome back'; });
 }
 async function loadProfileForUser(user) {
   if (!user) return null;
@@ -518,6 +694,7 @@ function enterDashboard() {
     if (window.loadAdminDashboard) window.loadAdminDashboard();
   } else {
     if (memberRoot) memberRoot.hidden = false;
+    recordMemberLogin();
     showDash('dash-home',document.querySelector('.dash-root .nav button'));
     if (window.refreshMemberData) window.refreshMemberData();
   }
@@ -723,6 +900,14 @@ let memberTransactions = [];
 let memberSummary = {balance:0,deposited:0,withdrawn:0,invested:0,earnings:0,activeInvestments:0};
 let memberPlans = {...PLAN_DEFAULTS};
 
+function parseAmount(value) {
+  const raw=String(value ?? '').trim().replace(/^\$\s*/, '').replace(/\s/g, '');
+  if (!raw || !/^(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test(raw)) return NaN;
+  const amount=Number(raw.replace(/,/g, ''));
+  return Number.isFinite(amount) ? amount : NaN;
+}
+// Expose the parser because the dashboard wizard runs in a separate classic script.
+window.parseAmount = parseAmount;
 function money(value) {
   return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(Number(value)||0);
 }
@@ -739,6 +924,23 @@ function setText(id,value) {
   const el=document.getElementById(id);
   if(el) el.textContent=value;
 }
+
+function memberActivityKey(){return 'memberActivity_'+(window.__authState?.user?.id||'guest');}
+function recordMemberLogin(){
+  const user=window.__authState?.user;if(!user)return;
+  try{
+    const key=memberActivityKey();const list=JSON.parse(localStorage.getItem(key)||'[]');
+    const now=Date.now();if(!list.length||now-Number(list[0].time)>60000){list.unshift({type:'login',time:now,label:'User Logged In',detail:'Successfully logged into your account'});localStorage.setItem(key,JSON.stringify(list.slice(0,20)));}
+  }catch(e){console.warn('Could not save local activity log',e);}
+}
+function recordCard(title,detail,status,date){
+  const label=String(status||'').toLowerCase();
+  return `<div class="record-item"><div><strong>${safeText(title)}</strong><small>${safeText(detail||'')}${date?' · '+safeText(date):''}</small></div>${status?`<span class="record-status ${label==='pending'?'pending':''}">${safeText(status)}</span>`:''}</div>`;
+}
+function renderRecordList(id,items,emptyText,renderer){
+  const el=document.getElementById(id);if(!el)return;
+  el.innerHTML=items.length?items.map(renderer).join(''):`<div class="empty">${safeText(emptyText)}</div>`;
+}
 function renderMemberSummary() {
   const s=memberSummary;
   setText('metricBalance',money(s.balance));
@@ -754,23 +956,22 @@ function renderMemberSummary() {
   setText('profileEarnings',money(s.earnings));
 }
 function renderTransactionHistory() {
-  const rows=document.getElementById('historyRows');
-  const wrap=document.getElementById('historyTableWrap');
-  const empty=document.getElementById('historyEmpty');
-  const message=document.getElementById('historyMessage');
-  if(!rows||!wrap||!empty||!message) return;
-  rows.innerHTML='';
-  if(!memberTransactions.length) {
-    wrap.hidden=true; empty.hidden=false; message.textContent=''; return;
-  }
-  const statusLabel={pending:'Pending',approved:'Approved',rejected:'Rejected'};
-  rows.innerHTML=memberTransactions.map(tx=>{
-    const date=new Date(tx.created_at).toLocaleString();
-    const label=tx.type.charAt(0).toUpperCase()+tx.type.slice(1);
-    const method=tx.method||'—';
-    return `<tr><td>${safeText(date)}</td><td>${safeText(label)}</td><td>${safeText(money(tx.amount))}</td><td>${safeText(method)}</td><td>${safeText(statusLabel[tx.status]||tx.status)}</td></tr>`;
-  }).join('');
-  message.textContent=''; empty.hidden=true; wrap.hidden=false;
+  const investments=memberTransactions.filter(tx=>tx.type==='investment');
+  const pending=investments.filter(tx=>tx.status==='pending');
+  const recent=memberTransactions.slice(0,5);
+  const fmt=tx=>new Date(tx.created_at).toLocaleString();
+  const investmentRenderer=tx=>recordCard((tx.method||'Investment').replace(/ Plan$/,''),money(tx.amount)+' · '+(tx.reference||'Investment'),tx.status,fmt(tx));
+  const transactionRenderer=tx=>recordCard(tx.type.charAt(0).toUpperCase()+tx.type.slice(1),money(tx.amount)+' · '+(tx.method||'—'),tx.status,fmt(tx));
+  let activity=[];
+  try{activity=JSON.parse(localStorage.getItem(memberActivityKey())||'[]');}catch(e){}
+  renderRecordList('historyActivity',activity,'No recent account activity.',item=>recordCard(item.label,item.detail,'Completed',new Date(item.time).toLocaleString()));
+  renderRecordList('historyPending',pending,'No pending investments. All investments are active, matured, or canceled.',investmentRenderer);
+  renderRecordList('historyInvestments',investments,'No investments yet. Start with your first investment above!',investmentRenderer);
+  renderRecordList('historyTransactions',memberTransactions,'No transactions yet.',transactionRenderer);
+  renderRecordList('homeInvestments',investments.slice(0,3),'No investments yet. Start with your first investment above!',investmentRenderer);
+  renderRecordList('homeTransactions',recent,'No transactions yet.',transactionRenderer);
+  const empty=document.getElementById('historyEmpty');if(empty)empty.hidden=memberTransactions.length>0;
+  const msg=document.getElementById('historyMessage');if(msg)msg.textContent='';
 }
 async function loadMemberData() {
   const user=window.__authState?.user;
@@ -824,61 +1025,83 @@ async function loadMemberData() {
   renderTransactionHistory();
 }
 window.refreshMemberData=()=>loadMemberData().catch(error=>console.error('[member] refresh failed:',error));
+function renderPlanCards(){
+  const list=document.getElementById('planCards');const select=document.getElementById('plan');if(!list||!select)return;
+  const descriptions={Starter:'Perfect for beginners',Premium:'Most popular choice',Advanced:'Advanced investment plan',VIP:'VIP exclusive plan'};
+  const names=Object.keys(memberPlans).length?Object.keys(memberPlans):Object.keys(PLAN_DEFAULTS);
+  list.innerHTML=names.map(name=>{
+    const rule=memberPlans[name]||PLAN_DEFAULTS[name];const selected=select.value===name;
+    const max=Number.isFinite(rule.maximum)?money(rule.maximum):'No limit';
+    return `<button type="button" class="plan-choice ${selected?'selected':''}" onclick="selectInvestmentPlan('${safeText(name)}')"><span class="plan-choice-top"><span>${safeText(name)} Plan</span><span class="plan-choice-rate">${safeText(rule.rate)}% Return</span></span><span class="plan-choice-desc">${safeText(descriptions[name]||'Investment plan')} · proposed return over 24 hours</span><span class="plan-choice-meta"><span>Min Amount: ${money(rule.minimum)}</span><span>Duration: 1 day</span></span></button>`;
+  }).join('');
+}
+window.selectInvestmentPlan=function(name){const select=document.getElementById('plan');if(!select)return;select.value=name;updatePlanLimits();renderPlanCards();};
 function updatePlanLimits() {
   const name=document.getElementById('plan')?.value;
   const rule=memberPlans[name]||PLAN_DEFAULTS[name];
   if(!rule) return;
   const max=Number.isFinite(rule.maximum)?money(rule.maximum):'No limit';
-  setText('limits',`${name} Plan · Minimum ${money(rule.minimum)} · Maximum ${max} · Proposed rate ${rule.rate}%`);
+  setText('limits',`${name} Plan · Minimum ${money(rule.minimum)} · Maximum ${max}`);
+  setText('selectedPlanName',`${name} Plan`);
+  setText('selectedPlanDetails',`${rule.rate}% · 1 day`);
+  setText('amountMin',`Min: ${money(rule.minimum)}`);
+  setText('amountMax',`Max: ${max}`);
   const amount=document.getElementById('amount');
   if(amount) { amount.min=rule.minimum; amount.max=Number.isFinite(rule.maximum)?rule.maximum:''; }
   updateInvestmentCalculation();
+  renderPlanCards();
 }
 function updateInvestmentCalculation() {
   const name=document.getElementById('plan')?.value;
   const rule=memberPlans[name]||PLAN_DEFAULTS[name];
-  const amount=Number(document.getElementById('amount')?.value||0);
+  const amount=parseAmount(document.getElementById('amount')?.value);
   if(!rule) return;
-  const valid=amount>=rule.minimum && amount<=rule.maximum;
-  setText('calcText',valid?`Selected ${name} plan. Proposed rate: ${rule.rate}%. This is not a guaranteed return.`:`Enter an amount between ${money(rule.minimum)} and ${money(rule.maximum)}.`);
+  const valid=Number.isFinite(amount) && amount>0 && amount>=rule.minimum && amount<=rule.maximum;
+  setText('calcText',valid?`Amount accepted for the ${name} plan. Proposed rate: ${rule.rate}%. Returns are not guaranteed. Press Continue to proceed.`:`Enter an amount between ${money(rule.minimum)} and ${money(rule.maximum)}.`);
 }
 window.submitInvestmentRequest=async function() {
   const user=window.__authState?.user;
   if(!user || !window.__authState?.authenticated) { showPage('loginPage'); return; }
   const name=document.getElementById('plan').value;
   const rule=memberPlans[name]||PLAN_DEFAULTS[name];
-  const amount=Number(document.getElementById('amount').value);
+  const amount=parseAmount(document.getElementById('amount').value);
+  const method=document.getElementById('investmentMethod')?.value;
+  const paymentReference=document.getElementById('investmentPaymentReference')?.value.trim();
   if(!rule || !Number.isFinite(amount) || amount<rule.minimum || amount>rule.maximum) {
     setMemberMessage('investmentMessage','Enter an amount within the selected plan limits.','error'); return;
   }
   if(!document.getElementById('risk').checked) {
     setMemberMessage('investmentMessage','Please confirm that you understand the investment risks.','error'); return;
   }
-  if(amount>memberSummary.balance) {
-    setMemberMessage('investmentMessage',`Your available balance is ${money(memberSummary.balance)}. An investment request cannot exceed your approved available balance.`, 'error'); return;
+  if(!['USDT','MTN Momo','Dahabshiil','Airtel Money','Mpesa'].includes(method)) {
+    setMemberMessage('investmentMessage','Please select a valid payment method.','error'); return;
+  }
+  if(!paymentReference) {
+    setMemberMessage('investmentMessage','Enter the payment transaction ID or the sender account/phone number.','error');
+    document.getElementById('investmentPaymentReference')?.focus(); return;
   }
   const button=document.getElementById('next');
   button.disabled=true; button.textContent='Submitting…';
   try {
-    const {data,error}=await supabase.from('transactions').insert({
-      user_id:user.id,type:'investment',amount,currency:'USD',method:`${name} Plan`,
-      reference:`Plan: ${name}; proposed rate: ${rule.rate}%`,status:'pending'
-    }).select('id').single();
+    const {error}=await supabase.from('transactions').insert({
+      user_id:user.id,type:'investment',amount,currency:'USD',method,
+      reference:`${name} Plan; proposed rate: ${rule.rate}%; payment reference/sender: ${paymentReference}`,status:'pending'
+    });
     if(error) throw error;
-    setMemberMessage('investmentMessage','Investment request submitted successfully. Status: Pending administrator review.','success');
+    setMemberMessage('investmentMessage','Investment request submitted successfully. Your payment details have been sent for administrator verification. Status: Pending.','success');
     button.textContent='Request submitted';
     await loadMemberData();
-    setTimeout(()=>{ currentStep=1; for(let i=1;i<=4;i++){const panel=document.getElementById('w'+i);if(panel)panel.hidden=i!==1;const step=document.getElementById('s'+i);if(step)step.classList.toggle('active',i===1);} setText('progress',''); const bar=document.getElementById('progress');if(bar)bar.style.width='25%'; const prev=document.getElementById('prev');if(prev)prev.disabled=true; button.disabled=false;button.textContent='Continue';document.getElementById('risk').checked=false;document.getElementById('amount').value='';setMemberMessage('investmentMessage','','');},1300);
+    setTimeout(()=>{ currentStep=1; for(let i=1;i<=5;i++){const panel=document.getElementById('w'+i);if(panel)panel.hidden=i!==1;const step=document.getElementById('s'+i);if(step)step.classList.toggle('active',i===1);} const bar=document.getElementById('progress');if(bar)bar.style.width='20%'; const prev=document.getElementById('prev');if(prev)prev.disabled=true;button.disabled=false;button.textContent='Continue';document.getElementById('risk').checked=false;document.getElementById('amount').value='';document.getElementById('investmentPaymentReference').value='';setMemberMessage('investmentMessage','','');},1300);
   } catch(error) {
     console.error('[member] investment submit error:',error);
     setMemberMessage('investmentMessage','We could not submit your request. Please try again or contact support.','error');
-    button.disabled=false; button.textContent='Submit investment request';
+    button.disabled=false; button.textContent='Confirm Investment';
   }
 };
 window.submitWithdrawalRequest=async function() {
   const user=window.__authState?.user;
   if(!user || !window.__authState?.authenticated) { showPage('loginPage'); return; }
-  const amount=Number(document.getElementById('withdrawAmount').value);
+  const amount=parseAmount(document.getElementById('withdrawAmount').value);
   const method=document.getElementById('method').value;
   const destination=document.getElementById('destination').value.trim();
   if(!Number.isFinite(amount)||amount<10) { setMemberMessage('withdrawMessage','The minimum withdrawal request is $10.','error'); return; }
@@ -1040,15 +1263,15 @@ let currentStep = 1;
 const rules = {Starter:[100,500],Premium:[501,1000],Advanced:[1001,3000],VIP:[3001,100000]};
 window.__memberPlanRules={Starter:{minimum:100,maximum:500,rate:6},Premium:{minimum:501,maximum:1000,rate:14},Advanced:{minimum:1001,maximum:3000,rate:20},VIP:{minimum:3001,maximum:100000,rate:40}};
 function dashStep(direction) {
-  if (direction === 1 && currentStep === 4) {
+  if (direction === 1 && currentStep === 5) {
     if (window.submitInvestmentRequest) window.submitInvestmentRequest();
     return;
   }
   if (direction === 1 && currentStep === 2) {
     const fallback = rules[document.getElementById('plan').value];
     const rule = window.__memberPlanRules?.[document.getElementById('plan').value] || (fallback ? {minimum:fallback[0],maximum:fallback[1],rate:0} : null);
-    const amount = Number(document.getElementById('amount').value);
-    if (!rule || !amount || amount < rule.minimum || amount > rule.maximum) {
+    const amount = window.parseAmount(document.getElementById('amount').value);
+    if (!rule || !Number.isFinite(amount) || amount < rule.minimum || amount > rule.maximum) {
       alert('Enter an amount within the selected plan limits.');
       return;
     }
@@ -1057,20 +1280,30 @@ function dashStep(direction) {
     alert('Please confirm that you understand the risks.');
     return;
   }
-  currentStep = Math.max(1,Math.min(4,currentStep + direction));
-  for (let i=1;i<=4;i++) {
-    document.getElementById('w'+i).hidden = i !== currentStep;
-    document.getElementById('s'+i).classList.toggle('active',i <= currentStep);
+  if (direction === 1 && currentStep === 4) {
+    const method=document.getElementById('investmentMethod')?.value;
+    const reference=document.getElementById('investmentPaymentReference')?.value.trim();
+    if(!method){alert('Please select a payment method.');return;}
+    if(!reference){alert('Enter the payment transaction ID or sender account/phone number.');document.getElementById('investmentPaymentReference')?.focus();return;}
   }
-  document.getElementById('progress').style.width = currentStep*25+'%';
-  document.getElementById('prev').disabled = currentStep === 1;
-  document.getElementById('next').textContent = currentStep === 4 ? 'Submit investment request' : 'Continue';
-  if (currentStep === 4) {
+  currentStep = Math.max(1,Math.min(5,currentStep + direction));
+  for(let i=1;i<=5;i++) {
+    const panel=document.getElementById('w'+i);
+    const step=document.getElementById('s'+i);
+    if(panel) panel.hidden=i!==currentStep;
+    if(step) step.classList.toggle('active',i<=currentStep);
+  }
+  document.getElementById('progress').style.width=(currentStep*20)+'%';
+  document.getElementById('prev').disabled=currentStep===1;
+  document.getElementById('next').textContent=currentStep===5?'Confirm Investment':'Continue';
+  if(currentStep===2) updatePlanLimits();
+  if(currentStep===5) {
     const planName=document.getElementById('plan').value;
-    const planRule=window.__memberPlanRules?.[planName] || {rate:0};
-    document.getElementById('review').textContent = 'Plan: '+planName+
-      ' · Amount: '+new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(Number(document.getElementById('amount').value))+
-      ' · Proposed rate: '+planRule.rate+'% · Status: Ready to submit for administrator review.';
+    const planRule=window.__memberPlanRules?.[planName]||{rate:0};
+    const amount=window.parseAmount(document.getElementById('amount').value);
+    const method=document.getElementById('investmentMethod').value;
+    const paymentReference=document.getElementById('investmentPaymentReference').value.trim();
+    document.getElementById('review').textContent='Plan: '+planName+' · Amount: '+new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(amount)+' · Proposed rate: '+planRule.rate+'% · Payment: '+method+' · Payment reference/sender: '+paymentReference+' · Status: Pending administrator verification after submission.';
   }
 }
 function updateDestination() {
@@ -1079,14 +1312,9 @@ function updateDestination() {
   document.getElementById('destination').placeholder = method === 'USDT' ? 'Enter USDT wallet address' : 'Enter '+method+' account or phone number';
 }
 function toggleTheme() {
-  const light = document.body.dataset.light !== 'yes';
-  document.body.dataset.light = light ? 'yes' : 'no';
-  const values = light
-    ? ['#eef2f7','#fff','#f3f6fb','#d7deea','#172033','#64748b']
-    : ['#0b1220','#121d30','#17243a','#263650','#f4f7fb','#91a0b7'];
-  ['--bg','--panel','--panel2','--line','--text','--muted'].forEach((key,index) => {
-    document.documentElement.style.setProperty(key,values[index]);
-  });
+  const root=document.querySelector('.dash-root');
+  if(!root)return;
+  root.classList.toggle('light-theme');
 }
 </script>
 </body>
