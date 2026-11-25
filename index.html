@@ -1496,7 +1496,7 @@ footer {
 
         <div class="welcome">
           <div class="eyebrow">Member dashboard</div>
-          <h1>Welcome back, Member</h1>
+          <h1 id="dashboardWelcome">Welcome back</h1>
           <div class="muted">Here is your account overview.</div>
         </div>
 
@@ -1866,6 +1866,9 @@ footer {
 
 
 <script>
+/* ================= GLOBAL VARIABLES ================= */
+let registeredFullName = ''; // Stores the name from registration
+
 /* ================= MAIN PAGE NAVIGATION ================= */
 
 function showPage(pageId) {
@@ -1908,6 +1911,9 @@ function showDash(id, b) {
 
 document.getElementById('loginForm').addEventListener('submit', function(e) {
   e.preventDefault();
+
+  // Update the welcome message with the registered name (if available)
+  updateDashboardWelcome();
 
   showPage('dashboardPage');
 
@@ -2087,16 +2093,23 @@ document.getElementById('registerForm').addEventListener('submit', function(e) {
 
 
   /*
+    STORE THE REGISTERED NAME FOR THE DASHBOARD WELCOME
+    (This is a front-end preview; a real app would use a backend.)
+  */
+  registeredFullName = fullName;
+
+
+  /*
     FRONT-END PREVIEW ONLY.
     This does not create or store a real account.
   */
 
   alert(
-    'Registration details validated successfully!\\n\\n' +
-    'Name: ' + fullName + '\\n' +
-    'Email: ' + email + '\\n' +
-    'Country: ' + countryNames[selectedCountry] + '\\n' +
-    'Phone: ' + fullPhoneNumber + '\\n\\n' +
+    'Registration details validated successfully!\n\n' +
+    'Name: ' + fullName + '\n' +
+    'Email: ' + email + '\n' +
+    'Country: ' + countryNames[selectedCountry] + '\n' +
+    'Phone: ' + fullPhoneNumber + '\n\n' +
     'Please sign in.'
   );
 
@@ -2117,6 +2130,18 @@ document.getElementById('registerForm').addEventListener('submit', function(e) {
   phoneInput.value = '';
 
 });
+
+
+/* ================= UPDATE DASHBOARD WELCOME MESSAGE ================= */
+
+function updateDashboardWelcome() {
+  const welcomeElement = document.getElementById('dashboardWelcome');
+  if (registeredFullName) {
+    welcomeElement.textContent = 'Welcome back ' + registeredFullName;
+  } else {
+    welcomeElement.textContent = 'Welcome back';
+  }
+}
 
 
 /* ================= DASHBOARD INVESTMENT LOGIC ================= */
@@ -2241,4 +2266,4 @@ function toggleTheme() {
 </script>
 
 </body>
-                                                                           </html>
+  </html>
