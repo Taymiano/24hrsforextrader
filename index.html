@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>24hrsforextrader.com</title>
+
+<style>
+/* ================= HOMEPAGE & AUTH STYLES ================= */
+:root {
+  --bg:#121212;
+  --surface:#161616;
+  --text:#fff;
+  --muted:#a3a3a3;
+  --orange:#f59e0b;
+  --border:#333;
+  --green:#25D366;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:system-ui,-apple-system,'Segoe UI',sans-serif; background:var(--bg); color:var(--text); line-height:1.5; min-height:100vh; }
+.container { width:100%; max-width:600px; margin:auto; padding:0 20px; }
+.page { display:none; }
+.page.active { display:block; }
+.ticker { background:#1a1813; color:var(--orange); text-align:center; padding:12px; border-bottom:1px solid #332713; }
+header { border-bottom:1px solid var(--border); padding:12px 0; }
+.nav { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+.brand-area { display:flex; align-items:center; gap:10px; min-width:0; }
+.logo { width:38px; height:38px; background:var(--orange); color:#000; border-radius:8px; display:flex; justify-content:center; align-items:center; font-weight:bold; flex-shrink:0; }
+.brand { font-weight:700; font-size:1rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.nav-actions { display:flex; gap:8px; }
+.nav-actions button { padding:8px 12px; border-radius:8px; font-weight:600; border:1px solid var(--border); background:transparent; color:white; cursor:pointer; }
+.nav-actions .logout { background:#eee; color:#000; }
+.hero { padding:40px 0; text-align:center; }
+.hero-subtitle { display:inline-block; background:#272118; color:var(--orange); padding:8px 18px; border-radius:30px; font-size:.85rem; margin-bottom:28px; }
+.hero h1 { font-size:clamp(2.2rem,8vw,3rem); font-weight:800; line-height:1.2; margin-bottom:24px; }
+.hero h1 span { color:var(--orange); }
+.hero-body { color:var(--muted); font-size:1rem; margin-bottom:30px; }
+.highlight { color:var(--orange); font-size:1.6rem; font-weight:800; margin-bottom:28px; }
+.button-group { display:flex; flex-direction:column; gap:14px; }
+.btn { display:block; width:100%; padding:17px; border-radius:10px; text-decoration:none; font-weight:700; font-size:1.05rem; cursor:pointer; border:none; }
+.btn-primary { background:var(--orange); color:#000; }
+.btn-secondary { background:#1a1a1a; color:white; border:1px solid var(--border); }
+.verification { text-align:center; padding:12px; color:var(--muted); }
+.chart { width:100%; height:220px; border:1px solid rgba(245,158,11,.2); border-radius:16px; margin-bottom:25px; padding:10px; background:linear-gradient(180deg,#131b2c,#121212); }
+.signals { border:1px solid rgba(255,255,255,0.05); background:linear-gradient(180deg, #162335 0%, #0f1722 100%); border-radius:16px; padding:24px; margin-bottom:35px; text-align:left; }
+.signal-top { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:18px; }
+.signal-icon { background:#2a2216; padding:8px; border-radius:8px; display:flex; align-items:center; justify-content:center; }
+.badge { background:#1a2c22; border:1px solid rgba(74, 222, 128, 0.2); color:#4ade80; padding:5px 12px; border-radius:20px; font-size:.75rem; }
+.signals h3 { color:#ffffff; font-size:1.3rem; margin-bottom:8px; }
+.signals p { color:#a3a3a3; font-size:.95rem; margin-top:0; }
+.stats { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:55px; }
+.stat { background:#0f0f0f; border:1px solid rgba(245,158,11,.15); border-radius:15px; padding:24px 10px; text-align:center; }
+.stat-icon { display:flex; justify-content:center; margin-bottom:12px; }
+.stat-value { font-size:1.2rem; font-weight:700; overflow-wrap:anywhere; }
+.stat-label { color:var(--orange); font-size:.85rem; margin-top:5px; }
+.plans { text-align:center; margin-bottom:55px; }
+.plans h2 { font-size:2rem; line-height:1.2; margin-bottom:12px; }
+.plans > p { color:var(--muted); margin-bottom:35px; }
+.plan { background:linear-gradient(180deg,#131b2c,#121212); border:1px solid #292929; border-radius:16px; padding:30px 22px; margin-bottom:24px; position:relative; }
+.plan-title { font-size:1.25rem; font-weight:700; margin-bottom:15px; }
+.rate { font-size:3.5rem; font-weight:800; color:var(--orange); line-height:1.2; }
+.duration { color:var(--muted); margin:5px 0; }
+.total { color:var(--orange); margin-bottom:28px; }
+.details { display:flex; justify-content:space-between; gap:8px; margin-bottom:10px; font-size:.9rem; color:var(--muted); }
+.details span:last-child { color:white; font-weight:600; }
+.plan-btn { display:block; margin-top:24px; padding:15px; border-radius:8px; text-decoration:none; color:white; font-weight:700; width:100%; border:none; cursor:pointer; }
+.blue { background:#2563eb; }
+.purple { background:#9333ea; }
+.orange { background:#ea580c; }
+.vip { background:var(--orange); color:#000; }
+.popular { background:var(--orange); color:#000; display:inline-block; padding:7px 18px; border-radius:20px; font-weight:700; margin-bottom:15px; }
+.welcome { background:#000; padding:55px 20px; border-top:1px solid #222; }
+.welcome h2 { font-size:2rem; margin-bottom:22px; }
+.welcome p { color:#d1d5db; line-height:1.7; }
+footer { text-align:center; padding:25px 15px 40px; color:var(--muted); border-top:1px solid var(--border); }
+.auth-wrapper { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:35px 20px; }
+.auth-card { width:100%; max-width:450px; background:#121212; border:1px solid var(--border); border-radius:12px; padding:35px; box-shadow:0 10px 30px rgba(0,0,0,.5); }
+.auth-header { margin-bottom:32px; }
+.auth-header h1 { font-size:2rem; margin-bottom:8px; }
+.auth-header p { color:#9ca3af; }
+.form-group { margin-bottom:24px; }
+.form-group label { display:block; font-weight:600; font-size:1rem; margin-bottom:10px; }
+.form-group label span { color:#ef4444; }
+.form-group input { width:100%; background:transparent; border:none; border-bottom:1px solid #333; color:white; padding:12px 0; font-size:1rem; outline:none; }
+.form-group input:focus { border-bottom-color:var(--orange); }
+.form-group input::placeholder { color:#666; }
+.signin-btn { width:100%; background:#fcfcfc; color:#000; border:2px solid var(--orange); border-radius:8px; padding:16px; font-size:1.05rem; font-weight:700; cursor:pointer; margin:10px 0 24px; }
+.signin-btn:disabled { opacity:.65; cursor:wait; }
+.create-link { text-align:center; color:var(--muted); margin-bottom:30px; font-size:.95rem; }
+.create-link a { color:white; font-weight:700; text-decoration:none; cursor:pointer; }
+.support-box { background:#1e2432; border:1px solid #2c3546; border-radius:12px; padding:22px; text-align:center; }
+.support-box p { color:var(--muted); margin-bottom:15px; }
+.back-btn { background:transparent; border:1px solid var(--border); color:white; padding:10px 16px; border-radius:8px; cursor:pointer; margin-bottom:25px; }
+@media(min-width:768px) { .button-group { flex-direction:row; } }
+@media(max-width:480px) { .auth-card { padding:24px; background:transparent; border:none; box-shadow:none; } .auth-wrapper { padding:20px 16px; } .auth-header h1 { font-size:1.75rem; } .brand { font-size:.85rem; } .nav-actions button { padding:7px 9px; font-size:.8rem; } }
+
+/* ================= DASHBOARD STYLES ================= */
+.dash-body { background:#0b1220; color:#f4f7fb; padding-bottom:88px; }
+.dash-root { --d-bg:#0b1220; --d-panel:#121d30; --d-panel2:#17243a; --d-line:#263650; --d-text:#f4f7fb; --d-muted:#91a0b7; --d-blue:#3b82f6; --d-green:#22c55e; --d-purple:#a78bfa; --d-orange:#f59e0b; }
+.dash-root button,.dash-root input,.dash-root select { font:inherit; }
+.dash-root button { cursor:pointer; }
+.dash-root .top { max-width:1100px; margin:auto; padding:20px 18px 10px; display:flex; justify-content:space-between; align-items:center; gap:12px; }
+.dash-root .brand { font-weight:800; }
+.dash-root .brand small { display:block; color:var(--d-muted); font-weight:400; margin-top:3px; }
+.dash-root .top-actions { display:flex; gap:8px; }
+.dash-root .btn { border:1px solid var(--d-line); background:var(--d-panel2); color:var(--d-text); padding:10px 13px; border-radius:10px; }
+.dash-root .primary { background:var(--d-blue); border-color:var(--d-blue); color:white; }
+.dash-root main { max-width:1100px; margin:auto; padding:12px 18px 30px; }
+.dash-root .page { display:none; }
+.dash-root .page.active { display:block; }
+.dash-root .welcome { margin:10px 0 20px; }
+.dash-root .welcome h1 { font-size:1.45rem; margin:0 0 4px; }
+.dash-root .muted { color:var(--d-muted); }
+.dash-root .eyebrow { color:#93c5fd; font-size:.8rem; text-transform:uppercase; letter-spacing:1px; font-weight:700; }
+.dash-root .grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:13px; }
+.dash-root .metric,.dash-root .card { background:var(--d-panel); border:1px solid var(--d-line); border-radius:15px; padding:17px; }
+.dash-root .metric .label { color:var(--d-muted); font-size:.85rem; }
+.dash-root .metric .value { font-size:1.45rem; font-weight:800; margin-top:9px; }
+.dash-root .blue .value { color:#60a5fa; }
+.dash-root .green .value { color:var(--d-green); }
+.dash-root .purple .value { color:var(--d-purple); }
+.dash-root .orange .value { color:var(--d-orange); }
+.dash-root .section-title { font-size:1.1rem; margin:24px 0 12px; }
+.dash-root .plan-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+.dash-root .plan { background:var(--d-panel2); border:1px solid var(--d-line); border-radius:12px; padding:15px; }
+.dash-root .plan strong { display:block; }
+.dash-root .rate { font-size:1.35rem; color:var(--d-orange); font-weight:800; margin:7px 0; }
+.dash-root .field { margin:14px 0; }
+.dash-root .field label { display:block; color:#cbd5e1; font-size:.88rem; margin-bottom:7px; }
+.dash-root .field input,.dash-root .field select { width:100%; background:#0c1627; border:1px solid var(--d-line); border-radius:9px; padding:12px; color:white; outline:none; }
+.dash-root .steps { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:7px; margin:18px 0; }
+.dash-root .step { background:#0c1627; border:1px solid var(--d-line); border-radius:9px; padding:10px 5px; text-align:center; color:var(--d-muted); font-size:.75rem; }
+.dash-root .step.active { border-color:var(--d-blue); color:#bfdbfe; background:#142b4e; }
+.dash-root .progress { height:6px; background:#263650; border-radius:9px; overflow:hidden; margin:10px 0 18px; }
+.dash-root .progress span { display:block; height:100%; background:var(--d-blue); width:25%; transition:width .2s; }
+.dash-root .notice { border:1px solid #624b1c; background:#2b2415; color:#fcd34d; border-radius:10px; padding:12px; font-size:.86rem; line-height:1.5; margin:14px 0; }
+.dash-root .info { border-color:#254b78; background:#12243b; color:#bfdbfe; }
+.dash-root .actions { display:flex; gap:9px; margin-top:18px; }
+.dash-root .actions > * { flex:1; }
+.dash-root .table-wrap { overflow-x:auto; }
+.dash-root table { width:100%; border-collapse:collapse; min-width:480px; }
+.dash-root th,.dash-root td { text-align:left; padding:12px 9px; border-bottom:1px solid var(--d-line); font-size:.86rem; }
+.dash-root th { color:var(--d-muted); }
+.dash-root .activity { display:flex; gap:12px; padding:13px 0; border-bottom:1px solid var(--d-line); }
+.dash-root .activity-icon { width:36px; height:36px; border-radius:10px; background:#1c3150; display:grid; place-items:center; flex-shrink:0; }
+.dash-root .activity p { margin:2px 0; }
+.dash-root .activity small { color:var(--d-muted); }
+.dash-root .switch-row { display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid var(--d-line); }
+.dash-root .switch-row input { width:20px; height:20px; accent-color:var(--d-blue); }
+.dash-root .bottom { position:fixed; bottom:0; left:0; right:0; background:#101a2b; border-top:1px solid var(--d-line); display:flex; justify-content:center; z-index:10; padding:8px 6px calc(8px + env(safe-area-inset-bottom)); }
+.dash-root .nav { width:min(100%,760px); display:grid; grid-template-columns:repeat(5,1fr); gap:3px; }
+.dash-root .nav button { border:0; background:transparent; color:var(--d-muted); padding:8px 2px; border-radius:9px; font-size:.73rem; }
+.dash-root .nav button span { display:block; font-size:1.15rem; margin-bottom:3px; }
+.dash-root .nav button.active { color:#93c5fd; background:#172b49; }
+.dash-root .support { position:fixed; right:16px; bottom:94px; background:#16a34a; color:white; border-radius:50%; width:49px; height:49px; display:grid; place-items:center; text-decoration:none; font-size:1.25rem; z-index:9; }
+.dash-root .empty { padding:18px; text-align:center; color:var(--d-muted); border:1px dashed var(--d-line); border-radius:10px; }
+@media(max-width:700px) { .dash-root .grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .dash-root .metric { padding:14px; } .dash-root .metric .value { font-size:1.2rem; } .dash-root .top { padding-top:15px; } .dash-root .top-actions .btn { padding:8px 10px; font-size:.82rem; } }
+@media(max-width:420px) { .dash-root .plan-list { grid-template-columns:1fr; } .dash-root .steps { gap:4px; } .dash-root .step { font-size:.67rem; padding:9px 2px; } }
+
+
+.dash-root.light-theme{--d-bg:#eef2f7;--d-panel:#fff;--d-panel2:#f7f8fa;--d-line:#d6dbe3;--d-text:#172033;--d-muted:#64748b;background:#eef2f7;color:#172033}
+.dash-root.light-theme .top,.dash-root.light-theme main{color:#172033}
+.dash-root.light-theme .brand,.dash-root.light-theme .welcome h1,.dash-root.light-theme .welcome h2,.dash-root.light-theme .card h2{color:#172033}
+.dash-root.light-theme .metric,.dash-root.light-theme .card,.dash-root.light-theme .plan-choice,.dash-root.light-theme .selected-plan-summary{background:#fff;border-color:#d6dbe3;color:#172033}
+.dash-root.light-theme .plan-choice-desc,.dash-root.light-theme .plan-choice-meta,.dash-root.light-theme .metric .label,.dash-root.light-theme .metric .hint{color:#64748b}
+.dash-root.light-theme .field input,.dash-root.light-theme .field select,.dash-root.light-theme .amount-wrap{background:#fff;color:#172033;border-color:#cbd5e1}
+.dash-root.light-theme .bottom{background:#fff;border-color:#d6dbe3}
+.dash-root.light-theme .nav button{color:#64748b}
+.dash-root.light-theme .record-item{background:#fff;border-color:#d6dbe3;color:#172033}
+.dash-root.light-theme .notice{background:#f8fafc;color:#334155;border-color:#cbd5e1}
+
+/* ================= ADMIN DASHBOARD REFERENCE DESIGN ================= */
+#adminArea.admin-root{max-width:none;width:100%;margin:0;padding:0;min-height:100vh;background:#0b0f19;color:#fff;display:flex;gap:0;font-family:Inter,system-ui,sans-serif}
+#adminArea[hidden]{display:none!important}
+.admin-sidebar{width:250px;flex:0 0 250px;background:#0f1423;border-right:1px solid #1c2438;min-height:100vh;display:flex;flex-direction:column;padding:22px 14px;position:sticky;top:0;height:100vh}
+.admin-brand{display:flex;align-items:center;gap:11px;padding:4px 10px 24px;border-bottom:1px solid #1c2438}.admin-brand-mark{width:35px;height:35px;border-radius:9px;background:#123c2c;color:#22c55e;display:grid;place-items:center;font-size:24px;font-weight:800}.admin-brand strong{display:block;font-size:1.1rem}.admin-brand small{display:block;color:#22c55e;font-size:.78rem}.admin-side-label{margin:20px 10px 10px;color:#64748b;font-size:.68rem;font-weight:800;letter-spacing:1px}.admin-side-nav{display:grid;gap:5px}.admin-side-nav button{border:0;background:transparent;color:#94a3b8;text-align:left;padding:12px 13px;border-radius:8px;font-size:.88rem;display:flex;align-items:center;gap:12px}.admin-side-nav button span{width:20px;text-align:center;font-size:1.05rem}.admin-side-nav button.active,.admin-side-nav button:hover{background:#2563eb;color:#fff}.admin-side-bottom{margin-top:auto;border-top:1px solid #1c2438;padding:18px 8px 4px;color:#94a3b8;font-size:.75rem}.admin-online-dot,.admin-footer i{display:inline-block;width:8px;height:8px;background:#22c55e;border-radius:50%;margin-right:7px}
+.admin-main{min-width:0;flex:1}.admin-topbar{height:78px;padding:0 28px;border-bottom:1px solid #1c2438;display:flex;align-items:center;justify-content:space-between;gap:12px;background:#0b0f19;position:sticky;top:0;z-index:20}.admin-page-title{font-size:1.25rem;font-weight:800}.admin-topbar p{color:#94a3b8;font-size:.8rem;margin-top:2px}.admin-top-right{display:flex;align-items:center;gap:18px}.admin-super-badge{border:1px solid #236344;background:#10291f;color:#22c55e;border-radius:20px;padding:7px 13px;font-size:.78rem;font-weight:700}.admin-clock{text-align:right;font-size:.75rem;color:#94a3b8}.admin-clock strong,.admin-clock span{display:block}.admin-clock strong{color:white;font-size:.85rem}.admin-logout{background:#20283a;border:1px solid #303b50;color:white;border-radius:8px;padding:9px 13px}
+.admin-content{max-width:1500px;width:100%;padding:25px 28px 30px;margin:0 auto}.admin-stat-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-bottom:20px}.admin-stat{border-radius:12px;padding:19px;border:1px solid;min-width:0}.admin-stat span,.admin-stat small{display:block;color:#d1d5db;font-size:.8rem}.admin-stat strong{display:block;font-size:1.55rem;margin:7px 0;overflow-wrap:anywhere}.admin-stat small{opacity:.75;font-size:.7rem}.admin-stat.blue{background:linear-gradient(135deg,#0f172a,#1e3a8a);border-color:#1d4ed8}.admin-stat.green{background:linear-gradient(135deg,#022c22,#064e3b);border-color:#059669}.admin-stat.purple{background:linear-gradient(135deg,#2e1065,#4c1d95);border-color:#7c3aed}.admin-stat.orange{background:linear-gradient(135deg,#451a03,#78350f);border-color:#d97706}
+.admin-mobile-nav{display:none}.admin-content .admin-panel{display:none}.admin-content .admin-panel.active{display:block}.admin-overview-grid{display:grid;grid-template-columns:minmax(0,2fr) minmax(260px,1fr);gap:18px;margin:0 0 18px}.admin-card{background:#0f1423;border:1px solid #1c2438;border-radius:12px;padding:20px;min-width:0;margin:0}.admin-card h2{font-size:1rem;margin:0 0 17px}.admin-card-heading{display:flex;justify-content:space-between;align-items:center;gap:10px}.admin-card-heading span{font-size:.7rem;color:#94a3b8}.admin-quick-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.admin-quick-actions button{position:relative;min-height:95px;background:#17243a;border:1px solid #263650;color:white;border-radius:10px;padding:13px;text-align:left;font-size:.78rem;font-weight:700}.admin-quick-actions button span{display:block;font-size:1.25rem;color:#60a5fa;margin-bottom:7px}.admin-quick-actions button b{position:absolute;right:8px;top:8px;background:#ef4444;border-radius:50%;min-width:19px;height:19px;text-align:center;font-size:.68rem;padding:2px}.admin-bottom-overview{grid-template-columns:minmax(0,1.5fr) minmax(260px,1fr)}.admin-content .card{background:#0f1423;border:1px solid #1c2438;border-radius:12px;padding:20px}.admin-content .admin-table{min-width:650px}.admin-content .admin-table th,.admin-content .admin-table td{border-color:#1c2438}.admin-content .admin-note{background:#17243a;border-color:#263650}.admin-content .admin-field,.admin-content .admin-search{background:#0b0f19;border-color:#263650}.admin-footer{display:flex;justify-content:space-between;gap:12px;color:#64748b;font-size:.7rem;padding:18px 3px 0}.admin-footer i{margin:0 6px 0 0}
+@media(max-width:1050px){.admin-stat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.admin-overview-grid,.admin-bottom-overview{grid-template-columns:1fr}}
+@media(max-width:760px){#adminArea.admin-root{display:block}.admin-sidebar{display:none}.admin-topbar{height:auto;min-height:72px;padding:13px 14px;position:relative;align-items:flex-start}.admin-top-right{gap:8px}.admin-super-badge{display:none}.admin-clock{font-size:.68rem}.admin-logout{padding:8px}.admin-content{padding:14px 12px 25px}.admin-stat-grid{gap:9px}.admin-stat{padding:13px}.admin-stat strong{font-size:1.15rem}.admin-stat span{font-size:.72rem}.admin-stat small{font-size:.62rem}.admin-mobile-nav{display:flex;gap:6px;overflow-x:auto;padding:3px 0 13px;margin-bottom:12px}.admin-mobile-nav button{white-space:nowrap;background:#17243a;border:1px solid #263650;color:#cbd5e1;border-radius:8px;padding:8px 10px;font-size:.72rem}.admin-mobile-nav button.active{background:#2563eb;color:white;border-color:#2563eb}.admin-card{padding:14px}.admin-card-heading{align-items:flex-start;flex-direction:column}.admin-quick-actions button{min-height:82px;padding:10px;font-size:.7rem}.admin-footer{flex-direction:column}.admin-content .card{padding:13px}}
+
+/* ================= REGISTRATION TWO-STEP FORM ================= */
+.register-step { display:none; }
+.register-step.active { display:block; }
+.register-progress { margin:18px 0 24px; }
+.register-progress-text { display:flex; justify-content:space-between; color:#a3a3a3; font-size:13px; margin-bottom:9px; }
+.register-progress-track { height:5px; background:#333; border-radius:10px; overflow:hidden; }
+.register-progress-fill { height:100%; width:50%; background:#f59e0b; border-radius:10px; transition:width .25s ease; }
+.country-select { width:100%; padding:14px; background:#202020; color:#fff; border:1px solid #444; border-radius:8px; font-size:15px; outline:none; }
+.country-select:focus { border-color:var(--orange); }
+.country-select option { background:#202020; color:#fff; }
+.phone-input-wrap { display:flex; align-items:stretch; width:100%; background:#202020; border:1px solid #444; border-radius:8px; overflow:hidden; }
+.phone-code { display:flex; align-items:center; padding:0 13px; color:#f59e0b; font-weight:700; border-right:1px solid #444; min-width:70px; justify-content:center; }
+.phone-input-wrap input { flex:1; min-width:0; border:none !important; border-radius:0 !important; background:transparent !important; padding:12px; color:white; }
+.phone-input-wrap:focus-within { border-color:var(--orange); }
+.register-step-buttons { display:flex; gap:10px; margin-top:20px; }
+.register-step-buttons button { flex:1; }
+.register-back-btn { background:#333; color:#fff; border:1px solid #555; border-radius:8px; padding:14px; cursor:pointer; }
+@media(max-width:380px) { .register-progress-text { font-size:11px; } .phone-code { min-width:62px; padding:0 9px; } }
+.auth-message { display:none; border-radius:8px; padding:12px 14px; font-size:.9rem; margin:0 0 18px; line-height:1.45; }
+.auth-message.show { display:block; }
+.auth-message.error { background:#2b1515; border:1px solid #7f1d1d; color:#fca5a5; }
+.auth-message.success { background:#14271a; border:1px solid #14532d; color:#86efac; }
+
+/* ================= VIDEO-MATCHED MEMBER DASHBOARD ================= */
+#dashboardPage.dash-body{background:#050505;color:#f5f5f5;padding-bottom:82px;min-height:100vh}
+.dash-root{--d-bg:#050505;--d-panel:#101010;--d-panel2:#111111;--d-line:#454545;--d-text:#f5f5f5;--d-muted:#a5a5a5;--d-blue:#2563eb;--d-green:#00d879;--d-purple:#a855f7;--d-orange:#f59e0b;background:#050505;min-height:100vh}
+.dash-root .top{max-width:760px;padding:17px 14px 8px;border:0}
+.dash-root .brand{font-size:1.12rem;font-weight:750;color:#f5f5f5}
+.dash-root .brand small{display:none}
+.dash-root .top-actions{gap:7px}
+.dash-root .top-actions .btn{padding:7px 11px;background:#111;border:1px solid #393939;border-radius:7px;color:#fff}
+.dash-root .top-actions .btn:first-child{font-size:0;width:38px;height:34px;position:relative}
+.dash-root .top-actions .btn:first-child:before{content:'☾';font-size:18px}
+.dash-root .top-actions .btn:last-child{background:#f4f4f4;color:#111;border-color:#ddd;font-size:.8rem}
+.dash-root main{max-width:760px;padding:8px 10px 28px}
+.dash-root .welcome{background:transparent;border:0;padding:7px 3px 14px;margin:0 0 8px}
+.dash-root .welcome .eyebrow{display:none}
+.dash-root .welcome h1{font-size:1rem;font-weight:500;color:#d0d0d0;margin:0 0 7px}
+.dash-root .welcome .muted{font-size:.82rem;color:#a2a2a2}
+.dash-root .welcome h2{font-size:1.12rem;margin:15px 0 4px;color:#f5f5f5}
+.dash-root .welcome p{font-size:.82rem;color:#a5a5a5;line-height:1.4}
+.dash-root .welcome-dots{display:flex;gap:6px;justify-content:center;margin:8px 0 13px}
+.dash-root .welcome-dots span{width:5px;height:5px;border-radius:50%;background:#2563eb;opacity:.45}
+.dash-root .welcome-dots span:first-child{opacity:1}
+.dash-root .grid{display:grid;grid-template-columns:1fr;gap:11px}
+.dash-root .metric,.dash-root .card{background:#101010;border:1px solid #454545;border-radius:6px;padding:17px 14px;box-shadow:none}
+.dash-root .metric .label{font-size:.78rem;color:#c2c2c2}
+.dash-root .metric .value{font-size:1.16rem;font-weight:750;margin-top:8px}
+.dash-root .metric .hint{font-size:.68rem;color:#8f8f8f;margin-top:2px}
+.dash-root .blue .value{color:#60a5fa}.dash-root .green .value{color:#00d879}.dash-root .purple .value{color:#b56bff}.dash-root .orange .value{color:#f59e0b}
+.dash-root .section-title{font-size:1rem;margin:19px 0 10px}
+.dash-root .card h2{font-size:1rem;margin-bottom:10px}
+.dash-root .plan-list{grid-template-columns:1fr}
+.dash-root .plan{background:#101010;border:1px solid #3f3f3f;border-radius:7px;padding:14px;margin:0}
+.dash-root .field label{color:#ededed}
+.dash-root .field input,.dash-root .field select{background:#111;border:1px solid #666;border-radius:6px;color:#fff}
+.dash-root .steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin:5px 0 12px}
+.dash-root .step{border:0;background:transparent;padding:0;color:#888;font-size:.62rem;display:flex;flex-direction:column;align-items:center;gap:5px}
+.dash-root .step .step-icon{width:34px;height:34px;border:1px solid #444;border-radius:50%;display:grid;place-items:center;font-size:15px;background:#101010;color:#999}
+.dash-root .step.active{background:transparent;color:#60a5fa}
+.dash-root .step.active .step-icon{border-color:#2563eb;background:#10234a;color:#60a5fa}
+.dash-root .progress{height:5px;background:#282828;margin:8px 0 18px}
+.dash-root .progress span{background:#3b82f6}
+.dash-root .plan-cards{display:grid;grid-template-columns:1fr;gap:10px;margin-top:12px}
+.dash-root .plan-choice{width:100%;text-align:left;color:#f5f5f5;background:#101010;border:1px solid #3d3d3d;border-radius:7px;padding:13px;cursor:pointer}
+.dash-root .plan-choice.selected{border-color:#3b82f6;box-shadow:0 0 0 1px #3b82f6 inset}
+.dash-root .plan-choice-top{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:.84rem;font-weight:700}
+.dash-root .plan-choice-rate{font-size:.65rem;background:#202735;color:#dbeafe;padding:3px 7px;border-radius:5px;white-space:nowrap}
+.dash-root .plan-choice-desc{font-size:.72rem;color:#a4a4a4;margin:8px 0}
+.dash-root .plan-choice-meta{display:flex;justify-content:space-between;gap:8px;font-size:.68rem;color:#bcbcbc}
+.dash-root .selected-plan-summary{background:#101010;border:1px solid #3d3d3d;border-radius:6px;padding:25px 14px;text-align:center;margin:12px 0}
+.dash-root .selected-plan-summary strong{display:block;font-size:1.05rem;margin-bottom:4px}
+.dash-root .selected-plan-summary .muted{font-size:.76rem}
+.dash-root .amount-wrap{display:flex;align-items:center;border:1px solid #3b82f6;border-radius:5px;background:#080808;margin:15px 0}
+.dash-root .amount-wrap span{padding-left:12px;color:#ddd}
+.dash-root .amount-wrap{position:relative;z-index:1;min-width:0;overflow:visible}
+.dash-root .amount-wrap input{display:block;flex:1 1 auto;min-width:0;width:100%;height:48px;padding:10px 12px!important;border:0!important;background:transparent!important;box-shadow:none!important;font-size:1.05rem;text-align:center;color:#fff!important;outline:none!important;pointer-events:auto!important;position:relative;z-index:2;opacity:1;visibility:visible;user-select:text;-webkit-user-select:text;touch-action:manipulation}
+.dash-root .amount-wrap input:focus{outline:none!important;box-shadow:inset 0 0 0 1px #60a5fa!important;border-radius:5px}
+.dash-root .amount-wrap span{position:relative;z-index:3;flex:0 0 auto;pointer-events:none}
+.dash-root .amount-limits{display:flex;justify-content:space-between;color:#888;font-size:.68rem}
+.dash-root .notice{background:#171717;border:1px solid #444;color:#d7d7d7;border-radius:6px}
+.dash-root .info{background:#111827;border-color:#34445e;color:#cbdaf4}
+.dash-root .actions .btn{border-radius:6px;padding:12px;background:#222;border:1px solid #444;color:#fff}
+.dash-root .actions .primary{background:#2563eb;border-color:#2563eb}
+.dash-root .actions .btn:disabled{opacity:.45}
+.dash-root .bottom{background:#050505;border-top:1px solid #303030;padding:5px 5px calc(5px + env(safe-area-inset-bottom))}
+.dash-root .nav{width:min(100%,760px);gap:0}
+.dash-root .nav button{color:#9b9b9b;border-radius:0;font-size:.66rem;padding:4px 1px}
+.dash-root .nav button span{font-size:1.05rem;margin-bottom:1px}
+.dash-root .nav button.active{color:#60a5fa;background:transparent;border-top:2px solid #2563eb}
+.dash-root .support{right:15px;bottom:82px;width:43px;height:43px;background:#20d66b;font-size:1.15rem}
+.dash-root .record-list{display:grid;gap:9px}
+.dash-root .record-item{background:#101010;border:1px solid #343434;border-radius:6px;padding:12px;display:flex;justify-content:space-between;align-items:flex-start;gap:10px;font-size:.78rem}
+.dash-root .record-item small{display:block;color:#999;margin-top:3px}
+.dash-root .record-status{font-size:.65rem;padding:3px 7px;border-radius:10px;background:#183522;color:#69dc8d;white-space:nowrap}
+.dash-root .record-status.pending{background:#352b13;color:#f3c969}
+.dash-root .empty{border:0;border-radius:0;padding:18px 8px;background:transparent;color:#999;font-size:.78rem}
+.dash-root .activity-icon{background:#171717;border:1px solid #303030;border-radius:50%}
+@media(max-width:700px){.dash-root .grid{grid-template-columns:1fr}.dash-root .metric{padding:16px 13px}.dash-root .metric .value{font-size:1.12rem}.dash-root .top{padding-top:14px}.dash-root .plan-list{grid-template-columns:1fr}}
+@media(min-width:760px){.dash-root .grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+
+/* Reliable mobile form controls: every editable member field stays visible and tappable. */
+.dash-root input:not([type="checkbox"]):not([type="radio"]),
+.dash-root textarea,
+.dash-root select {
+  color:#fff !important;
+  -webkit-text-fill-color:#fff !important;
+  caret-color:#60a5fa !important;
+  opacity:1 !important;
+  visibility:visible !important;
+  pointer-events:auto !important;
+  user-select:text !important;
+  -webkit-user-select:text !important;
+  font-size:16px !important;
+}
+.dash-root .field input:not([type="checkbox"]):not([type="radio"]),
+.dash-root .field textarea,
+.dash-root .field select {
+  display:block !important;
+  width:100% !important;
+  min-width:0 !important;
+  min-height:48px !important;
+  padding:12px 14px !important;
+  background:#0c1627 !important;
+  border:1px solid #52627a !important;
+  border-radius:9px !important;
+  position:relative !important;
+  z-index:2 !important;
+  touch-action:manipulation !important;
+}
+.dash-root #amount,
+.dash-root #withdrawAmount {
+  display:block !important;
+  width:100% !important;
+  min-width:0 !important;
+  min-height:48px !important;
+  padding:12px 14px !important;
+  background:#111 !important;
+  color:#fff !important;
+  -webkit-text-fill-color:#fff !important;
+  caret-color:#60a5fa !important;
+  border:1px solid #666 !important;
+  border-radius:7px !important;
+  position:relative !important;
+  z-index:5 !important;
+  text-align:left !important;
+}
+.dash-root #amount:focus,
+.dash-root #withdrawAmount:focus,
+.dash-root .field input:focus,
+.dash-root .field select:focus {
+  outline:2px solid #3b82f6 !important;
+  outline-offset:1px !important;
+}
+.dash-root .amount-wrap { isolation:isolate; }
+.dash-root .amount-wrap #amount {
+  flex:1 1 auto !important;
+  width:100% !important;
+  border:0 !important;
+  background:transparent !important;
+  text-align:center !important;
+  z-index:2 !important;
+}
+.dash-root.light-theme input:not([type="checkbox"]):not([type="radio"]),
+.dash-root.light-theme textarea,
+.dash-root.light-theme select {
+  color:#172033 !important;
+  -webkit-text-fill-color:#172033 !important;
+  caret-color:#2563eb !important;
+}
+.dash-root.light-theme .field input:not([type="checkbox"]):not([type="radio"]),
+.dash-root.light-theme .field textarea,
+.dash-root.light-theme .field select,
+.dash-root.light-theme #withdrawAmount {
+  background:#fff !important;
+  border-color:#cbd5e1 !important;
+}
+.dash-root.light-theme .amount-wrap #amount {
+  background:transparent !important;
+  border:0 !important;
+}
+</style>
+</head>
+<body>
+
+<section id="homePage" class="page active">
+<div class="ticker">1 BTC: $73,283.76</div>
+<header>
+  <div class="container nav">
+    <div class="brand-area"><div class="logo">↗</div><span class="brand">24hrsforextrader.com</span></div>
+    <div class="nav-actions">
+      <button onclick="goToDashboardOrLogin()">Dashboard</button>
+      <button class="logout" onclick="showPage('loginPage')">Login</button>
+    </div>
+  </div>
+</header>
+<main class="container">
+<section class="hero">
+  <div class="hero-subtitle">Trusted Automated Trading Platform</div>
+  <h1>24HRS FOREX<br><span>online trading<br>platform</span></h1>
+  <p class="hero-body">24hrsforextrader.com is an online trading platform focused on Forex, Bitcoin and cryptocurrency markets. Trading involves risk, and returns are not guaranteed.</p>
+  <div class="highlight">Explore Our Investment Plans</div>
+  <div class="button-group">
+    <button class="btn btn-primary" onclick="showPage('loginPage')">Member Login</button>
+    <button class="btn btn-secondary" onclick="showPage('registerPage')">Registration</button>
+  </div>
+</section>
+<section>
+  <div class="verification">Check Company Number: #11122233</div>
+  <div class="chart">
+    <svg viewBox="0 0 500 200" preserveAspectRatio="none" style="width:100%; height:100%;">
+      <g stroke="#2a2a2a" stroke-width="2">
+        <line x1="20" y1="50" x2="20" y2="90" /><rect x="16" y="60" width="8" height="20" fill="#2a2a2a" />
+        <line x1="50" y1="70" x2="50" y2="130" /><rect x="46" y="80" width="8" height="30" fill="#2a2a2a" />
+        <line x1="80" y1="40" x2="80" y2="100" /><rect x="76" y="60" width="8" height="15" fill="#2a2a2a" />
+        <line x1="110" y1="80" x2="110" y2="150" /><rect x="106" y="90" width="8" height="40" fill="#2a2a2a" />
+        <line x1="140" y1="60" x2="140" y2="110" /><rect x="136" y="70" width="8" height="20" fill="#2a2a2a" />
+        <line x1="170" y1="30" x2="170" y2="80" /><rect x="166" y="40" width="8" height="25" fill="#2a2a2a" />
+        <line x1="200" y1="70" x2="200" y2="120" /><rect x="196" y="80" width="8" height="20" fill="#2a2a2a" />
+        <line x1="230" y1="50" x2="230" y2="100" /><rect x="226" y="60" width="8" height="30" fill="#2a2a2a" />
+        <line x1="260" y1="20" x2="260" y2="70" /><rect x="256" y="30" width="8" height="20" fill="#2a2a2a" />
+        <line x1="290" y1="40" x2="290" y2="90" /><rect x="286" y="50" width="8" height="25" fill="#2a2a2a" />
+        <line x1="320" y1="10" x2="320" y2="60" /><rect x="316" y="20" width="8" height="15" fill="#2a2a2a" />
+        <line x1="350" y1="30" x2="350" y2="80" /><rect x="346" y="40" width="8" height="20" fill="#2a2a2a" />
+        <line x1="380" y1="10" x2="380" y2="50" /><rect x="376" y="20" width="8" height="15" fill="#2a2a2a" />
+        <line x1="410" y1="20" x2="410" y2="70" /><rect x="406" y="30" width="8" height="20" fill="#2a2a2a" />
+        <line x1="440" y1="10" x2="440" y2="40" /><rect x="436" y="15" width="8" height="15" fill="#2a2a2a" />
+        <line x1="470" y1="0" x2="470" y2="30" /><rect x="466" y="10" width="8" height="10" fill="#2a2a2a" />
+      </g>
+      <polyline points="0,130 20,120 50,100 80,110 110,125 140,105 170,95 200,100 230,90 260,80 290,65 320,70 350,55 380,40 410,45 440,35 470,20 500,15" fill="none" stroke="#444" stroke-width="2" />
+    </svg>
+  </div>
+</section>
+<section class="signals">
+  <div class="signal-top">
+    <div class="signal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:24px; height:24px;"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></div>
+    <div class="badge">24/7 Analysis</div>
+  </div>
+  <h3>Smart Signals</h3><p>AI-backed trend scanning for cleaner entry timing.</p>
+</section>
+<section class="stats">
+  <div class="stat"><div class="stat-icon" style="color:#4ade80;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:28px;height:28px;"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></div><div class="stat-value">$20,222,729.41</div><div class="stat-label">Total Deposited</div></div>
+  <div class="stat"><div class="stat-icon" style="color:#60a5fa;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:28px;height:28px;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div><div class="stat-value">4,510</div><div class="stat-label">VIP Members</div></div>
+  <div class="stat"><div class="stat-icon" style="color:#c084fc;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:28px;height:28px;"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg></div><div class="stat-value">$11,337,575.72</div><div class="stat-label">Total Payments</div></div>
+  <div class="stat"><div class="stat-icon" style="color:#fbbf24;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:28px;height:28px;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div><div class="stat-value">5,541</div><div class="stat-label">Days Online</div></div>
+</section>
+<section class="plans">
+  <h2>Investment Plans</h2><p>Explore the available investment plan categories.</p>
+  <div class="plan"><div class="plan-title">Starter Plan</div><div class="rate">6%</div><div class="duration">Hourly rate shown in the proposed plan</div><div class="total">Illustrative rate: 144% over 24 hours</div><div class="details"><span>Minimum Deposit:</span><span>$100</span></div><div class="details"><span>Maximum Deposit:</span><span>$500</span></div><button class="plan-btn blue" onclick="showPage('loginPage')">Deposit</button></div>
+  <div class="plan"><div class="plan-title">Premium Plan</div><div class="rate">14%</div><div class="duration">Hourly rate shown in the proposed plan</div><div class="total">Illustrative rate: 336% over 24 hours</div><div class="details"><span>Minimum Deposit:</span><span>$501</span></div><div class="details"><span>Maximum Deposit:</span><span>$1,000</span></div><button class="plan-btn purple" onclick="showPage('loginPage')">Deposit</button></div>
+  <div class="plan"><div class="plan-title">Advanced Plan</div><div class="rate">20%</div><div class="duration">Hourly rate shown in the proposed plan</div><div class="total">Illustrative rate: 480% over 24 hours</div><div class="details"><span>Minimum Deposit:</span><span>$1,001</span></div><div class="details"><span>Maximum Deposit:</span><span>$3,000</span></div><button class="plan-btn orange" onclick="showPage('loginPage')">Deposit</button></div>
+  <div class="plan"><div class="popular">Most Popular</div><div class="plan-title">VIP Plan</div><div class="rate">40%</div><div class="duration">Hourly rate shown in the proposed plan</div><div class="total">Illustrative rate: 960% over 24 hours</div><div class="details"><span>Minimum Deposit:</span><span>$3,001</span></div><div class="details"><span>Maximum Deposit:</span><span>$100,000</span></div><button class="plan-btn vip" onclick="showPage('loginPage')">Deposit</button></div>
+  <p style="font-size:.85rem;color:#a3a3a3;">Displayed rates are proposed figures, not verified or guaranteed investment returns. Forex and cryptocurrency trading can result in the loss of invested capital.</p>
+</section>
+</main>
+<section class="welcome"><div class="container"><h2>Welcome to<br>24hrsforextrader.com LTD</h2><p>24hrsforextrader.com is an online platform focused on Forex, Bitcoin and cryptocurrency market activities. Review all investment terms and risks before making any financial decision.</p></div></section>
+<footer>Check Company Number: #11122233</footer>
+</section>
+
+<section id="loginPage" class="page">
+<div class="auth-wrapper"><div class="auth-card">
+<button class="back-btn" onclick="showPage('homePage')">← Back to Home</button>
+<div class="auth-header"><h1>Sign in</h1><p>Access your trading plans and dashboard.</p></div>
+<div id="loginMessage" class="auth-message" role="status" aria-live="polite"></div>
+<form id="loginForm" novalidate>
+<div class="form-group"><label for="loginEmail">Email <span>*</span></label><input type="email" id="loginEmail" placeholder="you@example.com" autocomplete="email" required></div>
+<div class="form-group"><label for="loginPassword">Password <span>*</span></label><input type="password" id="loginPassword" placeholder="Enter your password" autocomplete="current-password" required></div>
+<button type="submit" class="signin-btn" id="loginSubmitBtn">Sign in</button>
+</form>
+<div class="create-link">New user? <a onclick="showPage('registerPage')">Create account</a></div>
+<div class="support-box"><p>Need help signing in?</p><span>Contact an administrator through the community.</span></div>
+</div></div>
+</section>
+
+<section id="registerPage" class="page">
+<div class="auth-wrapper"><div class="auth-card">
+<button class="back-btn" onclick="showPage('homePage')">← Back to Home</button>
+<div class="auth-header"><h1>Create Account</h1><p>Register to access the platform.</p></div>
+<div id="registerMessage" class="auth-message" role="status" aria-live="polite"></div>
+<div class="register-progress"><div class="register-progress-text"><span>Step 1: Personal Info</span><span>Step 2: Security</span></div><div class="register-progress-track"><div class="register-progress-fill" id="registerProgress"></div></div></div>
+<form id="registerForm" novalidate>
+<div class="register-step active" id="step1">
+<div class="form-group"><label for="fullName">Full Name <span>*</span></label><input type="text" id="fullName" placeholder="Enter your full name" autocomplete="name" required></div>
+<div class="form-group"><label for="registerEmail">Email <span>*</span></label><input type="email" id="registerEmail" placeholder="you@example.com" autocomplete="email" required></div>
+<div class="form-group"><label for="country">Country <span>*</span></label><select id="country" class="country-select" required><option value="" disabled selected>Select your country</option><option value="UG">🇺🇬 Uganda (+256)</option><option value="SS">🇸🇸 South Sudan (+211)</option><option value="LR">🇱🇷 Liberia (+231)</option><option value="LS">🇱🇸 Lesotho (+266)</option><option value="SO">🇸🇴 Somalia (+252)</option><option value="SL">🇸🇱 Sierra Leone (+232)</option></select></div>
+<div class="register-step-buttons"><button type="button" class="signin-btn" onclick="nextRegisterStep()" style="margin:0;">Continue</button></div>
+</div>
+<div class="register-step" id="step2">
+<div class="form-group"><label for="phone">Phone Number <span>*</span></label><div class="phone-input-wrap"><span class="phone-code" id="phoneCode">--</span><input type="tel" id="phone" placeholder="Enter your phone number" inputmode="numeric" autocomplete="tel-national" required></div></div>
+<div class="form-group"><label for="registerPassword">Password <span>*</span></label><input type="password" id="registerPassword" placeholder="Create password" minlength="8" autocomplete="new-password" required></div>
+<div class="form-group"><label for="confirmPassword">Confirm Password <span>*</span></label><input type="password" id="confirmPassword" placeholder="Confirm password" minlength="8" autocomplete="new-password" required></div>
+<div class="register-step-buttons"><button type="button" class="register-back-btn" onclick="prevRegisterStep()">Back</button><button type="submit" class="signin-btn" id="registerSubmitBtn" style="margin:0;">Create Account</button></div>
+</div>
+</form>
+<div class="create-link" style="margin-top:20px;">Already registered? <a onclick="showPage('loginPage')">Sign in</a></div>
+<div class="support-box"><p>Need help creating your account?</p><span>Contact an administrator through the community.</span></div>
+</div></div>
+</section>
+
+<section id="dashboardPage" class="page dash-body">
+<div class="dash-root">
+<header class="top"><div class="brand">Investment</div><div class="top-actions"><button class="btn" aria-label="Toggle theme" onclick="toggleTheme()">Theme</button><button class="btn" id="logoutBtn" onclick="handleLogout()">Logout</button></div></header>
+<main>
+<section id="dash-home" class="page active">
+<div class="welcome"><h1 class="member-greeting">Welcome back</h1><div class="welcome-dots"><span></span><span></span><span></span></div></div>
+<div class="grid">
+<div class="metric blue"><div class="label">Current Balance</div><div class="value" id="metricBalance">$0.00</div><div class="hint">Available for investment or withdrawal</div></div>
+<div class="metric purple"><div class="label">Total Invested</div><div class="value" id="metricInvested">$0.00</div><div class="hint">Amount currently invested</div></div>
+<div class="metric green"><div class="label">Total Earnings</div><div class="value" id="metricEarnings">$0.00</div><div class="hint">Profit earned from investments</div></div>
+<div class="metric orange"><div class="label">Active Investments</div><div class="value" id="metricActiveInvestments">0</div><div class="hint">Running investment plans</div></div>
+<div class="metric purple"><div class="label">Total Deposited</div><div class="value" id="metricDeposited">$0.00</div><div class="hint">Lifetime deposits</div></div>
+<div class="metric" style="--unused:0"><div class="label">Total Withdrawn</div><div class="value" id="metricWithdrawn" style="color:#ec4899">$0.00</div><div class="hint">Lifetime withdrawals</div></div>
+</div>
+<div class="card" style="margin-top:14px"><h2>Investment History</h2><div id="homeInvestments" class="record-list"><div class="empty">No investments yet. Start with your first investment above!</div></div></div>
+<div class="card" style="margin-top:12px"><h2>Transaction History</h2><div id="homeTransactions" class="record-list"><div class="empty">No transactions yet.</div></div></div>
+</section>
+
+<section id="dash-invest" class="page">
+<div class="welcome"><h1 class="member-greeting">Welcome back</h1><div class="welcome-dots"><span></span><span></span><span></span></div><h2>Investment Wizard</h2><p>Step-by-step guided investment process with risk assessment.</p></div>
+<div class="card">
+<div class="steps">
+<div class="step active" id="s1"><span class="step-icon">◉</span><span>Select Plan</span></div>
+<div class="step" id="s2"><span class="step-icon">▤</span><span>Calculate</span></div>
+<div class="step" id="s3"><span class="step-icon">◈</span><span>Risk Check</span></div>
+<div class="step" id="s4"><span class="step-icon">₵</span><span>Payment</span></div>
+<div class="step" id="s5"><span class="step-icon">✓</span><span>Confirm</span></div>
+</div>
+<div class="progress"><span id="progress"></span></div>
+<div id="w1"><h2>Choose Investment Plan</h2><div id="planCards" class="plan-cards"></div><select id="plan" aria-label="Investment plan" hidden><option>Starter</option><option>Premium</option><option>Advanced</option><option>VIP</option></select><div class="notice info" id="limits">Starter Plan · Minimum $100 · Maximum $500</div></div>
+<div id="w2" hidden><div class="selected-plan-summary"><strong id="selectedPlanName">Starter Plan</strong><div class="muted" id="selectedPlanDetails">6% · 1 day</div><label for="amount" style="display:block;margin-top:18px;font-size:.75rem">Investment Amount (USD)</label><div class="amount-wrap"><span>$</span><input id="amount" type="text" inputmode="decimal" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Enter amount" aria-label="Investment amount in USD"></div><div class="amount-limits"><span id="amountMin">Min: $100</span><span id="amountMax">Max: $500</span></div></div><p class="muted" id="calcText">Enter an amount within the selected plan range.</p></div>
+<div id="w3" hidden><h2>Risk Assessment</h2><div class="notice">Forex and cryptocurrency trading involve risk. Review the investment terms carefully before proceeding.</div><label><input type="checkbox" id="risk"> I understand the risks and have reviewed the terms.</label></div>
+<div id="w4" hidden><h2>Choose Payment Method</h2><p class="muted">Select how you will pay for this investment. These are the same payment methods available in the Withdrawal Center.</p>
+<div class="field"><label for="investmentMethod">Payment method</label><select id="investmentMethod"><option value="USDT">USDT</option><option value="MTN Momo">MTN Momo</option><option value="Dahabshiil">Dahabshiil</option><option value="Airtel Money">Airtel Money</option><option value="Mpesa">Mpesa</option></select></div>
+<div class="field"><label for="investmentPaymentReference">Payment transaction ID or sender account/phone</label><input id="investmentPaymentReference" type="text" autocomplete="off" placeholder="Enter transaction ID or sender phone number"></div>
+<div class="notice info">Complete your payment using the selected method, then enter the transaction ID or sender account/phone above. Your investment request will remain pending until an administrator verifies it.</div></div>
+<div id="w5" hidden><h2>Confirmation</h2><div id="review" class="notice info">Review your selected plan, amount and payment method.</div><div class="notice">Confirm only after completing your payment. Your request will be sent for administrator review.</div><div id="investmentMessage" class="auth-message" role="status" aria-live="polite"></div></div>
+<div class="actions"><button class="btn" id="prev" onclick="dashStep(-1)" disabled>Back</button><button class="btn primary" id="next" onclick="dashStep(1)">Continue</button></div>
+</div>
+</section>
+
+<section id="dash-withdraw" class="page">
+<div class="welcome"><h1 class="member-greeting">Welcome back</h1><div class="welcome-dots"><span></span><span></span><span></span></div><h2>Withdrawal Center</h2><p>Request withdrawals from your available balance.</p></div>
+<div class="card"><h2>Request Withdrawal</h2>
+<div class="field"><label for="method">Payment method</label><select id="method" onchange="updateDestination()"><option>USDT</option><option>MTN Momo</option><option>Dahabshiil</option><option>Airtel Money</option><option>M-Pesa</option></select></div>
+<div class="field"><label for="withdrawAmount">Amount (USD)</label><input id="withdrawAmount" type="text" inputmode="decimal" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Minimum $10" aria-label="Withdrawal amount in USD"></div>
+<div class="muted">Available balance: <strong id="withdrawAvailable">$0.00</strong> · Minimum withdrawal: $10</div>
+<div class="field"><label id="destinationLabel" for="destination">USDT wallet address</label><input id="destination" placeholder="Enter USDT wallet address"></div>
+<button class="btn primary" id="withdrawSubmitBtn" style="width:100%" onclick="submitWithdrawalRequest()">Submit withdrawal request</button>
+<div id="withdrawMessage" class="auth-message" role="status" aria-live="polite"></div>
+<div class="muted" style="font-size:.72rem;margin-top:12px">Withdrawals are processed within 24–48 hours. You will receive an email confirmation once processed.</div>
+</div>
+</section>
+
+<section id="dash-history" class="page">
+<div class="welcome"><h1 class="member-greeting">Welcome back</h1><div class="welcome-dots"><span></span><span></span><span></span></div><h2>Transaction History</h2><p>Complete history of your investments and transactions.</p></div>
+<div class="card"><h2>Activity Log</h2><div id="historyActivity" class="record-list"><div class="empty">No recent account activity.</div></div></div>
+<div class="card" style="margin-top:12px"><h2>Pending Investments</h2><div id="historyPending" class="record-list"><div class="empty">No pending investments. All investments are active, matured, or canceled.</div></div></div>
+<div class="card" style="margin-top:12px"><h2>Investment History</h2><div id="historyInvestments" class="record-list"><div class="empty">No investments yet. Start with your first investment above!</div></div></div>
+<div class="card" style="margin-top:12px"><h2>Transaction History</h2><div id="historyTransactions" class="record-list"><div class="empty">No transactions yet.</div></div><div id="historyMessage" class="muted" role="status" aria-live="polite"></div><div id="historyTableWrap" hidden><table><tbody id="historyRows"></tbody></table></div><div id="historyEmpty" hidden></div></div>
+</section>
+
+<section id="dash-profile" class="page">
+<div class="welcome"><div class="eyebrow">Account settings</div><h1>My profile</h1><div class="muted">Your registered personal information.</div></div>
+<div class="card"><h2>Personal information</h2>
+<div class="field"><label for="profileFullName">Full name</label><input id="profileFullName" placeholder="Loading..." disabled></div>
+<div class="field"><label for="profileEmail">Email address</label><input id="profileEmail" placeholder="Loading..." disabled></div>
+<div class="field"><label for="profilePhone">Phone number</label><input id="profilePhone" placeholder="Loading..." disabled></div>
+<div class="field"><label for="profileCountry">Country</label><input id="profileCountry" placeholder="Loading..." disabled></div>
+<div class="notice info">Your profile details are taken from the information supplied during registration.</div>
+</div>
+<h2 class="section-title">Account overview</h2>
+<div class="card">
+<div class="switch-row"><span class="muted">Account balance</span><strong id="profileBalance">$0.00</strong></div>
+<div class="switch-row"><span class="muted">Total deposited</span><strong id="profileDeposited">$0.00</strong></div>
+<div class="switch-row"><span class="muted">Total withdrawn</span><strong id="profileWithdrawn">$0.00</strong></div>
+<div class="switch-row"><span class="muted">Total profit recorded</span><strong id="profileEarnings">$0.00</strong></div>
+</div>
+<h2 class="section-title">Security & preferences</h2>
+<div class="card"><h3>Account security</h3>
+<div class="switch-row"><span>Push notifications</span><input type="checkbox"></div>
+<div class="switch-row"><span>Email notifications</span><input type="checkbox"></div>
+</div>
+</section>
+</main>
+<nav class="bottom"><div class="nav">
+<button class="active" onclick="showDash('dash-home',this)"><span>⌂</span>Home</button>
+<button onclick="showDash('dash-invest',this)"><span>↗</span>Invest</button>
+<button onclick="showDash('dash-withdraw',this)"><span>⇧</span>Withdraw</button>
+<button onclick="showDash('dash-history',this)"><span>◷</span>History</button>
+<button onclick="showDash('dash-profile',this)"><span>◎</span>Profile</button>
+</div></nav>
+</div>
+<div id="adminArea" class="admin-root" hidden>
+  <aside class="admin-sidebar">
+    <div class="admin-brand"><span class="admin-brand-mark">↗</span><div><strong>24hrs</strong><small>Forex Trader</small></div></div>
+    <div class="admin-side-label">ADMINISTRATOR PANEL</div>
+    <nav class="admin-side-nav">
+      <button class="active" onclick="showAdminTab('adminOverview',this)"><span>⌂</span>Dashboard</button>
+      <button onclick="showAdminTab('adminMembers',this)"><span>◎</span>Members</button>
+      <button onclick="showAdminTab('adminInvestments',this);loadAdminInvestments()"><span>↗</span>Investments</button>
+      <button onclick="showAdminTab('adminWithdrawals',this);loadAdminWithdrawals()"><span>⇧</span>Withdrawals</button>
+      <button onclick="showAdminTab('adminRequests',this)"><span>≡</span>Transactions</button>
+      <button onclick="showAdminTab('adminAudit',this);loadAdminAudit()"><span>◷</span>Activity Logs</button>
+      <button onclick="showAdminTab('adminPlans',this)"><span>⚙</span>System Settings</button>
+    </nav>
+    <div class="admin-side-bottom"><span class="admin-online-dot"></span>Secure administrator access</div>
+  </aside>
+  <div class="admin-main">
+    <header class="admin-topbar"><div><div class="admin-page-title">Admin Dashboard</div><p id="adminWelcome">Welcome back, Administrator</p></div><div class="admin-top-right"><span class="admin-super-badge">◇ Super Admin</span><div class="admin-clock"><strong id="adminCurrentDate"></strong><span id="adminCurrentTime"></span></div><button class="admin-logout" onclick="handleLogout()">Logout</button></div></header>
+    <main class="admin-content">
+      <div class="admin-stat-grid">
+        <div class="admin-stat blue"><span>Total Members</span><strong id="adminMemberCount">0</strong><small>Registered accounts</small></div>
+        <div class="admin-stat green"><span>Total Investments</span><strong id="adminTotalInvestments">$0.00</strong><small>Approved investment principal</small></div>
+        <div class="admin-stat purple"><span>Total Withdrawals</span><strong id="adminTotalWithdrawals">$0.00</strong><small>Approved withdrawal requests</small></div>
+        <div class="admin-stat orange"><span>Platform Balance</span><strong id="adminPlatformBalance">$0.00</strong><small>Net approved deposits less withdrawals and investments</small></div>
+      </div>
+      <div class="admin-mobile-nav">
+        <button class="active" onclick="showAdminTab('adminOverview',this)">Dashboard</button><button onclick="showAdminTab('adminMembers',this)">Members</button><button onclick="showAdminTab('adminRequests',this)">Transactions</button><button onclick="showAdminTab('adminWithdrawals',this);loadAdminWithdrawals()">Withdrawals</button><button onclick="showAdminTab('adminInvestments',this);loadAdminInvestments()">Investments</button><button onclick="showAdminTab('adminPlans',this)">Settings</button><button onclick="showAdminTab('adminAudit',this);loadAdminAudit()">Logs</button>
+      </div>
+      <section id="adminOverview" class="admin-panel active">
+        <div class="admin-overview-grid">
+          <div class="admin-card"><div class="admin-card-heading"><h2>Financial Overview</h2><span>Approved transaction activity · 7 days</span></div><div id="adminChart"><div class="muted">Loading activity…</div></div><div class="admin-chart-labels"><span>7 days ago</span><span>Today</span></div></div>
+          <div class="admin-card"><h2>Quick Actions</h2><div class="admin-quick-actions">
+            <button onclick="showAdminTab('adminMembers',document.querySelector('.admin-side-nav button:nth-child(2)'))"><span>◎</span>Add / Manage Members</button>
+            <button onclick="showAdminTab('adminRequests',document.querySelector('.admin-side-nav button:nth-child(5)'))"><span>↗</span>Approve Investments <b id="adminQuickPending">0</b></button>
+            <button onclick="showAdminTab('adminWithdrawals',document.querySelector('.admin-side-nav button:nth-child(4)'));loadAdminWithdrawals()"><span>⇧</span>Approve Withdrawals</button>
+            <button onclick="showAdminTab('adminAudit',document.querySelector('.admin-side-nav button:nth-child(6)'));loadAdminAudit()"><span>◷</span>View Activity Logs</button>
+          </div></div>
+        </div>
+        <div class="admin-overview-grid admin-bottom-overview">
+          <div class="admin-card"><h2>Pending Approvals</h2><div id="adminPendingPreview" class="muted">Loading pending requests…</div></div>
+          <div class="admin-card"><h2>Recent Transactions</h2><div id="adminRecentPreview" class="muted">Loading recent transactions…</div></div>
+        </div>
+      </section>
+        <section id="adminRequests" class="admin-panel"><div class="card"><h2>Transaction requests</h2><div id="adminRequestsMessage" class="muted">Loading requests…</div><div class="admin-scroll"><table class="admin-table"><thead><tr><th>Date</th><th>Member</th><th>Type</th><th>Amount</th><th>Method / Plan</th><th>Status</th><th>Action</th></tr></thead><tbody id="adminRequestsRows"></tbody></table></div></div></section>
+  <section id="adminWithdrawals" class="admin-panel"><div class="card"><h2>Withdrawal requests</h2><div class="admin-note">Review the payment destination and verify eligible funds before approving. Approval records the decision; the actual payout must still be sent and confirmed by an administrator.</div><div id="adminWithdrawalsMessage" class="muted">Loading withdrawal requests…</div><div class="admin-scroll"><table class="admin-table"><thead><tr><th>Date</th><th>Member</th><th>Amount</th><th>Method</th><th>Payment destination</th><th>Status</th><th>Action</th></tr></thead><tbody id="adminWithdrawalsRows"></tbody></table></div></div></section>
+  <section id="adminInvestments" class="admin-panel"><div class="card"><h2>Investment maturity monitor</h2><div class="admin-note">Approved investments use the 24-hour term shown in the member flow. Hourly profit figures are projections from the displayed plan rate, not confirmed earnings or funds available to withdraw. Only credit profit that has actually been realized and funded.</div><div id="adminInvestmentsMessage" class="muted">Loading investment records…</div><div class="admin-scroll"><table class="admin-table"><thead><tr><th>Member</th><th>Plan</th><th>Principal</th><th>Rate / hour</th><th>Elapsed</th><th>Projected profit</th><th>Maturity</th><th>Status</th></tr></thead><tbody id="adminInvestmentsRows"></tbody></table></div></div></section>
+  <section id="adminMembers" class="admin-panel"><div class="card"><h2>Registered members</h2><input id="adminMemberSearch" class="admin-search" type="search" placeholder="Search name, email or country…" oninput="filterAdminMembers()"><div id="adminMembersMessage" class="muted">Loading members…</div><div class="admin-scroll"><table class="admin-table"><thead><tr><th>Name</th><th>Email</th><th>Country</th><th>Status</th><th>Action</th></tr></thead><tbody id="adminMembersRows"></tbody></table></div></div></section>
+  <section id="adminPlans" class="admin-panel"><div class="card"><h2>Manage investment plans</h2><div class="field"><label>Plan name</label><input id="adminPlanName" class="admin-field" placeholder="e.g. Starter"></div><div class="field"><label>Minimum amount (USD)</label><input id="adminPlanMin" class="admin-field" type="number" min="1"></div><div class="field"><label>Maximum amount (USD)</label><input id="adminPlanMax" class="admin-field" type="number" min="1"></div><div class="field"><label>Proposed rate (%)</label><input id="adminPlanRate" class="admin-field" type="number" min="0" step="0.01"></div><label><input type="checkbox" id="adminPlanActive" checked> Active plan</label><button class="btn primary" style="width:100%;margin-top:14px" onclick="adminSavePlan()">Save plan</button><div id="adminPlansMessage" class="admin-note">Plan changes are recorded in the administrator audit log.</div><div class="admin-scroll"><table class="admin-table"><thead><tr><th>Plan</th><th>Minimum</th><th>Maximum</th><th>Rate</th><th>Status</th><th></th></tr></thead><tbody id="adminPlansRows"></tbody></table></div></div></section>
+  <section id="adminAudit" class="admin-panel"><div class="card"><h2>Administrator activity</h2><div id="adminAuditMessage" class="muted">Loading audit records…</div><div class="admin-scroll"><table class="admin-table"><thead><tr><th>Date</th><th>Administrator</th><th>Action</th><th>Record</th><th>Reason</th></tr></thead><tbody id="adminAuditRows"></tbody></table></div></div></section>
+      <div class="admin-footer"><span><i></i> Database connection protected by Supabase</span><span>Administrator actions are recorded in the audit log</span></div>
+    </main>
+  </div>
+</div>
+</section>
+
+
+
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+const SUPABASE_URL = 'https://pnnunuhvwejesfayusbi.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_2-ZLQO57PCdw7uujmCTtZg_oplET0qE';
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY, {
+  auth: { persistSession:true, autoRefreshToken:true, detectSessionInUrl:true, storage:window.localStorage }
+});
+
+window.supabaseClient = supabase;
+window.supabaseReady = true;
+window.__authState = { authenticated:false, user:null, profile:null, loading:true };
+
+const COUNTRY_CODES = { UG:'+256', SS:'+211', LR:'+231', LS:'+266', SO:'+252', SL:'+232' };
+const COUNTRY_NAMES = { UG:'Uganda', SS:'South Sudan', LR:'Liberia', LS:'Lesotho', SO:'Somalia', SL:'Sierra Leone' };
+
+function setMessage(id, message, type) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.textContent = message || '';
+  el.className = 'auth-message' + (message ? ' show ' + (type || '') : '');
+}
+function normaliseEmail(value) { return String(value || '').trim().toLowerCase(); }
+function buildE164(dialCode, localDigits) {
+  const cleanLocal = String(localDigits || '').replace(/\D/g,'').replace(/^0+/,'');
+  return cleanLocal ? String(dialCode || '') + cleanLocal : '';
+}
+function setAuthState(user, profile) {
+  window.__authState = {
+    authenticated:!!(user && profile && profile.status === 'active' && ['member','admin'].includes(profile.role)),
+    user:user || null,
+    profile:profile || null,
+    loading:false
+  };
+}
+function fillProfileUI(profile) {
+  const fields = {
+    profileFullName:profile?.full_name || '',
+    profileEmail:profile?.email || '',
+    profilePhone:profile?.phone_e164 || '',
+    profileCountry:profile?.country_name || ''
+  };
+  Object.entries(fields).forEach(([id,value]) => {
+    const el = document.getElementById(id);
+    if (el) el.value = value;
+  });
+  document.querySelectorAll('.member-greeting').forEach(welcome => { welcome.textContent = profile?.full_name ? 'Welcome back, ' + profile.full_name : 'Welcome back'; });
+}
+async function loadProfileForUser(user) {
+  if (!user) return null;
+  const { data, error } = await supabase.from('profiles')
+    .select('id, full_name, email, country_code, country_name, phone_e164, role, status')
+    .eq('id',user.id).maybeSingle();
+  if (error) {
+    console.error('[auth] profile fetch error:',error);
+    throw error;
+  }
+  return data;
+}
+async function loadProfileWithRetry(user) {
+  let profile = null;
+  for (let attempt=0; attempt<3; attempt++) {
+    profile = await loadProfileForUser(user);
+    if (profile) return profile;
+    if (attempt<2) await new Promise(resolve => setTimeout(resolve,500));
+  }
+  return null;
+}
+async function resolveSessionAndProfile() {
+  const { data:{session}, error } = await supabase.auth.getSession();
+  if (error) throw error;
+  const user = session?.user || null;
+  const profile = user ? await loadProfileForUser(user) : null;
+  return { session,user,profile };
+}
+function enterDashboard() {
+  if (!window.__authState?.authenticated) { showPage('loginPage'); return; }
+  showPage('dashboardPage');
+  const isAdmin = window.__authState.profile?.role === 'admin';
+  const memberRoot = document.querySelector('.dash-root');
+  const adminArea = document.getElementById('adminArea');
+  if (memberRoot) memberRoot.hidden = isAdmin;
+  if (adminArea) adminArea.hidden = !isAdmin;
+  if (isAdmin) {
+    const name = window.__authState.profile?.full_name || window.__authState.user?.email || 'Administrator';
+    document.getElementById('adminWelcome').textContent = 'Welcome, ' + name;
+    if (window.loadAdminDashboard) window.loadAdminDashboard();
+  } else {
+    if (memberRoot) memberRoot.hidden = false;
+    recordMemberLogin();
+    showDash('dash-home',document.querySelector('.dash-root .nav button'));
+    if (window.refreshMemberData) window.refreshMemberData();
+  }
+}
+async function restoreSessionOnLoad() {
+  try {
+    const {session,user,profile} = await resolveSessionAndProfile();
+    if (!session || !user) {
+      setAuthState(null,null);
+      return;
+    }
+    if (!profile || profile.status !== 'active' || !['member','admin'].includes(profile.role)) {
+      setAuthState(null,null);
+      await supabase.auth.signOut();
+      if (profile && profile.status !== 'active') {
+        setMessage('loginMessage','Your account is not active. Please contact an administrator through the community.','error');
+      }
+      return;
+    }
+    setAuthState(user,profile);
+    fillProfileUI(profile);
+    enterDashboard();
+  } catch (error) {
+    console.error('[auth] session restore error:',error);
+    setAuthState(null,null);
+  }
+}
+async function goToDashboardOrLogin() {
+  try {
+    const {session,user,profile} = await resolveSessionAndProfile();
+    if (!session || !user || !profile || profile.status !== 'active' || !['member','admin'].includes(profile.role)) {
+      setAuthState(null,null);
+      if (session) await supabase.auth.signOut();
+      showPage('loginPage');
+      return;
+    }
+    setAuthState(user,profile);
+    fillProfileUI(profile);
+    enterDashboard();
+  } catch (error) {
+    console.error('[auth] dashboard check error:',error);
+    showPage('loginPage');
+    setMessage('loginMessage','We could not verify your session. Please sign in again.','error');
+  }
+}
+window.goToDashboardOrLogin = goToDashboardOrLogin;
+
+async function handleLogout() {
+  try {
+    const {error} = await supabase.auth.signOut();
+    if (error) console.warn('[auth] signOut:',error);
+  } catch (error) {
+    console.warn('[auth] signOut error:',error);
+  } finally {
+    setAuthState(null,null);
+    fillProfileUI(null);
+    setMessage('loginMessage','','');
+    setMessage('registerMessage','','');
+    showPage('homePage');
+  }
+}
+window.handleLogout = handleLogout;
+
+async function handleLoginSubmit(event) {
+  event.preventDefault();
+  setMessage('loginMessage','','');
+  const email = normaliseEmail(document.getElementById('loginEmail').value);
+  const password = document.getElementById('loginPassword').value;
+  const button = document.getElementById('loginSubmitBtn');
+  if (!email || !password) {
+    setMessage('loginMessage','Please enter your email and password.','error');
+    return;
+  }
+  button.disabled = true;
+  button.textContent = 'Signing in…';
+  try {
+    const {data,error} = await supabase.auth.signInWithPassword({email,password});
+    if (error || !data?.session || !data?.user) {
+      setMessage('loginMessage','The email or password is incorrect. Please try again.','error');
+      return;
+    }
+    const profile = await loadProfileWithRetry(data.user);
+    if (!profile) {
+      await supabase.auth.signOut();
+      setAuthState(null,null);
+      setMessage('loginMessage','We could not load your account profile. Please contact an administrator through the community.','error');
+      return;
+    }
+    if (profile.status !== 'active' || !['member','admin'].includes(profile.role)) {
+      await supabase.auth.signOut();
+      setAuthState(null,null);
+      setMessage('loginMessage','Your account is suspended or inactive. Please contact an administrator through the community.','error');
+      return;
+    }
+    setAuthState(data.user,profile);
+    fillProfileUI(profile);
+    enterDashboard();
+  } catch (error) {
+    console.error('[auth] login error:',error);
+    setMessage('loginMessage','Sign in failed. Please check your connection and try again.','error');
+  } finally {
+    button.disabled = false;
+    button.textContent = 'Sign in';
+  }
+}
+
+async function handleRegisterSubmit(event) {
+  event.preventDefault();
+  setMessage('registerMessage','','');
+  const fullNameEl = document.getElementById('fullName');
+  const emailEl = document.getElementById('registerEmail');
+  const countryEl = document.getElementById('country');
+  const phoneEl = document.getElementById('phone');
+  const passwordEl = document.getElementById('registerPassword');
+  const confirmEl = document.getElementById('confirmPassword');
+  const button = document.getElementById('registerSubmitBtn');
+
+  const fullName = fullNameEl.value.trim();
+  const email = normaliseEmail(emailEl.value);
+  const countryCodeKey = countryEl.value;
+  const localPhoneDigits = phoneEl.value.replace(/\D/g,'');
+  const password = passwordEl.value;
+  const confirm = confirmEl.value;
+
+  if (!fullName) { setMessage('registerMessage','Please enter your full name.','error'); fullNameEl.focus(); return; }
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setMessage('registerMessage','Please enter a valid email address.','error'); emailEl.focus(); return; }
+  if (!COUNTRY_CODES[countryCodeKey]) { setMessage('registerMessage','Please select your country.','error'); countryEl.focus(); return; }
+  if (localPhoneDigits.length < 6 || localPhoneDigits.length > 15) { setMessage('registerMessage','Please enter a valid phone number.','error'); phoneEl.focus(); return; }
+  if (password.length < 8) { setMessage('registerMessage','Your password must contain at least 8 characters.','error'); passwordEl.focus(); return; }
+  if (password !== confirm) { setMessage('registerMessage','Passwords do not match.','error'); confirmEl.focus(); return; }
+
+  const phoneE164 = buildE164(COUNTRY_CODES[countryCodeKey],localPhoneDigits);
+  button.disabled = true;
+  button.textContent = 'Creating account…';
+  try {
+    const {data,error} = await supabase.auth.signUp({
+      email,
+      password,
+      options:{
+        emailRedirectTo:window.location.origin + window.location.pathname,
+        data:{
+          full_name:fullName,
+          country_code:countryCodeKey,
+          country_name:COUNTRY_NAMES[countryCodeKey],
+          phone_e164:phoneE164
+        }
+      }
+    });
+    if (error) {
+      const msg = /already registered|already exists/i.test(error.message || '')
+        ? 'An account with this email already exists. Please sign in instead.'
+        : (error.message || 'Registration failed. Please try again.');
+      setMessage('registerMessage',msg,'error');
+      return;
+    }
+    if (!data?.user) {
+      setMessage('registerMessage','We could not complete registration. Please try again.','error');
+      return;
+    }
+    if (!data.session) {
+      setMessage('registerMessage','Account created. Please check your email inbox and confirm your email before signing in.','success');
+      document.getElementById('registerForm').reset();
+      document.getElementById('step2').classList.remove('active');
+      document.getElementById('step1').classList.add('active');
+      document.getElementById('registerProgress').style.width = '50%';
+      document.getElementById('phoneCode').textContent = '--';
+      return;
+    }
+    const profile = await loadProfileWithRetry(data.user);
+    if (!profile || profile.status !== 'active' || profile.role !== 'member') {
+      await supabase.auth.signOut();
+      setAuthState(null,null);
+      setMessage('registerMessage','Your account was created, but the profile is not ready. Please sign in shortly or contact support.','error');
+      return;
+    }
+    document.getElementById('registerForm').reset();
+    document.getElementById('step2').classList.remove('active');
+    document.getElementById('step1').classList.add('active');
+    document.getElementById('registerProgress').style.width = '50%';
+    document.getElementById('phoneCode').textContent = '--';
+    setAuthState(data.user,profile);
+    fillProfileUI(profile);
+    enterDashboard();
+  } catch (error) {
+    console.error('[auth] registration error:',error);
+    setMessage('registerMessage','Registration failed. Please check your connection and try again.','error');
+  } finally {
+    button.disabled = false;
+    button.textContent = 'Create Account';
+  }
+}
+
+window.handleLoginSubmit = handleLoginSubmit;
+window.handleRegisterSubmit = handleRegisterSubmit;
+
+const PLAN_DEFAULTS = {
+  Starter:{minimum:100,maximum:500,rate:6},
+  Premium:{minimum:501,maximum:1000,rate:14},
+  Advanced:{minimum:1001,maximum:3000,rate:20},
+  VIP:{minimum:3001,maximum:100000,rate:40}
+};
+let memberTransactions = [];
+let memberSummary = {balance:0,deposited:0,withdrawn:0,invested:0,earnings:0,activeInvestments:0};
+let memberPlans = {...PLAN_DEFAULTS};
+
+function parseAmount(value) {
+  const raw=String(value ?? '').trim().replace(/^\$\s*/, '').replace(/\s/g, '');
+  if (!raw || !/^(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test(raw)) return NaN;
+  const amount=Number(raw.replace(/,/g, ''));
+  return Number.isFinite(amount) ? amount : NaN;
+}
+// Expose the parser because the dashboard wizard runs in a separate classic script.
+window.parseAmount = parseAmount;
+function money(value) {
+  return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(Number(value)||0);
+}
+function safeText(value) {
+  return String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+}
+function setMemberMessage(id,message,type='') {
+  const el=document.getElementById(id);
+  if(!el) return;
+  el.textContent=message||'';
+  el.className='auth-message'+(message?' show '+type:'');
+}
+function setText(id,value) {
+  const el=document.getElementById(id);
+  if(el) el.textContent=value;
+}
+
+function memberActivityKey(){return 'memberActivity_'+(window.__authState?.user?.id||'guest');}
+function recordMemberLogin(){
+  const user=window.__authState?.user;if(!user)return;
+  try{
+    const key=memberActivityKey();const list=JSON.parse(localStorage.getItem(key)||'[]');
+    const now=Date.now();if(!list.length||now-Number(list[0].time)>60000){list.unshift({type:'login',time:now,label:'User Logged In',detail:'Successfully logged into your account'});localStorage.setItem(key,JSON.stringify(list.slice(0,20)));}
+  }catch(e){console.warn('Could not save local activity log',e);}
+}
+function recordCard(title,detail,status,date){
+  const label=String(status||'').toLowerCase();
+  return `<div class="record-item"><div><strong>${safeText(title)}</strong><small>${safeText(detail||'')}${date?' · '+safeText(date):''}</small></div>${status?`<span class="record-status ${label==='pending'?'pending':''}">${safeText(status)}</span>`:''}</div>`;
+}
+function renderRecordList(id,items,emptyText,renderer){
+  const el=document.getElementById(id);if(!el)return;
+  el.innerHTML=items.length?items.map(renderer).join(''):`<div class="empty">${safeText(emptyText)}</div>`;
+}
+function renderMemberSummary() {
+  const s=memberSummary;
+  setText('metricBalance',money(s.balance));
+  setText('metricInvested',money(s.invested));
+  setText('metricEarnings',money(s.earnings));
+  setText('metricActiveInvestments',String(s.activeInvestments));
+  setText('metricDeposited',money(s.deposited));
+  setText('metricWithdrawn',money(s.withdrawn));
+  setText('withdrawAvailable',money(s.balance));
+  setText('profileBalance',money(s.balance));
+  setText('profileDeposited',money(s.deposited));
+  setText('profileWithdrawn',money(s.withdrawn));
+  setText('profileEarnings',money(s.earnings));
+}
+function renderTransactionHistory() {
+  const investments=memberTransactions.filter(tx=>tx.type==='investment');
+  const pending=investments.filter(tx=>tx.status==='pending');
+  const recent=memberTransactions.slice(0,5);
+  const fmt=tx=>new Date(tx.created_at).toLocaleString();
+  const investmentRenderer=tx=>recordCard((tx.method||'Investment').replace(/ Plan$/,''),money(tx.amount)+' · '+(tx.reference||'Investment'),tx.status,fmt(tx));
+  const transactionRenderer=tx=>recordCard(tx.type.charAt(0).toUpperCase()+tx.type.slice(1),money(tx.amount)+' · '+(tx.method||'—'),tx.status,fmt(tx));
+  let activity=[];
+  try{activity=JSON.parse(localStorage.getItem(memberActivityKey())||'[]');}catch(e){}
+  renderRecordList('historyActivity',activity,'No recent account activity.',item=>recordCard(item.label,item.detail,'Completed',new Date(item.time).toLocaleString()));
+  renderRecordList('historyPending',pending,'No pending investments. All investments are active, matured, or canceled.',investmentRenderer);
+  renderRecordList('historyInvestments',investments,'No investments yet. Start with your first investment above!',investmentRenderer);
+  renderRecordList('historyTransactions',memberTransactions,'No transactions yet.',transactionRenderer);
+  renderRecordList('homeInvestments',investments.slice(0,3),'No investments yet. Start with your first investment above!',investmentRenderer);
+  renderRecordList('homeTransactions',recent,'No transactions yet.',transactionRenderer);
+  const empty=document.getElementById('historyEmpty');if(empty)empty.hidden=memberTransactions.length>0;
+  const msg=document.getElementById('historyMessage');if(msg)msg.textContent='';
+}
+async function loadMemberData() {
+  const user=window.__authState?.user;
+  if(!user || !window.__authState?.authenticated) return;
+  setText('historyMessage','Loading your records…');
+  const [txResult,planResult]=await Promise.all([
+    supabase.from('transactions')
+      .select('id,type,amount,currency,method,reference,status,admin_reason,created_at,reviewed_at')
+      .eq('user_id',user.id).order('created_at',{ascending:false}).limit(100),
+    supabase.from('investment_plans')
+      .select('name,minimum_amount,maximum_amount,proposed_rate,active')
+      .eq('active',true).order('minimum_amount',{ascending:true})
+  ]);
+  if(txResult.error) {
+    console.error('[member] transaction load error:',txResult.error);
+    setText('historyMessage','Unable to load transaction records. Please refresh and try again.');
+    throw txResult.error;
+  }
+  memberTransactions=txResult.data||[];
+  if(!planResult.error && Array.isArray(planResult.data) && planResult.data.length) {
+    memberPlans={};
+    window.__memberPlanRules={};
+    planResult.data.forEach(plan=>{
+      memberPlans[plan.name]={minimum:Number(plan.minimum_amount),maximum:plan.maximum_amount===null?Infinity:Number(plan.maximum_amount),rate:Number(plan.proposed_rate)||0};
+      window.__memberPlanRules[plan.name]={minimum:Number(plan.minimum_amount),maximum:plan.maximum_amount===null?Infinity:Number(plan.maximum_amount),rate:Number(plan.proposed_rate)||0};
+    });
+    const select=document.getElementById('plan');
+    if(select) {
+      const previous=select.value;
+      select.innerHTML=planResult.data.map(plan=>`<option value="${safeText(plan.name)}">${safeText(plan.name)}</option>`).join('');
+      if(memberPlans[previous]) select.value=previous;
+      updatePlanLimits();
+    }
+  } else if(planResult.error) {
+    console.warn('[member] plan load error:',planResult.error);
+  }
+  const approved=memberTransactions.filter(tx=>tx.status==='approved');
+  const sum=(type)=>approved.filter(tx=>tx.type===type).reduce((n,tx)=>n+Number(tx.amount||0),0);
+  const deposited=sum('deposit');
+  const withdrawn=sum('withdrawal');
+  const invested=sum('investment');
+  memberSummary={
+    deposited,
+    withdrawn,
+    invested,
+    balance:Math.max(0,deposited-withdrawn-invested),
+    earnings:0,
+    activeInvestments:approved.filter(tx=>tx.type==='investment').length
+  };
+  renderMemberSummary();
+  renderTransactionHistory();
+}
+window.refreshMemberData=()=>loadMemberData().catch(error=>console.error('[member] refresh failed:',error));
+function renderPlanCards(){
+  const list=document.getElementById('planCards');const select=document.getElementById('plan');if(!list||!select)return;
+  const descriptions={Starter:'Perfect for beginners',Premium:'Most popular choice',Advanced:'Advanced investment plan',VIP:'VIP exclusive plan'};
+  const names=Object.keys(memberPlans).length?Object.keys(memberPlans):Object.keys(PLAN_DEFAULTS);
+  list.innerHTML=names.map(name=>{
+    const rule=memberPlans[name]||PLAN_DEFAULTS[name];const selected=select.value===name;
+    const max=Number.isFinite(rule.maximum)?money(rule.maximum):'No limit';
+    return `<button type="button" class="plan-choice ${selected?'selected':''}" onclick="selectInvestmentPlan('${safeText(name)}')"><span class="plan-choice-top"><span>${safeText(name)} Plan</span><span class="plan-choice-rate">${safeText(rule.rate)}% Return</span></span><span class="plan-choice-desc">${safeText(descriptions[name]||'Investment plan')} · proposed return over 24 hours</span><span class="plan-choice-meta"><span>Min Amount: ${money(rule.minimum)}</span><span>Duration: 1 day</span></span></button>`;
+  }).join('');
+}
+window.selectInvestmentPlan=function(name){const select=document.getElementById('plan');if(!select)return;select.value=name;updatePlanLimits();renderPlanCards();};
+function updatePlanLimits() {
+  const name=document.getElementById('plan')?.value;
+  const rule=memberPlans[name]||PLAN_DEFAULTS[name];
+  if(!rule) return;
+  const max=Number.isFinite(rule.maximum)?money(rule.maximum):'No limit';
+  setText('limits',`${name} Plan · Minimum ${money(rule.minimum)} · Maximum ${max}`);
+  setText('selectedPlanName',`${name} Plan`);
+  setText('selectedPlanDetails',`${rule.rate}% · 1 day`);
+  setText('amountMin',`Min: ${money(rule.minimum)}`);
+  setText('amountMax',`Max: ${max}`);
+  const amount=document.getElementById('amount');
+  if(amount) { amount.min=rule.minimum; amount.max=Number.isFinite(rule.maximum)?rule.maximum:''; }
+  updateInvestmentCalculation();
+  renderPlanCards();
+}
+function updateInvestmentCalculation() {
+  const name=document.getElementById('plan')?.value;
+  const rule=memberPlans[name]||PLAN_DEFAULTS[name];
+  const amount=parseAmount(document.getElementById('amount')?.value);
+  if(!rule) return;
+  const valid=Number.isFinite(amount) && amount>0 && amount>=rule.minimum && amount<=rule.maximum;
+  setText('calcText',valid?`Amount accepted for the ${name} plan. Proposed rate: ${rule.rate}%. Returns are not guaranteed. Press Continue to proceed.`:`Enter an amount between ${money(rule.minimum)} and ${money(rule.maximum)}.`);
+}
+window.submitInvestmentRequest=async function() {
+  const user=window.__authState?.user;
+  if(!user || !window.__authState?.authenticated) { showPage('loginPage'); return; }
+  const name=document.getElementById('plan').value;
+  const rule=memberPlans[name]||PLAN_DEFAULTS[name];
+  const amount=parseAmount(document.getElementById('amount').value);
+  const method=document.getElementById('investmentMethod')?.value;
+  const paymentReference=document.getElementById('investmentPaymentReference')?.value.trim();
+  if(!rule || !Number.isFinite(amount) || amount<rule.minimum || amount>rule.maximum) {
+    setMemberMessage('investmentMessage','Enter an amount within the selected plan limits.','error'); return;
+  }
+  if(!document.getElementById('risk').checked) {
+    setMemberMessage('investmentMessage','Please confirm that you understand the investment risks.','error'); return;
+  }
+  if(!['USDT','MTN Momo','Dahabshiil','Airtel Money','Mpesa'].includes(method)) {
+    setMemberMessage('investmentMessage','Please select a valid payment method.','error'); return;
+  }
+  if(!paymentReference) {
+    setMemberMessage('investmentMessage','Enter the payment transaction ID or the sender account/phone number.','error');
+    document.getElementById('investmentPaymentReference')?.focus(); return;
+  }
+  const button=document.getElementById('next');
+  button.disabled=true; button.textContent='Submitting…';
+  try {
+    const {error}=await supabase.from('transactions').insert({
+      user_id:user.id,type:'investment',amount,currency:'USD',method,
+      reference:`${name} Plan; proposed rate: ${rule.rate}%; payment reference/sender: ${paymentReference}`,status:'pending'
+    });
+    if(error) throw error;
+    setMemberMessage('investmentMessage','Investment request submitted successfully. Your payment details have been sent for administrator verification. Status: Pending.','success');
+    button.textContent='Request submitted';
+    await loadMemberData();
+    setTimeout(()=>{ currentStep=1; for(let i=1;i<=5;i++){const panel=document.getElementById('w'+i);if(panel)panel.hidden=i!==1;const step=document.getElementById('s'+i);if(step)step.classList.toggle('active',i===1);} const bar=document.getElementById('progress');if(bar)bar.style.width='20%'; const prev=document.getElementById('prev');if(prev)prev.disabled=true;button.disabled=false;button.textContent='Continue';document.getElementById('risk').checked=false;document.getElementById('amount').value='';document.getElementById('investmentPaymentReference').value='';setMemberMessage('investmentMessage','','');},1300);
+  } catch(error) {
+    console.error('[member] investment submit error:',error);
+    setMemberMessage('investmentMessage','We could not submit your request. Please try again or contact an administrator through the community.','error');
+    button.disabled=false; button.textContent='Confirm Investment';
+  }
+};
+window.submitWithdrawalRequest=async function() {
+  const user=window.__authState?.user;
+  if(!user || !window.__authState?.authenticated) { showPage('loginPage'); return; }
+  const amount=parseAmount(document.getElementById('withdrawAmount').value);
+  const method=document.getElementById('method').value;
+  const destination=document.getElementById('destination').value.trim();
+  if(!Number.isFinite(amount)||amount<10) { setMemberMessage('withdrawMessage','The minimum withdrawal request is $10.','error'); return; }
+  if(!destination) { setMemberMessage('withdrawMessage','Enter your wallet address or payment account details.','error'); return; }
+  if(amount>memberSummary.balance) { setMemberMessage('withdrawMessage',`Your approved available balance is ${money(memberSummary.balance)}. The requested amount is higher than your available balance.`,'error'); return; }
+  const button=document.getElementById('withdrawSubmitBtn');
+  button.disabled=true; button.textContent='Submitting…';
+  try {
+    const {error}=await supabase.from('transactions').insert({
+      user_id:user.id,type:'withdrawal',amount,currency:'USD',method,
+      reference:destination,status:'pending'
+    });
+    if(error) throw error;
+    setMemberMessage('withdrawMessage','Withdrawal request submitted. Status: Pending administrator review. No payout has been sent.','success');
+    document.getElementById('withdrawAmount').value='';
+    document.getElementById('destination').value='';
+    await loadMemberData();
+  } catch(error) {
+    console.error('[member] withdrawal submit error:',error);
+    setMemberMessage('withdrawMessage','We could not submit your request. Please check the details and try again.','error');
+  } finally {
+    button.disabled=false; button.textContent='Submit withdrawal request';
+  }
+};
+const planSelect=document.getElementById('plan');
+if(planSelect) planSelect.addEventListener('change',updatePlanLimits);
+const amountInput=document.getElementById('amount');
+if(amountInput) amountInput.addEventListener('input',updateInvestmentCalculation);
+updatePlanLimits();
+
+// Administrator console: all access is still checked by Supabase RLS/RPCs.
+function adminMsg(id,msg){const e=document.getElementById(id);if(e)e.textContent=msg||'';}
+window.showAdminTab=function(id,btn){document.querySelectorAll('#adminArea .admin-panel').forEach(x=>x.classList.remove('active'));document.getElementById(id)?.classList.add('active');document.querySelectorAll('.admin-side-nav button,.admin-mobile-nav button').forEach(x=>x.classList.remove('active'));if(btn)btn.classList.add('active');const side=[...document.querySelectorAll('.admin-side-nav button')];const mobile=[...document.querySelectorAll('.admin-mobile-nav button')];const index={adminOverview:0,adminMembers:1,adminInvestments:2,adminWithdrawals:3,adminRequests:4,adminAudit:5,adminPlans:6}[id];if(index!==undefined){side[index]?.classList.add('active');mobile[index]?.classList.add('active');}};
+window.loadAdminDashboard=async function(){
+ if(window.__authState?.profile?.role!=='admin')return;
+ const updateClock=()=>{const d=new Date();const date=document.getElementById('adminCurrentDate'),time=document.getElementById('adminCurrentTime');if(date)date.textContent=d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});if(time)time.textContent=d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});};updateClock();
+ await Promise.all([loadAdminOverview(),loadAdminRequests(),loadAdminWithdrawals(),loadAdminInvestments(),loadAdminMembers(),loadAdminPlans(),loadAdminAudit()]);
+};
+async function loadAdminOverview(){
+ const chart=document.getElementById('adminChart'),pendingBox=document.getElementById('adminPendingPreview'),recentBox=document.getElementById('adminRecentPreview');
+ const {data,error}=await supabase.from('transactions').select('id,user_id,type,amount,currency,method,reference,status,created_at').order('created_at',{ascending:false}).limit(1000);
+ if(error){if(chart)chart.textContent='Could not load transaction activity.';if(pendingBox)pendingBox.textContent='Could not load pending requests.';if(recentBox)recentBox.textContent='Could not load recent transactions.';return;}
+ const rows=data||[],pending=rows.filter(x=>x.status==='pending'),ids=[...new Set(rows.slice(0,8).map(x=>x.user_id))];let names={};
+ const [memberCountResult,allFinancialResult]=await Promise.all([supabase.from('profiles').select('id',{count:'exact',head:true}).eq('role','member'),supabase.from('transactions').select('type,amount,status').eq('status','approved').limit(5000)]);
+ const memberCount=document.getElementById('adminMemberCount');if(memberCount)memberCount.textContent=String(memberCountResult.count??'—');
+ if(!memberCountResult.error){const fin=allFinancialResult.data||[];const total=(type)=>fin.filter(t=>t.type===type).reduce((a,t)=>a+Number(t.amount||0),0);const invested=total('investment'),withdrawn=total('withdrawal'),deposited=total('deposit');const put=(id,val)=>{const el=document.getElementById(id);if(el)el.textContent=money(val);};put('adminTotalInvestments',invested);put('adminTotalWithdrawals',withdrawn);put('adminPlatformBalance',deposited-withdrawn-invested);}
+ const quickPending=document.getElementById('adminQuickPending');if(quickPending)quickPending.textContent=String(pending.length);
+ const pendingStat=document.getElementById('adminPendingCount');if(pendingStat)pendingStat.textContent=String(pending.length);
+ if(ids.length){const r=await supabase.from('profiles').select('id,full_name,email').in('id',ids);(r.data||[]).forEach(x=>names[x.id]=x.full_name||x.email||x.id);}
+ const today=new Date();today.setHours(0,0,0,0);const days=Array.from({length:7},(_,i)=>{const d=new Date(today);d.setDate(today.getDate()-6+i);return d;});
+ const totals=days.map(d=>rows.filter(x=>x.status==='approved'&&new Date(x.created_at).toDateString()===d.toDateString()).reduce((sum,x)=>sum+(Number(x.amount)||0),0));const max=Math.max(1,...totals);
+ if(chart)chart.innerHTML='<svg class="admin-chart" viewBox="0 0 700 190" role="img" aria-label="Approved transaction amounts by day">'+[0,1,2,3].map(i=>`<line x1="35" y1="${18+i*43}" x2="690" y2="${18+i*43}" stroke="#263650" stroke-width="1"/>`).join('')+totals.map((v,i)=>{const h=v/max*132;return `<rect x="${55+i*91}" y="${158-h}" width="48" height="${h}" rx="5" fill="#3b82f6"/><text x="${79+i*91}" y="178" fill="#91a0b7" font-size="11" text-anchor="middle">${days[i].toLocaleDateString('en',{weekday:'short'})}</text>`}).join('')+'</svg><div class="admin-stat-note">Approved transaction volume shown as recorded. This is activity data, not profit.</div>';
+ if(pendingBox)pendingBox.innerHTML=pending.length?'<div class="admin-stat-note">'+pending.length+' request(s) waiting for administrator review.</div><table class="admin-mini-table">'+pending.slice(0,5).map(x=>`<tr><td>${safeText(x.type)}</td><td>${safeText(names[x.user_id]||x.user_id)}</td><td>${money(x.amount)}</td><td><button class="admin-action" onclick="showAdminTab('adminRequests',document.querySelectorAll('.admin-tabs button')[1])">Review</button></td></tr>`).join('')+'</table>':'No pending requests.';
+ if(recentBox)recentBox.innerHTML=rows.length?'<table class="admin-mini-table">'+rows.slice(0,6).map(x=>`<tr><td>${safeText(x.type)}</td><td>${safeText(x.status)}</td><td>${money(x.amount)}</td></tr>`).join('')+'</table>':'No transactions recorded yet.';
+}
+async function loadAdminRequests(){
+ const msg=document.getElementById('adminRequestsMessage');
+ const body=document.getElementById('adminRequestsRows');
+ if(!body)return;
+ msg.textContent='Loading requests…';
+ const columns='id,user_id,type,amount,currency,method,reference,status,created_at';
+ let pendingRows=[];
+ for(let from=0; ; from+=1000){
+  const result=await supabase.from('transactions').select(columns).eq('status','pending').order('created_at',{ascending:false}).range(from,from+999);
+  if(result.error){msg.textContent='Could not load pending requests: '+result.error.message;return;}
+  const batch=result.data||[];
+  pendingRows.push(...batch);
+  if(batch.length<1000)break;
+ }
+ const reviewedResult=await supabase.from('transactions').select(columns).neq('status','pending').order('created_at',{ascending:false}).limit(300);
+ if(reviewedResult.error){msg.textContent='Could not load reviewed transactions: '+reviewedResult.error.message;return;}
+ const byId=new Map();
+ [...pendingRows,...(reviewedResult.data||[])].forEach(tx=>byId.set(tx.id,tx));
+ const rows=[...byId.values()].sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
+ const pending=pendingRows;
+ const pendingCount=document.getElementById('adminPendingCount');
+ const transactionCount=document.getElementById('adminTransactionCount');
+ if(pendingCount)pendingCount.textContent=String(pending.length);
+ if(transactionCount)transactionCount.textContent=String(rows.length);
+ const ids=[...new Set(rows.map(x=>x.user_id))];let names={};
+ if(ids.length){const r=await supabase.from('profiles').select('id,full_name,email').in('id',ids);if(r.error){msg.textContent='Requests loaded, but member names could not be loaded: '+r.error.message;return;}(r.data||[]).forEach(x=>names[x.id]=x.full_name||x.email||x.id);}
+ body.innerHTML=rows.map(tx=>`<tr><td>${safeText(new Date(tx.created_at).toLocaleString())}</td><td>${safeText(names[tx.user_id]||tx.user_id)}</td><td>${safeText(tx.type)}</td><td>${money(tx.amount)}</td><td>${safeText(tx.method||tx.reference||'—')}</td><td>${safeText(tx.status)}</td><td>${tx.status==='pending'?`<button class="admin-action" onclick="adminReview('${tx.id}','approved')">Approve</button><button class="admin-action reject" onclick="adminReview('${tx.id}','rejected')">Reject</button>`:'—'}</td></tr>`).join('');
+ msg.textContent=rows.length?`${rows.length} records loaded, including all ${pending.length} pending requests.`:'No transaction records found.';
+}
+async function loadAdminWithdrawals(){
+ const msg=document.getElementById('adminWithdrawalsMessage'),body=document.getElementById('adminWithdrawalsRows');if(!body)return;
+ msg.textContent='Loading withdrawal requests…';
+ const {data,error}=await supabase.from('transactions').select('id,user_id,amount,currency,method,reference,status,created_at').eq('type','withdrawal').order('created_at',{ascending:false}).limit(300);
+ if(error){msg.textContent='Could not load withdrawals: '+error.message;return;}
+ const ids=[...new Set((data||[]).map(x=>x.user_id))];let names={};
+ if(ids.length){const r=await supabase.from('profiles').select('id,full_name,email').in('id',ids);(r.data||[]).forEach(x=>names[x.id]=x.full_name||x.email||x.id);}
+ body.innerHTML=(data||[]).map(tx=>{const pending=tx.status==='pending';return '<tr><td>'+safeText(new Date(tx.created_at).toLocaleString())+'</td><td>'+safeText(names[tx.user_id]||tx.user_id)+'</td><td>'+money(tx.amount)+'</td><td>'+safeText(tx.method||'—')+'</td><td>'+safeText(tx.reference||'—')+'</td><td>'+safeText(tx.status)+'</td><td>'+(pending?'<button class="admin-action" onclick="adminReview(\''+tx.id+'\',\'approved\')">Approve</button><button class="admin-action reject" onclick="adminReview(\''+tx.id+'\',\'rejected\')">Reject</button>':'—')+'</td></tr>';}).join('');
+ msg.textContent=(data||[]).length?String(data.length)+' withdrawal records. Confirm the external payout separately after approval.':'No withdrawal requests found.';
+}
+async function loadAdminInvestments(){
+ const msg=document.getElementById('adminInvestmentsMessage'),body=document.getElementById('adminInvestmentsRows');if(!body)return;
+ msg.textContent='Loading investment records…';
+ const [txResult,planResult]=await Promise.all([
+  supabase.from('transactions').select('id,user_id,amount,currency,reference,status,created_at,reviewed_at').eq('type','investment').order('created_at',{ascending:false}).limit(500),
+  supabase.from('investment_plans').select('name,proposed_rate').eq('active',true)
+ ]);
+ if(txResult.error){msg.textContent='Could not load investments: '+txResult.error.message;return;}
+ const rateMap={};(planResult.data||[]).forEach(p=>rateMap[p.name]=Number(p.proposed_rate)||0);
+ const ids=[...new Set((txResult.data||[]).map(x=>x.user_id))];let names={};
+ if(ids.length){const r=await supabase.from('profiles').select('id,full_name,email').in('id',ids);(r.data||[]).forEach(x=>names[x.id]=x.full_name||x.email||x.id);}
+ const now=Date.now();
+ body.innerHTML=(txResult.data||[]).map(tx=>{
+  const ref=String(tx.reference||'');const plan=(ref.match(/^([^;]+?)\s+Plan/i)||[])[1]||'—';
+  const rateMatch=ref.match(/proposed rate:\s*([\d.]+)%/i);const rate=rateMatch?Number(rateMatch[1]):(rateMap[plan]||0);
+  const start=tx.reviewed_at||tx.created_at;const startMs=new Date(start).getTime();
+  const elapsed=tx.status==='approved'&&Number.isFinite(startMs)?Math.max(0,Math.min(24,(now-startMs)/3600000)):0;
+  const completed=Math.floor(elapsed);const projected=tx.status==='approved'?(Number(tx.amount)*rate/100*elapsed):0;
+  const maturityMs=Number.isFinite(startMs)?startMs+86400000:NaN;
+  const matured=tx.status==='approved'&&Number.isFinite(maturityMs)&&now>=maturityMs;
+  const maturity=Number.isFinite(maturityMs)?new Date(maturityMs).toLocaleString():'—';
+  const state=tx.status!=='approved'?(tx.status==='pending'?'Pending approval':'Rejected'):(matured?'Matured':'Active');
+  return '<tr><td>'+safeText(names[tx.user_id]||tx.user_id)+'</td><td>'+safeText(plan)+'</td><td>'+money(tx.amount)+'</td><td>'+rate.toFixed(2)+'%</td><td>'+(tx.status==='approved'?completed+'/24 hours':'—')+'</td><td>'+money(projected)+' <small>(projected)</small></td><td>'+safeText(maturity)+'</td><td>'+safeText(state)+'</td></tr>';
+ }).join('');
+ msg.textContent=(txResult.data||[]).length?String(txResult.data.length)+' investment records. Maturity is measured from admin approval; projected profit is informational and is not credited to member balances.':'No investment records found.';
+}
+window.loadAdminWithdrawals=loadAdminWithdrawals;
+window.loadAdminInvestments=loadAdminInvestments;
+window.__adminReviewInFlight=window.__adminReviewInFlight||new Set();
+window.adminReview=async function(id,decision){
+ if(window.__authState?.profile?.role!=='admin')return;
+ if(!id||!['approved','rejected'].includes(decision)||window.__adminReviewInFlight.has(id))return;
+ window.__adminReviewInFlight.add(id);
+ try{
+  const reason=prompt(decision==='approved'?'Optional approval note:':'Reason for rejection:','');
+  if(reason===null)return;
+  if(decision==='rejected'&&!reason.trim()){alert('A rejection reason is required.');return;}
+  const {error}=await supabase.rpc('admin_review_transaction',{p_transaction_id:id,p_decision:decision,p_reason:reason.trim()});
+  if(error){alert('Could not update request: '+error.message);return;}
+  alert('Request '+decision+'.');
+  await Promise.all([loadAdminRequests(),loadAdminWithdrawals(),loadAdminInvestments(),loadAdminAudit(),loadAdminOverview()]);
+ }catch(error){console.error('[admin] review error:',error);alert('Could not complete the review. Please refresh and check the request status.');}
+ finally{window.__adminReviewInFlight.delete(id);}
+};
+async function loadAdminMembers(){const msg=document.getElementById('adminMembersMessage'),body=document.getElementById('adminMembersRows');if(!body)return;msg.textContent='Loading members…';const {data,error}=await supabase.from('profiles').select('id,full_name,email,country_name,status,role,created_at').eq('role','member').order('created_at',{ascending:false}).limit(300);if(error){msg.textContent='Could not load members: '+error.message;return;}window.__adminMembers=data||[];document.getElementById('adminMemberCount').textContent=String(window.__adminMembers.length);renderAdminMembers(window.__adminMembers);msg.textContent=`${window.__adminMembers.length} registered members.`;}
+function renderAdminMembers(rows){const body=document.getElementById('adminMembersRows');if(!body)return;body.innerHTML=rows.map(m=>`<tr><td>${safeText(m.full_name||'—')}</td><td>${safeText(m.email||'—')}</td><td>${safeText(m.country_name||'—')}</td><td>${safeText(m.status)}</td><td><button class="admin-action ${m.status==='active'?'suspend':''}" onclick="adminSetMember('${m.id}','${m.status==='active'?'suspended':'active'}')">${m.status==='active'?'Suspend':'Reactivate'}</button></td></tr>`).join('');}
+window.filterAdminMembers=function(){const q=(document.getElementById('adminMemberSearch')?.value||'').trim().toLowerCase();const rows=(window.__adminMembers||[]).filter(m=>[m.full_name,m.email,m.country_name,m.status].some(v=>String(v||'').toLowerCase().includes(q)));renderAdminMembers(rows);adminMsg('adminMembersMessage',`${rows.length} matching member(s).`);};
+window.adminSetMember=async function(id,status){if(window.__authState?.profile?.role!=='admin')return;const reason=prompt(`Reason for ${status}:`,'');if(reason===null)return;const {error}=await supabase.rpc('admin_set_member_status',{p_member_id:id,p_status:status,p_reason:reason});if(error){alert('Could not update member: '+error.message);return;}alert('Member '+status+'.');await Promise.all([loadAdminMembers(),loadAdminAudit()]);};
+async function loadAdminPlans(){const msg=document.getElementById('adminPlansMessage'),body=document.getElementById('adminPlansRows');if(!body)return;const {data,error}=await supabase.from('investment_plans').select('id,name,minimum_amount,maximum_amount,proposed_rate,active').order('minimum_amount');if(error){msg.textContent='Could not load plans: '+error.message;return;}body.innerHTML=(data||[]).map(p=>`<tr><td>${safeText(p.name)}</td><td>${money(p.minimum_amount)}</td><td>${p.maximum_amount===null?'No limit':money(p.maximum_amount)}</td><td>${safeText(p.proposed_rate)}%</td><td>${p.active?'Active':'Inactive'}</td><td><button class="admin-action" onclick="adminEditPlan('${p.id}')">Edit</button></td></tr>`).join('');msg.textContent='Changes to plans apply to future investment requests.';window.__adminPlans=data||[];}
+window.adminEditPlan=function(id){const p=(window.__adminPlans||[]).find(x=>x.id===id);if(!p)return;document.getElementById('adminPlanName').value=p.name;document.getElementById('adminPlanMin').value=p.minimum_amount;document.getElementById('adminPlanMax').value=p.maximum_amount??'';document.getElementById('adminPlanRate').value=p.proposed_rate;document.getElementById('adminPlanActive').checked=!!p.active;};
+window.adminSavePlan=async function(){if(window.__authState?.profile?.role!=='admin')return;const name=document.getElementById('adminPlanName').value.trim(),minimum=Number(document.getElementById('adminPlanMin').value),maxRaw=document.getElementById('adminPlanMax').value,maximum=maxRaw===''?null:Number(maxRaw),rate=Number(document.getElementById('adminPlanRate').value),active=document.getElementById('adminPlanActive').checked;if(!name||!minimum||minimum<1|| (maximum!==null&&maximum<minimum)||!Number.isFinite(rate)||rate<0){adminMsg('adminPlansMessage','Enter valid plan details.');return;}const {error}=await supabase.rpc('admin_save_investment_plan',{p_name:name,p_minimum:minimum,p_maximum:maximum,p_rate:rate,p_active:active});if(error){adminMsg('adminPlansMessage','Save failed: '+error.message);return;}adminMsg('adminPlansMessage','Plan saved and audit record created.');await Promise.all([loadAdminPlans(),loadAdminAudit()]);};
+async function loadAdminAudit(){const msg=document.getElementById('adminAuditMessage'),body=document.getElementById('adminAuditRows');if(!body)return;const {data,error}=await supabase.from('audit_logs').select('id,admin_id,action,entity_type,entity_id,reason,created_at').order('created_at',{ascending:false}).limit(200);if(error){msg.textContent='Could not load audit log: '+error.message;return;}const ids=[...new Set((data||[]).map(x=>x.admin_id))];let emails={};if(ids.length){const {data:profiles}=await supabase.from('profiles').select('id,email,full_name').in('id',ids);(profiles||[]).forEach(x=>emails[x.id]=x.full_name||x.email||x.id);}body.innerHTML=(data||[]).map(x=>`<tr><td>${safeText(new Date(x.created_at).toLocaleString())}</td><td>${safeText(emails[x.admin_id]||x.admin_id)}</td><td>${safeText(x.action)}</td><td>${safeText(x.entity_type)} · ${safeText(x.entity_id)}</td><td>${safeText(x.reason||'—')}</td></tr>`).join('');msg.textContent=`${(data||[]).length} recent audit records.`;}
+
+window.__authReady = true;
+document.dispatchEvent(new Event('supabase-auth-ready'));
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded',restoreSessionOnLoad,{once:true});
+} else {
+  restoreSessionOnLoad();
+}
+
+/* Do not call Supabase/database methods inside this callback.
+   Auth events are handled synchronously; profile reads happen in the
+   explicit login, registration, restore and dashboard-check flows. */
+supabase.auth.onAuthStateChange((event) => {
+  if (event === 'SIGNED_OUT') {
+    setAuthState(null,null);
+    fillProfileUI(null);
+    const dashboard = document.getElementById('dashboardPage');
+    if (dashboard?.classList.contains('active')) showPage('homePage');
+  }
+});
+</script>
+
+<script>
+let registeredFullName = '';
+
+function showPage(pageId) {
+  const target = document.getElementById(pageId);
+  if (!target) return;
+  if (pageId === 'dashboardPage' && !window.__authState?.authenticated) {
+    document.querySelectorAll('body > .page').forEach(page => page.classList.remove('active'));
+    document.getElementById('loginPage').classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+    return;
+  }
+  document.querySelectorAll('body > .page').forEach(page => page.classList.remove('active'));
+  target.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function showDash(id,button) {
+  if (!window.__authState?.authenticated) {
+    showPage('loginPage');
+    return;
+  }
+  const target = document.getElementById(id);
+  if (!target || !target.classList.contains('page')) return;
+  document.querySelectorAll('.dash-root .page').forEach(page => page.classList.remove('active'));
+  target.classList.add('active');
+  document.querySelectorAll('.dash-root .nav button').forEach(item => item.classList.remove('active'));
+  if (button) button.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function wireAuthForms() {
+  const loginForm = document.getElementById('loginForm');
+  const registerForm = document.getElementById('registerForm');
+  if (loginForm && window.handleLoginSubmit && !loginForm.dataset.supabaseBound) {
+    loginForm.addEventListener('submit',window.handleLoginSubmit);
+    loginForm.dataset.supabaseBound = '1';
+  }
+  if (registerForm && window.handleRegisterSubmit && !registerForm.dataset.supabaseBound) {
+    registerForm.addEventListener('submit',window.handleRegisterSubmit);
+    registerForm.dataset.supabaseBound = '1';
+  }
+}
+if (window.__authReady) wireAuthForms();
+else document.addEventListener('supabase-auth-ready',wireAuthForms,{once:true});
+
+const countryCodes = {UG:'+256',SS:'+211',LR:'+231',LS:'+266',SO:'+252',SL:'+232'};
+const countrySelect = document.getElementById('country');
+const phoneCode = document.getElementById('phoneCode');
+const phoneInput = document.getElementById('phone');
+
+countrySelect.addEventListener('change',function() {
+  phoneCode.textContent = countryCodes[this.value] || '--';
+  phoneInput.value = '';
+});
+phoneInput.addEventListener('input',function() {
+  const code = countryCodes[countrySelect.value];
+  if (!code) return;
+  let digits = this.value.replace(/\D/g,'');
+  const codeDigits = code.replace(/\D/g,'');
+  if (digits.startsWith(codeDigits)) digits = digits.substring(codeDigits.length);
+  this.value = digits;
+});
+
+function nextRegisterStep() {
+  const fullName = document.getElementById('fullName');
+  const email = document.getElementById('registerEmail');
+  const country = document.getElementById('country');
+  if (!fullName.reportValidity() || !email.reportValidity() || !country.reportValidity()) return;
+  phoneCode.textContent = countryCodes[country.value] || '--';
+  document.getElementById('step1').classList.remove('active');
+  document.getElementById('step2').classList.add('active');
+  document.getElementById('registerProgress').style.width = '100%';
+  phoneInput.focus();
+}
+function prevRegisterStep() {
+  document.getElementById('step2').classList.remove('active');
+  document.getElementById('step1').classList.add('active');
+  document.getElementById('registerProgress').style.width = '50%';
+}
+
+let currentStep = 1;
+const rules = {Starter:[100,500],Premium:[501,1000],Advanced:[1001,3000],VIP:[3001,100000]};
+window.__memberPlanRules={Starter:{minimum:100,maximum:500,rate:6},Premium:{minimum:501,maximum:1000,rate:14},Advanced:{minimum:1001,maximum:3000,rate:20},VIP:{minimum:3001,maximum:100000,rate:40}};
+function dashStep(direction) {
+  if (direction === 1 && currentStep === 5) {
+    if (window.submitInvestmentRequest) window.submitInvestmentRequest();
+    return;
+  }
+  if (direction === 1 && currentStep === 2) {
+    const fallback = rules[document.getElementById('plan').value];
+    const rule = window.__memberPlanRules?.[document.getElementById('plan').value] || (fallback ? {minimum:fallback[0],maximum:fallback[1],rate:0} : null);
+    const amount = window.parseAmount(document.getElementById('amount').value);
+    if (!rule || !Number.isFinite(amount) || amount < rule.minimum || amount > rule.maximum) {
+      alert('Enter an amount within the selected plan limits.');
+      return;
+    }
+  }
+  if (direction === 1 && currentStep === 3 && !document.getElementById('risk').checked) {
+    alert('Please confirm that you understand the risks.');
+    return;
+  }
+  if (direction === 1 && currentStep === 4) {
+    const method=document.getElementById('investmentMethod')?.value;
+    const reference=document.getElementById('investmentPaymentReference')?.value.trim();
+    if(!method){alert('Please select a payment method.');return;}
+    if(!reference){alert('Enter the payment transaction ID or sender account/phone number.');document.getElementById('investmentPaymentReference')?.focus();return;}
+  }
+  currentStep = Math.max(1,Math.min(5,currentStep + direction));
+  for(let i=1;i<=5;i++) {
+    const panel=document.getElementById('w'+i);
+    const step=document.getElementById('s'+i);
+    if(panel) panel.hidden=i!==currentStep;
+    if(step) step.classList.toggle('active',i<=currentStep);
+  }
+  document.getElementById('progress').style.width=(currentStep*20)+'%';
+  document.getElementById('prev').disabled=currentStep===1;
+  document.getElementById('next').textContent=currentStep===5?'Confirm Investment':'Continue';
+  if(currentStep===2) updatePlanLimits();
+  if(currentStep===5) {
+    const planName=document.getElementById('plan').value;
+    const planRule=window.__memberPlanRules?.[planName]||{rate:0};
+    const amount=window.parseAmount(document.getElementById('amount').value);
+    const method=document.getElementById('investmentMethod').value;
+    const paymentReference=document.getElementById('investmentPaymentReference').value.trim();
+    document.getElementById('review').textContent='Plan: '+planName+' · Amount: '+new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(amount)+' · Proposed rate: '+planRule.rate+'% · Payment: '+method+' · Payment reference/sender: '+paymentReference+' · Status: Pending administrator verification after submission.';
+  }
+}
+function updateDestination() {
+  const method = document.getElementById('method').value;
+  document.getElementById('destinationLabel').textContent = method === 'USDT' ? 'USDT wallet address' : method+' account or phone number';
+  document.getElementById('destination').placeholder = method === 'USDT' ? 'Enter USDT wallet address' : 'Enter '+method+' account or phone number';
+}
+function toggleTheme() {
+  const root=document.querySelector('.dash-root');
+  if(!root)return;
+  root.classList.toggle('light-theme');
+}
+</script>
+</body>
+</html>
