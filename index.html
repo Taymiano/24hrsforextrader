@@ -90,16 +90,9 @@ footer { text-align:center; padding:25px 15px 40px; color:var(--muted); border-t
 .create-link a { color:white; font-weight:700; text-decoration:none; cursor:pointer; }
 .support-box { background:#1e2432; border:1px solid #2c3546; border-radius:12px; padding:22px; text-align:center; }
 .support-box p { color:var(--muted); margin-bottom:15px; }
-.support-btn { display:block; width:100%; border:1px solid #39445a; padding:13px; border-radius:8px; color:white; text-decoration:none; font-weight:600; margin-bottom:15px; }
-.admin-number { color:var(--muted); font-size:.9rem; }
 .back-btn { background:transparent; border:1px solid var(--border); color:white; padding:10px 16px; border-radius:8px; cursor:pointer; margin-bottom:25px; }
-.whatsapp-float { position:fixed; bottom:24px; right:24px; width:62px; height:62px; border-radius:50%; background:var(--green); display:flex; align-items:center; justify-content:center; z-index:9999; box-shadow:0 4px 12px rgba(0,0,0,.4); text-decoration:none; animation:pulse 1.8s infinite; }
-.whatsapp-float svg { width:35px; height:35px; fill:white; }
-.whatsapp-label { position:fixed; bottom:42px; right:98px; background:white; color:#111; padding:8px 13px; border-radius:20px; font-size:13px; font-weight:600; z-index:9998; }
-@keyframes pulse { 0% { transform:scale(1); box-shadow:0 0 0 0 rgba(37,211,102,.7); } 50% { transform:scale(1.08); box-shadow:0 0 0 12px rgba(37,211,102,0); } 100% { transform:scale(1); box-shadow:0 0 0 0 rgba(37,211,102,0); } }
 @media(min-width:768px) { .button-group { flex-direction:row; } }
-@media(max-width:480px) { .auth-card { padding:24px; background:transparent; border:none; box-shadow:none; } .auth-wrapper { padding:20px 16px; } .auth-header h1 { font-size:1.75rem; } .whatsapp-label { display:none; } .brand { font-size:.85rem; } .nav-actions button { padding:7px 9px; font-size:.8rem; } }
-@media(prefers-reduced-motion:reduce) { .whatsapp-float { animation:none; } }
+@media(max-width:480px) { .auth-card { padding:24px; background:transparent; border:none; box-shadow:none; } .auth-wrapper { padding:20px 16px; } .auth-header h1 { font-size:1.75rem; } .brand { font-size:.85rem; } .nav-actions button { padding:7px 9px; font-size:.8rem; } }
 
 /* ================= DASHBOARD STYLES ================= */
 .dash-body { background:#0b1220; color:#f4f7fb; padding-bottom:88px; }
@@ -456,7 +449,7 @@ footer { text-align:center; padding:25px 15px 40px; color:var(--muted); border-t
 <button type="submit" class="signin-btn" id="loginSubmitBtn">Sign in</button>
 </form>
 <div class="create-link">New user? <a onclick="showPage('registerPage')">Create account</a></div>
-<div class="support-box"><p>Need help signing in?</p><a href="https://wa.me/254753556384" target="_blank" rel="noopener noreferrer" class="support-btn">☎ Support WhatsApp</a><div class="admin-number">Admin: +254753556384</div></div>
+<div class="support-box"><p>Need help signing in?</p><span>Contact an administrator through the community.</span></div>
 </div></div>
 </section>
 
@@ -481,7 +474,7 @@ footer { text-align:center; padding:25px 15px 40px; color:var(--muted); border-t
 </div>
 </form>
 <div class="create-link" style="margin-top:20px;">Already registered? <a onclick="showPage('loginPage')">Sign in</a></div>
-<div class="support-box"><p>Need help creating your account?</p><a href="https://wa.me/254753556384" target="_blank" rel="noopener noreferrer" class="support-btn">☎ Support WhatsApp</a><div class="admin-number">Admin: +254753556384</div></div>
+<div class="support-box"><p>Need help creating your account?</p><span>Contact an administrator through the community.</span></div>
 </div></div>
 </section>
 
@@ -570,7 +563,6 @@ footer { text-align:center; padding:25px 15px 40px; color:var(--muted); border-t
 </div>
 </section>
 </main>
-<a class="support" href="https://wa.me/254753556384" target="_blank" rel="noopener" aria-label="WhatsApp support">☏</a>
 <nav class="bottom"><div class="nav">
 <button class="active" onclick="showDash('dash-home',this)"><span>⌂</span>Home</button>
 <button onclick="showDash('dash-invest',this)"><span>↗</span>Invest</button>
@@ -600,10 +592,7 @@ footer { text-align:center; padding:25px 15px 40px; color:var(--muted); border-t
 </div>
 </section>
 
-<span class="whatsapp-label">Chat with us</span>
-<a href="https://wa.me/254753556384?text=Hello%2C%20I%20need%20assistance." class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Contact WhatsApp support">
-<svg viewBox="0 0 32 32"><path d="M16.004 2.667C8.64 2.667 2.67 8.637 2.67 16c0 2.352.614 4.648 1.78 6.67L2.67 29.333l6.83-1.79A13.27 13.27 0 0016.003 29.33c7.363 0 13.333-5.97 13.333-13.333S23.367 2.667 16.004 2.667zm0 24.195c-2.09 0-4.137-.56-5.92-1.62l-.425-.252-4.4 1.153 1.174-4.29-.278-.444a10.66 10.66 0 01-1.637-5.69c0-5.9 4.802-10.7 10.7-10.7 5.9 0 10.7 4.8 10.7 10.7 0 5.9-4.8 10.7-10.7 10.7z"/></svg>
-</a>
+
 
 <script type="module">
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
@@ -710,7 +699,7 @@ async function restoreSessionOnLoad() {
       setAuthState(null,null);
       await supabase.auth.signOut();
       if (profile && profile.status !== 'active') {
-        setMessage('loginMessage','Your account is not active. Please contact support at +254753556384.','error');
+        setMessage('loginMessage','Your account is not active. Please contact an administrator through the community.','error');
       }
       return;
     }
@@ -780,13 +769,13 @@ async function handleLoginSubmit(event) {
     if (!profile) {
       await supabase.auth.signOut();
       setAuthState(null,null);
-      setMessage('loginMessage','We could not load your account profile. Please contact support at +254753556384.','error');
+      setMessage('loginMessage','We could not load your account profile. Please contact an administrator through the community.','error');
       return;
     }
     if (profile.status !== 'active' || !['member','admin'].includes(profile.role)) {
       await supabase.auth.signOut();
       setAuthState(null,null);
-      setMessage('loginMessage','Your account is suspended or inactive. Please contact support at +254753556384.','error');
+      setMessage('loginMessage','Your account is suspended or inactive. Please contact an administrator through the community.','error');
       return;
     }
     setAuthState(data.user,profile);
@@ -1094,7 +1083,7 @@ window.submitInvestmentRequest=async function() {
     setTimeout(()=>{ currentStep=1; for(let i=1;i<=5;i++){const panel=document.getElementById('w'+i);if(panel)panel.hidden=i!==1;const step=document.getElementById('s'+i);if(step)step.classList.toggle('active',i===1);} const bar=document.getElementById('progress');if(bar)bar.style.width='20%'; const prev=document.getElementById('prev');if(prev)prev.disabled=true;button.disabled=false;button.textContent='Continue';document.getElementById('risk').checked=false;document.getElementById('amount').value='';document.getElementById('investmentPaymentReference').value='';setMemberMessage('investmentMessage','','');},1300);
   } catch(error) {
     console.error('[member] investment submit error:',error);
-    setMemberMessage('investmentMessage','We could not submit your request. Please try again or contact support.','error');
+    setMemberMessage('investmentMessage','We could not submit your request. Please try again or contact an administrator through the community.','error');
     button.disabled=false; button.textContent='Confirm Investment';
   }
 };
