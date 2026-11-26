@@ -178,6 +178,17 @@ footer { text-align:center; padding:25px 15px 40px; color:var(--muted); border-t
 .admin-table{width:100%;border-collapse:collapse;min-width:650px}.admin-table th,.admin-table td{padding:11px 9px;border-bottom:1px solid #263650;text-align:left;font-size:.86rem;vertical-align:middle}
 .admin-table th{color:#91a0b7}.admin-scroll{overflow:auto}.admin-action{border:0;border-radius:7px;padding:7px 9px;margin:2px;font-weight:700;color:#fff;background:#2563eb}.admin-action.reject{background:#991b1b}.admin-action.suspend{background:#92400e}.admin-field{width:100%;background:#0b1220;border:1px solid #263650;color:#fff;border-radius:8px;padding:11px;margin:5px 0 12px}
 .admin-note{background:#17243a;border:1px solid #263650;padding:12px;border-radius:9px;color:#cbd5e1;margin:10px 0}
+
+/* ADMIN DASHBOARD ENHANCEMENTS */
+.admin-overview-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(240px,1fr);gap:14px;margin:14px 0}
+.admin-card{background:#101a2b;border:1px solid #263650;border-radius:14px;padding:16px;margin-bottom:14px;min-width:0}
+.admin-card h2{font-size:1.02rem;margin:0 0 12px}.admin-chart{width:100%;height:190px;display:block}.admin-chart-labels{display:flex;justify-content:space-between;color:#91a0b7;font-size:.72rem;margin-top:5px}
+.admin-quick-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.admin-quick-actions button{background:#172b49;border:1px solid #2b4770;color:#eaf2ff;border-radius:10px;padding:13px 8px;text-align:left;font-weight:700}
+.admin-quick-actions button span{display:block;color:#93c5fd;font-size:1.2rem;margin-bottom:5px}.admin-mini-table{width:100%;border-collapse:collapse}.admin-mini-table td{padding:9px 5px;border-bottom:1px solid #263650;font-size:.82rem}.admin-mini-table tr:last-child td{border-bottom:0}
+.admin-search{width:100%;background:#0b1220;border:1px solid #263650;color:#fff;border-radius:8px;padding:11px;margin:8px 0 14px}
+.admin-stat-note{font-size:.75rem;color:#91a0b7;margin-top:5px}
+@media(max-width:700px){.admin-overview-grid{grid-template-columns:1fr}.admin-root{padding-left:12px;padding-right:12px}.admin-card{padding:13px}}
+
 /* ================= REGISTRATION TWO-STEP FORM ================= */
 .register-step { display:none; }
 .register-step.active { display:block; }
@@ -580,13 +591,33 @@ footer { text-align:center; padding:25px 15px 40px; color:var(--muted); border-t
     <div class="metric green"><div class="label">Transactions</div><div class="value" id="adminTransactionCount">0</div></div>
   </div>
   <div class="admin-tabs">
-    <button class="active" onclick="showAdminTab('adminRequests',this)">Requests</button>
+    <button class="active" onclick="showAdminTab('adminOverview',this)">Overview</button>
+    <button onclick="showAdminTab('adminRequests',this)">Requests</button>
+    <button onclick="showAdminTab('adminWithdrawals',this);loadAdminWithdrawals()">Withdrawals</button>
+    <button onclick="showAdminTab('adminInvestments',this);loadAdminInvestments()">Investments</button>
     <button onclick="showAdminTab('adminMembers',this)">Members</button>
     <button onclick="showAdminTab('adminPlans',this)">Plans</button>
     <button onclick="showAdminTab('adminAudit',this)">Audit Log</button>
   </div>
-  <section id="adminRequests" class="admin-panel active"><div class="card"><h2>Transaction requests</h2><div id="adminRequestsMessage" class="muted">Loading requests…</div><div class="admin-scroll"><table class="admin-table"><thead><tr><th>Date</th><th>Member</th><th>Type</th><th>Amount</th><th>Method / Plan</th><th>Status</th><th>Action</th></tr></thead><tbody id="adminRequestsRows"></tbody></table></div></div></section>
-  <section id="adminMembers" class="admin-panel"><div class="card"><h2>Registered members</h2><div id="adminMembersMessage" class="muted">Loading members…</div><div class="admin-scroll"><table class="admin-table"><thead><tr><th>Name</th><th>Email</th><th>Country</th><th>Status</th><th>Action</th></tr></thead><tbody id="adminMembersRows"></tbody></table></div></div></section>
+  <section id="adminOverview" class="admin-panel active">
+    <div class="admin-overview-grid">
+      <div class="admin-card"><h2>Transaction activity · Last 7 days</h2><div id="adminChart"><div class="muted">Loading activity…</div></div><div class="admin-chart-labels"><span>7 days ago</span><span>Today</span></div></div>
+      <div class="admin-card"><h2>Quick actions</h2><div class="admin-quick-actions">
+        <button onclick="showAdminTab('adminRequests',document.querySelectorAll('.admin-tabs button')[1])"><span>↗</span>Review requests</button>
+        <button onclick="showAdminTab('adminWithdrawals',document.querySelectorAll('.admin-tabs button')[2]);loadAdminWithdrawals()"><span>⇧</span>Withdrawals</button>
+        <button onclick="showAdminTab('adminMembers',document.querySelectorAll('.admin-tabs button')[4])"><span>◎</span>Manage members</button>
+        <button onclick="showAdminTab('adminAudit',document.querySelectorAll('.admin-tabs button')[6]);loadAdminAudit()"><span>◷</span>View audit log</button>
+      </div></div>
+    </div>
+    <div class="admin-overview-grid">
+      <div class="admin-card"><h2>Pending approvals</h2><div id="adminPendingPreview" class="muted">Loading pending requests…</div></div>
+      <div class="admin-card"><h2>Recent transactions</h2><div id="adminRecentPreview" class="muted">Loading recent transactions…</div></div>
+    </div>
+  </section>
+  <section id="adminRequests" class="admin-panel"><div class="card"><h2>Transaction requests</h2><div id="adminRequestsMessage" class="muted">Loading requests…</div><div class="admin-scroll"><table class="admin-table"><thead><tr><th>Date</th><th>Member</th><th>Type</th><th>Amount</th><th>Method / Plan</th><th>Status</th><th>Action</th></tr></thead><tbody id="adminRequestsRows"></tbody></table></div></div></section>
+  <section id="adminWithdrawals" class="admin-panel"><div class="card"><h2>Withdrawal requests</h2><div class="admin-note">Review the payment destination and verify eligible funds before approving. Approval records the decision; the actual payout must still be sent and confirmed by an administrator.</div><div id="adminWithdrawalsMessage" class="muted">Loading withdrawal requests…</div><div class="admin-scroll"><table class="admin-table"><thead><tr><th>Date</th><th>Member</th><th>Amount</th><th>Method</th><th>Payment destination</th><th>Status</th><th>Action</th></tr></thead><tbody id="adminWithdrawalsRows"></tbody></table></div></div></section>
+  <section id="adminInvestments" class="admin-panel"><div class="card"><h2>Investment maturity monitor</h2><div class="admin-note">Approved investments use the 24-hour term shown in the member flow. Hourly profit figures are projections from the displayed plan rate, not confirmed earnings or funds available to withdraw. Only credit profit that has actually been realized and funded.</div><div id="adminInvestmentsMessage" class="muted">Loading investment records…</div><div class="admin-scroll"><table class="admin-table"><thead><tr><th>Member</th><th>Plan</th><th>Principal</th><th>Rate / hour</th><th>Elapsed</th><th>Projected profit</th><th>Maturity</th><th>Status</th></tr></thead><tbody id="adminInvestmentsRows"></tbody></table></div></div></section>
+  <section id="adminMembers" class="admin-panel"><div class="card"><h2>Registered members</h2><input id="adminMemberSearch" class="admin-search" type="search" placeholder="Search name, email or country…" oninput="filterAdminMembers()"><div id="adminMembersMessage" class="muted">Loading members…</div><div class="admin-scroll"><table class="admin-table"><thead><tr><th>Name</th><th>Email</th><th>Country</th><th>Status</th><th>Action</th></tr></thead><tbody id="adminMembersRows"></tbody></table></div></div></section>
   <section id="adminPlans" class="admin-panel"><div class="card"><h2>Manage investment plans</h2><div class="field"><label>Plan name</label><input id="adminPlanName" class="admin-field" placeholder="e.g. Starter"></div><div class="field"><label>Minimum amount (USD)</label><input id="adminPlanMin" class="admin-field" type="number" min="1"></div><div class="field"><label>Maximum amount (USD)</label><input id="adminPlanMax" class="admin-field" type="number" min="1"></div><div class="field"><label>Proposed rate (%)</label><input id="adminPlanRate" class="admin-field" type="number" min="0" step="0.01"></div><label><input type="checkbox" id="adminPlanActive" checked> Active plan</label><button class="btn primary" style="width:100%;margin-top:14px" onclick="adminSavePlan()">Save plan</button><div id="adminPlansMessage" class="admin-note">Plan changes are recorded in the administrator audit log.</div><div class="admin-scroll"><table class="admin-table"><thead><tr><th>Plan</th><th>Minimum</th><th>Maximum</th><th>Rate</th><th>Status</th><th></th></tr></thead><tbody id="adminPlansRows"></tbody></table></div></div></section>
   <section id="adminAudit" class="admin-panel"><div class="card"><h2>Administrator activity</h2><div id="adminAuditMessage" class="muted">Loading audit records…</div><div class="admin-scroll"><table class="admin-table"><thead><tr><th>Date</th><th>Administrator</th><th>Action</th><th>Record</th><th>Reason</th></tr></thead><tbody id="adminAuditRows"></tbody></table></div></div></section>
 </div>
@@ -1126,8 +1157,20 @@ function adminMsg(id,msg){const e=document.getElementById(id);if(e)e.textContent
 window.showAdminTab=function(id,btn){document.querySelectorAll('.admin-panel').forEach(x=>x.classList.remove('active'));document.getElementById(id)?.classList.add('active');document.querySelectorAll('.admin-tabs button').forEach(x=>x.classList.remove('active'));if(btn)btn.classList.add('active');};
 window.loadAdminDashboard=async function(){
  if(window.__authState?.profile?.role!=='admin')return;
- await Promise.all([loadAdminRequests(),loadAdminMembers(),loadAdminPlans(),loadAdminAudit()]);
+ await Promise.all([loadAdminOverview(),loadAdminRequests(),loadAdminWithdrawals(),loadAdminInvestments(),loadAdminMembers(),loadAdminPlans(),loadAdminAudit()]);
 };
+async function loadAdminOverview(){
+ const chart=document.getElementById('adminChart'),pendingBox=document.getElementById('adminPendingPreview'),recentBox=document.getElementById('adminRecentPreview');
+ const {data,error}=await supabase.from('transactions').select('id,user_id,type,amount,currency,method,reference,status,created_at').order('created_at',{ascending:false}).limit(300);
+ if(error){if(chart)chart.textContent='Could not load transaction activity.';if(pendingBox)pendingBox.textContent='Could not load pending requests.';if(recentBox)recentBox.textContent='Could not load recent transactions.';return;}
+ const rows=data||[],pending=rows.filter(x=>x.status==='pending'),ids=[...new Set(rows.slice(0,8).map(x=>x.user_id))];let names={};
+ if(ids.length){const r=await supabase.from('profiles').select('id,full_name,email').in('id',ids);(r.data||[]).forEach(x=>names[x.id]=x.full_name||x.email||x.id);}
+ const today=new Date();today.setHours(0,0,0,0);const days=Array.from({length:7},(_,i)=>{const d=new Date(today);d.setDate(today.getDate()-6+i);return d;});
+ const totals=days.map(d=>rows.filter(x=>x.status==='approved'&&new Date(x.created_at).toDateString()===d.toDateString()).reduce((sum,x)=>sum+(Number(x.amount)||0),0));const max=Math.max(1,...totals);
+ if(chart)chart.innerHTML='<svg class="admin-chart" viewBox="0 0 700 190" role="img" aria-label="Approved transaction amounts by day">'+[0,1,2,3].map(i=>`<line x1="35" y1="${18+i*43}" x2="690" y2="${18+i*43}" stroke="#263650" stroke-width="1"/>`).join('')+totals.map((v,i)=>{const h=v/max*132;return `<rect x="${55+i*91}" y="${158-h}" width="48" height="${h}" rx="5" fill="#3b82f6"/><text x="${79+i*91}" y="178" fill="#91a0b7" font-size="11" text-anchor="middle">${days[i].toLocaleDateString('en',{weekday:'short'})}</text>`}).join('')+'</svg><div class="admin-stat-note">Approved transaction volume shown as recorded. This is activity data, not profit.</div>';
+ if(pendingBox)pendingBox.innerHTML=pending.length?'<div class="admin-stat-note">'+pending.length+' request(s) waiting for administrator review.</div><table class="admin-mini-table">'+pending.slice(0,5).map(x=>`<tr><td>${safeText(x.type)}</td><td>${safeText(names[x.user_id]||x.user_id)}</td><td>${money(x.amount)}</td><td><button class="admin-action" onclick="showAdminTab('adminRequests',document.querySelectorAll('.admin-tabs button')[1])">Review</button></td></tr>`).join('')+'</table>':'No pending requests.';
+ if(recentBox)recentBox.innerHTML=rows.length?'<table class="admin-mini-table">'+rows.slice(0,6).map(x=>`<tr><td>${safeText(x.type)}</td><td>${safeText(x.status)}</td><td>${money(x.amount)}</td></tr>`).join('')+'</table>':'No transactions recorded yet.';
+}
 async function loadAdminRequests(){
  const msg=document.getElementById('adminRequestsMessage');const body=document.getElementById('adminRequestsRows');if(!body)return;msg.textContent='Loading requests…';
  const {data,error}=await supabase.from('transactions').select('id,user_id,type,amount,currency,method,reference,status,created_at').order('created_at',{ascending:false}).limit(300);
@@ -1137,8 +1180,48 @@ async function loadAdminRequests(){
  body.innerHTML=(data||[]).map(tx=>`<tr><td>${safeText(new Date(tx.created_at).toLocaleString())}</td><td>${safeText(names[tx.user_id]||tx.user_id)}</td><td>${safeText(tx.type)}</td><td>${money(tx.amount)}</td><td>${safeText(tx.method||tx.reference||'—')}</td><td>${safeText(tx.status)}</td><td>${tx.status==='pending'?`<button class="admin-action" onclick="adminReview('${tx.id}','approved')">Approve</button><button class="admin-action reject" onclick="adminReview('${tx.id}','rejected')">Reject</button>`:'—'}</td></tr>`).join('');
  msg.textContent=(data||[]).length?`${data.length} records loaded. Pending requests: ${pending.length}.`:'No transaction records found.';
 }
-window.adminReview=async function(id,decision){if(window.__authState?.profile?.role!=='admin')return;let reason=prompt(decision==='approved'?'Optional approval note:':'Reason for rejection:','');if(reason===null)return;const {data,error}=await supabase.rpc('admin_review_transaction',{p_transaction_id:id,p_decision:decision,p_reason:reason});if(error){alert('Could not update request: '+error.message);return;}alert('Request '+decision+'.');await Promise.all([loadAdminRequests(),loadAdminAudit()]);};
-async function loadAdminMembers(){const msg=document.getElementById('adminMembersMessage'),body=document.getElementById('adminMembersRows');if(!body)return;msg.textContent='Loading members…';const {data,error}=await supabase.from('profiles').select('id,full_name,email,country_name,status,role,created_at').eq('role','member').order('created_at',{ascending:false}).limit(300);if(error){msg.textContent='Could not load members: '+error.message;return;}document.getElementById('adminMemberCount').textContent=String((data||[]).length);body.innerHTML=(data||[]).map(m=>`<tr><td>${safeText(m.full_name||'—')}</td><td>${safeText(m.email||'—')}</td><td>${safeText(m.country_name||'—')}</td><td>${safeText(m.status)}</td><td><button class="admin-action ${m.status==='active'?'suspend':''}" onclick="adminSetMember('${m.id}','${m.status==='active'?'suspended':'active'}')">${m.status==='active'?'Suspend':'Reactivate'}</button></td></tr>`).join('');msg.textContent=`${(data||[]).length} registered members.`;}
+async function loadAdminWithdrawals(){
+ const msg=document.getElementById('adminWithdrawalsMessage'),body=document.getElementById('adminWithdrawalsRows');if(!body)return;
+ msg.textContent='Loading withdrawal requests…';
+ const {data,error}=await supabase.from('transactions').select('id,user_id,amount,currency,method,reference,status,created_at').eq('type','withdrawal').order('created_at',{ascending:false}).limit(300);
+ if(error){msg.textContent='Could not load withdrawals: '+error.message;return;}
+ const ids=[...new Set((data||[]).map(x=>x.user_id))];let names={};
+ if(ids.length){const r=await supabase.from('profiles').select('id,full_name,email').in('id',ids);(r.data||[]).forEach(x=>names[x.id]=x.full_name||x.email||x.id);}
+ body.innerHTML=(data||[]).map(tx=>{const pending=tx.status==='pending';return '<tr><td>'+safeText(new Date(tx.created_at).toLocaleString())+'</td><td>'+safeText(names[tx.user_id]||tx.user_id)+'</td><td>'+money(tx.amount)+'</td><td>'+safeText(tx.method||'—')+'</td><td>'+safeText(tx.reference||'—')+'</td><td>'+safeText(tx.status)+'</td><td>'+(pending?'<button class="admin-action" onclick="adminReview(\''+tx.id+'\',\'approved\')">Approve</button><button class="admin-action reject" onclick="adminReview(\''+tx.id+'\',\'rejected\')">Reject</button>':'—')+'</td></tr>';}).join('');
+ msg.textContent=(data||[]).length?String(data.length)+' withdrawal records. Confirm the external payout separately after approval.':'No withdrawal requests found.';
+}
+async function loadAdminInvestments(){
+ const msg=document.getElementById('adminInvestmentsMessage'),body=document.getElementById('adminInvestmentsRows');if(!body)return;
+ msg.textContent='Loading investment records…';
+ const [txResult,planResult]=await Promise.all([
+  supabase.from('transactions').select('id,user_id,amount,currency,reference,status,created_at,reviewed_at').eq('type','investment').order('created_at',{ascending:false}).limit(500),
+  supabase.from('investment_plans').select('name,proposed_rate').eq('active',true)
+ ]);
+ if(txResult.error){msg.textContent='Could not load investments: '+txResult.error.message;return;}
+ const rateMap={};(planResult.data||[]).forEach(p=>rateMap[p.name]=Number(p.proposed_rate)||0);
+ const ids=[...new Set((txResult.data||[]).map(x=>x.user_id))];let names={};
+ if(ids.length){const r=await supabase.from('profiles').select('id,full_name,email').in('id',ids);(r.data||[]).forEach(x=>names[x.id]=x.full_name||x.email||x.id);}
+ const now=Date.now();
+ body.innerHTML=(txResult.data||[]).map(tx=>{
+  const ref=String(tx.reference||'');const plan=(ref.match(/^([^;]+?)\s+Plan/i)||[])[1]||'—';
+  const rateMatch=ref.match(/proposed rate:\s*([\d.]+)%/i);const rate=rateMatch?Number(rateMatch[1]):(rateMap[plan]||0);
+  const start=tx.reviewed_at||tx.created_at;const startMs=new Date(start).getTime();
+  const elapsed=tx.status==='approved'&&Number.isFinite(startMs)?Math.max(0,Math.min(24,(now-startMs)/3600000)):0;
+  const completed=Math.floor(elapsed);const projected=tx.status==='approved'?(Number(tx.amount)*rate/100*elapsed):0;
+  const maturityMs=Number.isFinite(startMs)?startMs+86400000:NaN;
+  const matured=tx.status==='approved'&&Number.isFinite(maturityMs)&&now>=maturityMs;
+  const maturity=Number.isFinite(maturityMs)?new Date(maturityMs).toLocaleString():'—';
+  const state=tx.status!=='approved'?(tx.status==='pending'?'Pending approval':'Rejected'):(matured?'Matured':'Active');
+  return '<tr><td>'+safeText(names[tx.user_id]||tx.user_id)+'</td><td>'+safeText(plan)+'</td><td>'+money(tx.amount)+'</td><td>'+rate.toFixed(2)+'%</td><td>'+(tx.status==='approved'?completed+'/24 hours':'—')+'</td><td>'+money(projected)+' <small>(projected)</small></td><td>'+safeText(maturity)+'</td><td>'+safeText(state)+'</td></tr>';
+ }).join('');
+ msg.textContent=(txResult.data||[]).length?String(txResult.data.length)+' investment records. Maturity is measured from admin approval; projected profit is informational and is not credited to member balances.':'No investment records found.';
+}
+window.loadAdminWithdrawals=loadAdminWithdrawals;
+window.loadAdminInvestments=loadAdminInvestments;
+window.adminReview=async function(id,decision){if(window.__authState?.profile?.role!=='admin')return;let reason=prompt(decision==='approved'?'Optional approval note:':'Reason for rejection:','');if(reason===null)return;const {data,error}=await supabase.rpc('admin_review_transaction',{p_transaction_id:id,p_decision:decision,p_reason:reason});if(error){alert('Could not update request: '+error.message);return;}alert('Request '+decision+'.');await Promise.all([loadAdminRequests(),loadAdminWithdrawals(),loadAdminInvestments(),loadAdminAudit()]);};
+async function loadAdminMembers(){const msg=document.getElementById('adminMembersMessage'),body=document.getElementById('adminMembersRows');if(!body)return;msg.textContent='Loading members…';const {data,error}=await supabase.from('profiles').select('id,full_name,email,country_name,status,role,created_at').eq('role','member').order('created_at',{ascending:false}).limit(300);if(error){msg.textContent='Could not load members: '+error.message;return;}window.__adminMembers=data||[];document.getElementById('adminMemberCount').textContent=String(window.__adminMembers.length);renderAdminMembers(window.__adminMembers);msg.textContent=`${window.__adminMembers.length} registered members.`;}
+function renderAdminMembers(rows){const body=document.getElementById('adminMembersRows');if(!body)return;body.innerHTML=rows.map(m=>`<tr><td>${safeText(m.full_name||'—')}</td><td>${safeText(m.email||'—')}</td><td>${safeText(m.country_name||'—')}</td><td>${safeText(m.status)}</td><td><button class="admin-action ${m.status==='active'?'suspend':''}" onclick="adminSetMember('${m.id}','${m.status==='active'?'suspended':'active'}')">${m.status==='active'?'Suspend':'Reactivate'}</button></td></tr>`).join('');}
+window.filterAdminMembers=function(){const q=(document.getElementById('adminMemberSearch')?.value||'').trim().toLowerCase();const rows=(window.__adminMembers||[]).filter(m=>[m.full_name,m.email,m.country_name,m.status].some(v=>String(v||'').toLowerCase().includes(q)));renderAdminMembers(rows);adminMsg('adminMembersMessage',`${rows.length} matching member(s).`);};
 window.adminSetMember=async function(id,status){if(window.__authState?.profile?.role!=='admin')return;const reason=prompt(`Reason for ${status}:`,'');if(reason===null)return;const {error}=await supabase.rpc('admin_set_member_status',{p_member_id:id,p_status:status,p_reason:reason});if(error){alert('Could not update member: '+error.message);return;}alert('Member '+status+'.');await Promise.all([loadAdminMembers(),loadAdminAudit()]);};
 async function loadAdminPlans(){const msg=document.getElementById('adminPlansMessage'),body=document.getElementById('adminPlansRows');if(!body)return;const {data,error}=await supabase.from('investment_plans').select('id,name,minimum_amount,maximum_amount,proposed_rate,active').order('minimum_amount');if(error){msg.textContent='Could not load plans: '+error.message;return;}body.innerHTML=(data||[]).map(p=>`<tr><td>${safeText(p.name)}</td><td>${money(p.minimum_amount)}</td><td>${p.maximum_amount===null?'No limit':money(p.maximum_amount)}</td><td>${safeText(p.proposed_rate)}%</td><td>${p.active?'Active':'Inactive'}</td><td><button class="admin-action" onclick="adminEditPlan('${p.id}')">Edit</button></td></tr>`).join('');msg.textContent='Changes to plans apply to future investment requests.';window.__adminPlans=data||[];}
 window.adminEditPlan=function(id){const p=(window.__adminPlans||[]).find(x=>x.id===id);if(!p)return;document.getElementById('adminPlanName').value=p.name;document.getElementById('adminPlanMin').value=p.minimum_amount;document.getElementById('adminPlanMax').value=p.maximum_amount??'';document.getElementById('adminPlanRate').value=p.proposed_rate;document.getElementById('adminPlanActive').checked=!!p.active;};
